@@ -116,7 +116,7 @@ va_exp_1 = visual.TextStim(win=win, name='va_exp_1',
     languageStyle='LTR',
     depth=-3.0);
 text = visual.TextStim(win=win, name='text',
-    text='The goal of the Valence-Arousal space is to represent emotions over two dimensions: the valence of an emotion is represented from left (negative) to right (positive). The arousal of an emotions is represented from bottom (low) to top (high). The center represents neutral emotions.',
+    text='The goal of the Valence-Arousal space is to represent emotions over two dimensions: the valence of an emotion is represented from left (negative) to right (positive). The arousal of an emotion is represented from bottom (low) to top (high). The center represents neutral emotions.',
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -148,7 +148,7 @@ reticle_introduction = visual.ImageStim(
     win=win,
     name='reticle_introduction', units='norm', 
     image='res\\\\img\\\\reticle.png', mask=None,
-    ori=0.0, pos=(0, 0), size=(0.075, 0.075),
+    ori=0.0, pos=(0, 0), size=(0.15, 0.15),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-10.0)

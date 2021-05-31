@@ -135,7 +135,7 @@
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
         <Param name="wrapWidth" updates="constant" val="" valType="num"/>
       </TextComponent>
-      <TextComponent name="text">
+      <TextComponent name="va_exp_1_cont">
         <Param name="color" updates="constant" val="white" valType="color"/>
         <Param name="colorSpace" updates="constant" val="rgb" valType="str"/>
         <Param name="contrast" updates="constant" val="1" valType="num"/>
@@ -145,7 +145,7 @@
         <Param name="font" updates="constant" val="Open Sans" valType="str"/>
         <Param name="languageStyle" updates="None" val="LTR" valType="str"/>
         <Param name="letterHeight" updates="constant" val="0.05" valType="num"/>
-        <Param name="name" updates="None" val="text" valType="code"/>
+        <Param name="name" updates="None" val="va_exp_1_cont" valType="code"/>
         <Param name="opacity" updates="constant" val="" valType="num"/>
         <Param name="ori" updates="constant" val="0" valType="num"/>
         <Param name="pos" updates="constant" val="(0, 0)" valType="list"/>
@@ -156,7 +156,7 @@
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="15" valType="num"/>
         <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
-        <Param name="text" updates="constant" val="The goal of the Valence-Arousal space is to represent emotions over two dimension: the valence of an emotion is represented from left (negative) to right). The arousal of an emotions is represented from bottom (low) to top (high). The center represents neutral emotions." valType="str"/>
+        <Param name="text" updates="constant" val="The goal of the Valence-Arousal space is to represent emotions over two dimensions: the valence of an emotion is represented from left (negative) to right (positive). The arousal of an emotions is represented from bottom (low) to top (high). The center represents neutral emotions." valType="str"/>
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
         <Param name="wrapWidth" updates="constant" val="" valType="num"/>
       </TextComponent>
@@ -232,7 +232,7 @@
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="10" valType="num"/>
         <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
-        <Param name="text" updates="constant" val="Now you are in control. Try to move the red reticle using the LEFT thumbstick of your joystick. The software will record the position automatically." valType="str"/>
+        <Param name="text" updates="constant" val="Now you are in control. Try to move the red reticle using the mouse. The position will be saved automatically. Press ESC when you are done." valType="str"/>
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
         <Param name="wrapWidth" updates="constant" val="" valType="num"/>
       </TextComponent>
@@ -260,7 +260,7 @@
         <Param name="stopVal" updates="constant" val="" valType="num"/>
         <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
         <Param name="texture resolution" updates="constant" val="128" valType="num"/>
-        <Param name="units" updates="None" val="norm" valType="str"/>
+        <Param name="units" updates="None" val="from exp settings" valType="str"/>
       </ImageComponent>
       <ImageComponent name="va_3">
         <Param name="color" updates="constant" val="$[1,1,1]" valType="color"/>
@@ -288,15 +288,14 @@
         <Param name="texture resolution" updates="constant" val="128" valType="num"/>
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
       </ImageComponent>
-      <JoystickComponent name="joystick_introduction">
-        <Param name="allowedButtons" updates="constant" val="" valType="list"/>
+      <MouseComponent name="mouse_introduction">
         <Param name="clickable" updates="constant" val="" valType="list"/>
-        <Param name="deviceNumber" updates="constant" val="0" valType="int"/>
         <Param name="disabled" updates="None" val="False" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="num"/>
         <Param name="forceEndRoutineOnPress" updates="constant" val="never" valType="str"/>
-        <Param name="name" updates="None" val="joystick_introduction" valType="code"/>
-        <Param name="saveJoystickState" updates="None" val="every frame" valType="str"/>
+        <Param name="name" updates="None" val="mouse_introduction" valType="code"/>
+        <Param name="newClicksOnly" updates="constant" val="False" valType="bool"/>
+        <Param name="saveMouseState" updates="None" val="every frame" valType="str"/>
         <Param name="saveParamsClickable" updates="constant" val="name," valType="list"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
         <Param name="startEstim" updates="None" val="" valType="num"/>
@@ -305,8 +304,8 @@
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="" valType="num"/>
         <Param name="syncScreenRefresh" updates="None" val="False" valType="bool"/>
-        <Param name="timeRelativeTo" updates="constant" val="routine" valType="str"/>
-      </JoystickComponent>
+        <Param name="timeRelativeTo" updates="constant" val="mouse onset" valType="str"/>
+      </MouseComponent>
     </Routine>
   </Routines>
   <Flow>

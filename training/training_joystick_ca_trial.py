@@ -87,7 +87,7 @@ defaultKeyboard = keyboard.Keyboard()
 # Initialize components for Routine "example_trial_joystick"
 example_trial_joystickClock = core.Clock()
 instructions_1 = visual.TextStim(win=win, name='instructions_1',
-    text="Now that you know how to move your mouse, let's try to simulate a trial.",
+    text="Now that you know how to move your reticle, let's try to simulate a trial.",
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 

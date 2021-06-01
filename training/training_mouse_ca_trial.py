@@ -140,7 +140,7 @@ instructions_5 = visual.TextStim(win=win, name='instructions_5',
     languageStyle='LTR',
     depth=-8.0);
 instructions_6 = visual.TextStim(win=win, name='instructions_6',
-    text='Now get ready with your eyes OPEN, in the next 15 seconds a simulation trial with music and annotations will begin',
+    text='Now get ready with your eyes OPEN, in the next 15 seconds a simulation trial with music and annotations will begin.Colors have been removed to avoid distractions.',
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -166,7 +166,7 @@ song_trial.setVolume(1.0)
 valence_arousal_space = visual.ImageStim(
     win=win,
     name='valence_arousal_space', 
-    image='res\\\\img\\\\valence_arousal_space.png', mask=None,
+    image='res\\\\img\\\\valence_arousal_space_basic.png', mask=None,
     ori=0.0, pos=(0, 0), size=(1, 1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,

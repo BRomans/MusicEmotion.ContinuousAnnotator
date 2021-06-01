@@ -262,7 +262,7 @@
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="10" valType="num"/>
         <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
-        <Param name="text" updates="constant" val="Now get ready with your eyes OPEN, in the next 15 seconds a simulation trial with music and annotations will begin" valType="str"/>
+        <Param name="text" updates="constant" val="Now get ready with your eyes OPEN, in the next 15 seconds a simulation trial with music and annotations will begin.Colors have been removed to avoid distractions." valType="str"/>
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
         <Param name="wrapWidth" updates="constant" val="" valType="num"/>
       </TextComponent>
@@ -345,7 +345,7 @@
         <Param name="durationEstim" updates="None" val="" valType="num"/>
         <Param name="flipHoriz" updates="constant" val="False" valType="bool"/>
         <Param name="flipVert" updates="constant" val="False" valType="bool"/>
-        <Param name="image" updates="constant" val="res\img\valence_arousal_space.png" valType="file"/>
+        <Param name="image" updates="constant" val="res\img\valence_arousal_space_basic.png" valType="file"/>
         <Param name="interpolate" updates="constant" val="linear" valType="str"/>
         <Param name="mask" updates="constant" val="" valType="str"/>
         <Param name="name" updates="None" val="valence_arousal_space" valType="code"/>

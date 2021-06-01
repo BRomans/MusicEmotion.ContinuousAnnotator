@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on May 31, 2021, at 23:37
+    on June 01, 2021, at 15:30
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -97,7 +97,7 @@ instructions_2 = visual.TextStim(win=win, name='instructions_2',
     languageStyle='LTR',
     depth=-1.0);
 instructions_3 = visual.TextStim(win=win, name='instructions_3',
-    text='In addition, 5 seconds before the beginning of the next song, you will be instructed to OPEN or CLOSE your eyes during the listening.',
+    text="Before listening to each song, an instruction will tell you if you need to keep your eyes OPEN or CLOSED. Let's try both!",
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -112,7 +112,7 @@ eyes_open = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-3.0)
 instructions_4 = visual.TextStim(win=win, name='instructions_4',
-    text='When you hear this sound, you need to OPEN your eyes.',
+    text='When you see the icon, CLOSE your eyes and open them when you hear this sound.',
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -133,14 +133,14 @@ eyes_open_alarm_2 = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
     name='eyes_open_alarm_2')
 eyes_open_alarm_2.setVolume(1.0)
 instructions_5 = visual.TextStim(win=win, name='instructions_5',
-    text='In case of eyes OPEN, you will be required to annotate your emotions on the Valence Arousal space.',
+    text='When you are listening to music with eyes OPEN, you are supposed to continuously annotate your emotions with the cursor. With eyes CLOSED, just enjoy the music!',
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-8.0);
 instructions_6 = visual.TextStim(win=win, name='instructions_6',
-    text='Now get ready with your eyes OPEN, in the next 15 seconds a simulation trial with music and annotations will begin.Colors have been removed to avoid distractions.',
+    text="To annotate your emotions, simply move the cursor in the corresponding area of the Valence-Arousal space. Get ready, it's your turn now :)\n\nColors have been removed to avoid distractions.",
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -156,10 +156,10 @@ eyes_open_2 = visual.ImageStim(
     texRes=128.0, interpolate=True, depth=-10.0)
 white_noise = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
     name='white_noise')
-white_noise.setVolume(1.0)
+white_noise.setVolume(0.5)
 white_noise_2 = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
     name='white_noise_2')
-white_noise_2.setVolume(1.0)
+white_noise_2.setVolume(0.5)
 song_trial = sound.Sound('res\\playlist\\Daft Punk - Within (Official Audio).ogg', secs=-1.0, stereo=True, hamming=True,
     name='song_trial')
 song_trial.setVolume(1.0)
@@ -183,7 +183,7 @@ mouse = event.Mouse(win=win)
 x, y = [None, None]
 mouse.mouseClock = core.Clock()
 instructions_7 = visual.TextStim(win=win, name='instructions_7',
-    text='After each song you have 15 seconds to rate how much you liked/disliked it and how familiar it was to you. Use your mouse to select a value',
+    text='After each song you have 15 seconds to rate how much you liked/disliked it and how familiar it was to you. Use your mouse to select a value.',
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -198,16 +198,46 @@ song_rating = visual.Form(win=win, name='song_rating',
     pos=(0, 0),
     style='dark',
     itemPadding=0.05,)
+white_noise_3 = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
+    name='white_noise_3')
+white_noise_3.setVolume(0.5)
 instructions_8 = visual.TextStim(win=win, name='instructions_8',
-    text='And then before the next song starts you will receive new instructions to OPEN/CLOSE your eyes and listen to 15 seconds of White Noise. When you are ready to start the real experiment, press ESC. For any doubts, ask the researcher, he is a cool dude. Have fun :)',
+    text="Let's give it one more try, with eyes CLOSED this time.",
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
-    depth=-19.0);
-white_noise_3 = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
-    name='white_noise_3')
-white_noise_3.setVolume(1.0)
+    depth=-20.0);
+eyes_closed_2 = visual.ImageStim(
+    win=win,
+    name='eyes_closed_2', 
+    image='res\\\\img\\\\eye_closed.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-21.0)
+song_trial_2 = sound.Sound('res\\playlist\\Metallica-Fade To Black www.my-free-mp3.net  (1).ogg', secs=-1.0, stereo=True, hamming=True,
+    name='song_trial_2')
+song_trial_2.setVolume(1.0)
+eyes_open_alarm_3 = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
+    name='eyes_open_alarm_3')
+eyes_open_alarm_3.setVolume(0.5)
+win.allowStencil = True
+song_rating_2 = visual.Form(win=win, name='song_rating_2',
+    items='res\\\\forms\\\\rating_form.csv',
+    textHeight=0.03,
+    randomize=False,
+    size=(1, 0.7),
+    pos=(0, 0),
+    style='dark',
+    itemPadding=0.05,)
+instructions_9 = visual.TextStim(win=win, name='instructions_9',
+    text='In every trial, you will be instructed to listen to one song with eyes OPEN (and annotate your emotions) and one song with eyes CLOSED.  After each song you will give your rating, receive new instructions and listen to White Noise to reset your emotional state before the next one.\nWhen you are ready to start the real experiment, press ESC. For any doubts, ask the researcher, he is a cool dude. Have fun :)',
+    font='Open Sans',
+    pos=(0, 0), height=0.03, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-25.0);
 
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
@@ -221,9 +251,9 @@ alarm_eyes_open_1.setVolume(0.5, log=False)
 eyes_open_alarm_2.setSound('A', secs=1.0, hamming=True)
 eyes_open_alarm_2.setVolume(1.0, log=False)
 white_noise.setSound('res\\1 min wn.wav', secs=60.0, hamming=True)
-white_noise.setVolume(1.0, log=False)
+white_noise.setVolume(0.5, log=False)
 white_noise_2.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
-white_noise_2.setVolume(1.0, log=False)
+white_noise_2.setVolume(0.5, log=False)
 song_trial.setSound('res\\playlist\\Daft Punk - Within (Official Audio).ogg', secs=45.0, hamming=True)
 song_trial.setVolume(1.0, log=False)
 # setup some python lists for storing info about the mouse
@@ -234,10 +264,14 @@ mouse.midButton = []
 mouse.rightButton = []
 mouse.time = []
 gotValidClick = False  # until a click is received
-white_noise_3.setSound('res\\1 min wn.wav', secs=60.0, hamming=True)
-white_noise_3.setVolume(1.0, log=False)
+white_noise_3.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
+white_noise_3.setVolume(0.5, log=False)
+song_trial_2.setSound('res\\playlist\\Metallica-Fade To Black www.my-free-mp3.net  (1).ogg', secs=45.0, hamming=True)
+song_trial_2.setVolume(1.0, log=False)
+eyes_open_alarm_3.setSound('A', secs=1.0, hamming=True)
+eyes_open_alarm_3.setVolume(0.5, log=False)
 # keep track of which components have finished
-example_trial_joystickComponents = [instructions_1, instructions_2, instructions_3, eyes_open, instructions_4, alarm_eyes_open_1, eyes_closed, eyes_open_alarm_2, instructions_5, instructions_6, eyes_open_2, white_noise, white_noise_2, song_trial, valence_arousal_space, reticle, mouse, instructions_7, song_rating, instructions_8, white_noise_3]
+example_trial_joystickComponents = [instructions_1, instructions_2, instructions_3, eyes_open, instructions_4, alarm_eyes_open_1, eyes_closed, eyes_open_alarm_2, instructions_5, instructions_6, eyes_open_2, white_noise, white_noise_2, song_trial, valence_arousal_space, reticle, mouse, instructions_7, song_rating, white_noise_3, instructions_8, eyes_closed_2, song_trial_2, eyes_open_alarm_3, song_rating_2, instructions_9]
 for thisComponent in example_trial_joystickComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -250,6 +284,7 @@ t = 0
 _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 example_trial_joystickClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
 frameN = -1
+first_mouse_frame = True
 
 # -------Run Routine "example_trial_joystick"-------
 while continueRoutine:
@@ -540,6 +575,9 @@ while continueRoutine:
             win.timeOnFlip(mouse, 'tStopRefresh')  # time at next scr refresh
             mouse.status = FINISHED
     if mouse.status == STARTED:  # only update if started and not finished!
+        if first_mouse_frame:
+            mouse.setPos([0, 0])
+            first_mouse_frame = False
         x, y = mouse.getPos()
         reticle.pos = [x, y]
         mouse.x.append(x)
@@ -577,23 +615,14 @@ while continueRoutine:
         song_rating.setAutoDraw(True)
     if song_rating.status == STARTED:
         # is it time to stop? (based on global clock, using actual start)
-        if tThisFlipGlobal > song_rating.tStartRefresh + 15.0-frameTolerance:
+        if tThisFlipGlobal > song_rating.tStartRefresh + 30.0-frameTolerance:
             # keep track of stop time/frame for later
             song_rating.tStop = t  # not accounting for scr refresh
             song_rating.frameNStop = frameN  # exact frame index
             win.timeOnFlip(song_rating, 'tStopRefresh')  # time at next scr refresh
             song_rating.setAutoDraw(False)
-    
-    # *instructions_8* updates
-    if instructions_8.status == NOT_STARTED and tThisFlip >= 155.0-frameTolerance:
-        # keep track of start time/frame for later
-        instructions_8.frameNStart = frameN  # exact frame index
-        instructions_8.tStart = t  # local t and not account for scr refresh
-        instructions_8.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(instructions_8, 'tStartRefresh')  # time at next scr refresh
-        instructions_8.setAutoDraw(True)
     # start/stop white_noise_3
-    if white_noise_3.status == NOT_STARTED and t >= 155.0-frameTolerance:
+    if white_noise_3.status == NOT_STARTED and t >= 170.0-frameTolerance:
         # keep track of start time/frame for later
         white_noise_3.frameNStart = frameN  # exact frame index
         white_noise_3.tStart = t  # local t and not account for scr refresh
@@ -601,12 +630,102 @@ while continueRoutine:
         white_noise_3.play()  # start the sound (it finishes automatically)
     if white_noise_3.status == STARTED:
         # is it time to stop? (based on global clock, using actual start)
-        if tThisFlipGlobal > white_noise_3.tStartRefresh + 60.0-frameTolerance:
+        if tThisFlipGlobal > white_noise_3.tStartRefresh + 15.0-frameTolerance:
             # keep track of stop time/frame for later
             white_noise_3.tStop = t  # not accounting for scr refresh
             white_noise_3.frameNStop = frameN  # exact frame index
             win.timeOnFlip(white_noise_3, 'tStopRefresh')  # time at next scr refresh
             white_noise_3.stop()
+    
+    # *instructions_8* updates
+    if instructions_8.status == NOT_STARTED and tThisFlip >= 170.0-frameTolerance:
+        # keep track of start time/frame for later
+        instructions_8.frameNStart = frameN  # exact frame index
+        instructions_8.tStart = t  # local t and not account for scr refresh
+        instructions_8.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(instructions_8, 'tStartRefresh')  # time at next scr refresh
+        instructions_8.setAutoDraw(True)
+    if instructions_8.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > instructions_8.tStartRefresh + 10.0-frameTolerance:
+            # keep track of stop time/frame for later
+            instructions_8.tStop = t  # not accounting for scr refresh
+            instructions_8.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(instructions_8, 'tStopRefresh')  # time at next scr refresh
+            instructions_8.setAutoDraw(False)
+    
+    # *eyes_closed_2* updates
+    if eyes_closed_2.status == NOT_STARTED and tThisFlip >= 180.0-frameTolerance:
+        # keep track of start time/frame for later
+        eyes_closed_2.frameNStart = frameN  # exact frame index
+        eyes_closed_2.tStart = t  # local t and not account for scr refresh
+        eyes_closed_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(eyes_closed_2, 'tStartRefresh')  # time at next scr refresh
+        eyes_closed_2.setAutoDraw(True)
+    if eyes_closed_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > eyes_closed_2.tStartRefresh + 5.0-frameTolerance:
+            # keep track of stop time/frame for later
+            eyes_closed_2.tStop = t  # not accounting for scr refresh
+            eyes_closed_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(eyes_closed_2, 'tStopRefresh')  # time at next scr refresh
+            eyes_closed_2.setAutoDraw(False)
+    # start/stop song_trial_2
+    if song_trial_2.status == NOT_STARTED and tThisFlip >= 185.0-frameTolerance:
+        # keep track of start time/frame for later
+        song_trial_2.frameNStart = frameN  # exact frame index
+        song_trial_2.tStart = t  # local t and not account for scr refresh
+        song_trial_2.tStartRefresh = tThisFlipGlobal  # on global time
+        song_trial_2.play(when=win)  # sync with win flip
+    if song_trial_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > song_trial_2.tStartRefresh + 45.0-frameTolerance:
+            # keep track of stop time/frame for later
+            song_trial_2.tStop = t  # not accounting for scr refresh
+            song_trial_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(song_trial_2, 'tStopRefresh')  # time at next scr refresh
+            song_trial_2.stop()
+    # start/stop eyes_open_alarm_3
+    if eyes_open_alarm_3.status == NOT_STARTED and tThisFlip >= 230.0-frameTolerance:
+        # keep track of start time/frame for later
+        eyes_open_alarm_3.frameNStart = frameN  # exact frame index
+        eyes_open_alarm_3.tStart = t  # local t and not account for scr refresh
+        eyes_open_alarm_3.tStartRefresh = tThisFlipGlobal  # on global time
+        eyes_open_alarm_3.play(when=win)  # sync with win flip
+    if eyes_open_alarm_3.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > eyes_open_alarm_3.tStartRefresh + 1.0-frameTolerance:
+            # keep track of stop time/frame for later
+            eyes_open_alarm_3.tStop = t  # not accounting for scr refresh
+            eyes_open_alarm_3.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(eyes_open_alarm_3, 'tStopRefresh')  # time at next scr refresh
+            eyes_open_alarm_3.stop()
+    
+    # *song_rating_2* updates
+    if song_rating_2.status == NOT_STARTED and tThisFlip >= 230.0-frameTolerance:
+        # keep track of start time/frame for later
+        song_rating_2.frameNStart = frameN  # exact frame index
+        song_rating_2.tStart = t  # local t and not account for scr refresh
+        song_rating_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(song_rating_2, 'tStartRefresh')  # time at next scr refresh
+        song_rating_2.setAutoDraw(True)
+    if song_rating_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > song_rating_2.tStartRefresh + 30.0-frameTolerance:
+            # keep track of stop time/frame for later
+            song_rating_2.tStop = t  # not accounting for scr refresh
+            song_rating_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(song_rating_2, 'tStopRefresh')  # time at next scr refresh
+            song_rating_2.setAutoDraw(False)
+    
+    # *instructions_9* updates
+    if instructions_9.status == NOT_STARTED and tThisFlip >= 260.0-frameTolerance:
+        # keep track of start time/frame for later
+        instructions_9.frameNStart = frameN  # exact frame index
+        instructions_9.tStart = t  # local t and not account for scr refresh
+        instructions_9.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(instructions_9, 'tStartRefresh')  # time at next scr refresh
+        instructions_9.setAutoDraw(True)
     
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -680,11 +799,23 @@ thisExp.addData('instructions_7.started', instructions_7.tStartRefresh)
 thisExp.addData('instructions_7.stopped', instructions_7.tStopRefresh)
 song_rating.addDataToExp(thisExp, 'rows')
 song_rating.autodraw = False
-thisExp.addData('instructions_8.started', instructions_8.tStartRefresh)
-thisExp.addData('instructions_8.stopped', instructions_8.tStopRefresh)
 white_noise_3.stop()  # ensure sound has stopped at end of routine
 thisExp.addData('white_noise_3.started', white_noise_3.tStart)
 thisExp.addData('white_noise_3.stopped', white_noise_3.tStop)
+thisExp.addData('instructions_8.started', instructions_8.tStartRefresh)
+thisExp.addData('instructions_8.stopped', instructions_8.tStopRefresh)
+thisExp.addData('eyes_closed_2.started', eyes_closed_2.tStartRefresh)
+thisExp.addData('eyes_closed_2.stopped', eyes_closed_2.tStopRefresh)
+song_trial_2.stop()  # ensure sound has stopped at end of routine
+thisExp.addData('song_trial_2.started', song_trial_2.tStartRefresh)
+thisExp.addData('song_trial_2.stopped', song_trial_2.tStopRefresh)
+eyes_open_alarm_3.stop()  # ensure sound has stopped at end of routine
+thisExp.addData('eyes_open_alarm_3.started', eyes_open_alarm_3.tStartRefresh)
+thisExp.addData('eyes_open_alarm_3.stopped', eyes_open_alarm_3.tStopRefresh)
+song_rating_2.addDataToExp(thisExp, 'rows')
+song_rating_2.autodraw = False
+thisExp.addData('instructions_9.started', instructions_9.tStartRefresh)
+thisExp.addData('instructions_9.stopped', instructions_9.tStopRefresh)
 # the Routine "example_trial_joystick" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 

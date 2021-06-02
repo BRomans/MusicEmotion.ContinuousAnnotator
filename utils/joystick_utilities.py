@@ -23,3 +23,12 @@ def dead_zone(axis):
         axis = axis - np.sign(axis) * deadzone
         axis /= (1.0 - deadzone)
     return axis
+
+
+# Works only for XboxController joysticks. Note that Y axis for some reason is inverted
+def get_clamped_position(joystick):
+    new_target_position = [
+        clamp_stick(joystick.get_left_thumbstick_axis()[0],
+                    -joystick.get_left_thumbstick_axis()[1])]
+    return new_target_position
+

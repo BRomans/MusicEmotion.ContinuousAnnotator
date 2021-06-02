@@ -1,3 +1,0 @@
-﻿index,itemText,type,options,ticks,tickLabels,layout,itemColor,itemWidth,responseColor,responseWidth,,,,
-1,How much did you like/dislike the song?,rating,,"1, 2, 3, 4, 5 ","""Very disliked"", """", ""Neither liked or disliked"", """", ""Very liked""",,,1,,1,,,,
-2,How familiar was this song to you?,rating,,"1, 2, 3, 4, 5 ","""Never heard "", """", ""Heard it before"", """", ""Know by heart"" ",,,1,,1,,,,

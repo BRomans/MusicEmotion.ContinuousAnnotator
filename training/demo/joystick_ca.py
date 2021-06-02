@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 02, 2021, at 11:47
+    on June 02, 2021, at 11:52
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -38,7 +38,7 @@ os.chdir(_thisDir)
 
 # Store info about the experiment session
 psychopyVersion = '2021.1.4'
-expName = 'experiment_eo_ec_controller_annotations'  # from the Builder filename that created this script
+expName = 'Joystick Demo'  # from the Builder filename that created this script
 expInfo = {'participant': '', 'id': '', 'gender (M/F/N)': '', 'age': '', 'session': '001', 'group': '01'}
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
 if dlg.OK == False:
@@ -103,7 +103,7 @@ reticle = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
 x, y = [None, None]
-joystick = joysticklib.XboxController(0)  # Create an object to use as a name space
+joystick = joysticklib.XboxController(0) # Create an object to use as a name space
 joystick.device = None
 joystick.device_number = 0
 joystick.joystickClock = core.Clock()
@@ -218,7 +218,6 @@ while continueRoutine:
         joystick.x = x
         joystick.y = y
         reticle.pos = get_clamped_position(joystick)
-
         [joystick.buttonLogs[i].append(int(joystick.newButtonState[i])) for i in joystick.activeButtons]
         joystick.time.append(joystick.joystickClock.getTime())
     

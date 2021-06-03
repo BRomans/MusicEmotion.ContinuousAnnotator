@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 02, 2021, at 19:01
+    on June 03, 2021, at 13:49
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -103,7 +103,7 @@ reticle = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
 x, y = [None, None]
-joystick = joysticklib.XboxController(0) # Create an object to use as a name space
+joystick = joysticklib.XboxController(0)  # Create an object to use as a name space
 joystick.device = None
 joystick.device_number = 0
 joystick.joystickClock = core.Clock()
@@ -141,6 +141,7 @@ joystick.getAllButtons = joystick.device.getAllButtons
 joystick.getX = lambda: joystick.xFactor * joystick.device.getX()
 joystick.getY = lambda: joystick.yFactor * joystick.device.getY()
 
+key_resp = keyboard.Keyboard()
 
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
@@ -148,7 +149,6 @@ routineTimer = core.CountdownTimer()  # to track time remaining of each (non-sli
 
 # ------Prepare to start Routine "introduction"-------
 continueRoutine = True
-routineTimer.add(15.000000)
 # update component parameters for each repeat
 joystick.oldButtonState = joystick.device.getAllButtons()[:]
 joystick.activeButtons=[i for i in range(joystick.numButtons)]
@@ -157,12 +157,16 @@ joystick.x = []
 joystick.y = []
 joystick._x = []
 joystick._y = []
+
 joystick.buttonLogs = [[] for i in range(joystick.numButtons)]
 joystick.time = []
 gotValidClick = False  # until a click is received
 joystick.joystickClock.reset()
+key_resp.keys = []
+key_resp.rt = []
+_key_resp_allKeys = []
 # keep track of which components have finished
-introductionComponents = [va_3, reticle, joystick]
+introductionComponents = [va_3, reticle, joystick, key_resp]
 for thisComponent in introductionComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -177,7 +181,7 @@ introductionClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
 frameN = -1
 
 # -------Run Routine "introduction"-------
-while continueRoutine and routineTimer.getTime() > 0:
+while continueRoutine:
     # get current time
     t = introductionClock.getTime()
     tThisFlip = win.getFutureFlipTime(clock=introductionClock)
@@ -193,14 +197,6 @@ while continueRoutine and routineTimer.getTime() > 0:
         va_3.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(va_3, 'tStartRefresh')  # time at next scr refresh
         va_3.setAutoDraw(True)
-    if va_3.status == STARTED:
-        # is it time to stop? (based on global clock, using actual start)
-        if tThisFlipGlobal > va_3.tStartRefresh + 15.0-frameTolerance:
-            # keep track of stop time/frame for later
-            va_3.tStop = t  # not accounting for scr refresh
-            va_3.frameNStop = frameN  # exact frame index
-            win.timeOnFlip(va_3, 'tStopRefresh')  # time at next scr refresh
-            va_3.setAutoDraw(False)
     
     # *reticle* updates
     if reticle.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
@@ -210,14 +206,6 @@ while continueRoutine and routineTimer.getTime() > 0:
         reticle.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(reticle, 'tStartRefresh')  # time at next scr refresh
         reticle.setAutoDraw(True)
-    if reticle.status == STARTED:
-        # is it time to stop? (based on global clock, using actual start)
-        if tThisFlipGlobal > reticle.tStartRefresh + 15.0-frameTolerance:
-            # keep track of stop time/frame for later
-            reticle.tStop = t  # not accounting for scr refresh
-            reticle.frameNStop = frameN  # exact frame index
-            win.timeOnFlip(reticle, 'tStopRefresh')  # time at next scr refresh
-            reticle.setAutoDraw(False)
     # *joystick* updates
     if joystick.status == NOT_STARTED and t >= 0.0-frameTolerance:
         # keep track of start time/frame for later
@@ -226,14 +214,6 @@ while continueRoutine and routineTimer.getTime() > 0:
         joystick.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(joystick, 'tStartRefresh')  # time at next scr refresh
         joystick.status = STARTED
-    if joystick.status == STARTED:
-        # is it time to stop? (based on global clock, using actual start)
-        if tThisFlipGlobal > joystick.tStartRefresh + 15.0-frameTolerance:
-            # keep track of stop time/frame for later
-            joystick.tStop = t  # not accounting for scr refresh
-            joystick.frameNStop = frameN  # exact frame index
-            win.timeOnFlip(joystick, 'tStopRefresh')  # time at next scr refresh
-            joystick.status = FINISHED
     if joystick.status == STARTED:  # only update if started and not finished!
         joystick.newButtonState = joystick.getAllButtons()[:]
         joystick.pressedButtons = [i for i in range(joystick.numButtons) if joystick.newButtonState[i] and not joystick.oldButtonState[i]]
@@ -247,6 +227,28 @@ while continueRoutine and routineTimer.getTime() > 0:
         reticle.pos = get_clamped_position(joystick)
         [joystick.buttonLogs[i].append(int(joystick.newButtonState[i])) for i in joystick.activeButtons]
         joystick.time.append(joystick.joystickClock.getTime())
+    
+    # *key_resp* updates
+    waitOnFlip = False
+    if key_resp.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        key_resp.frameNStart = frameN  # exact frame index
+        key_resp.tStart = t  # local t and not account for scr refresh
+        key_resp.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(key_resp, 'tStartRefresh')  # time at next scr refresh
+        key_resp.status = STARTED
+        # keyboard checking is just starting
+        waitOnFlip = True
+        win.callOnFlip(key_resp.clock.reset)  # t=0 on next screen flip
+        win.callOnFlip(key_resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
+    if key_resp.status == STARTED and not waitOnFlip:
+        theseKeys = key_resp.getKeys(keyList=['q'], waitRelease=False)
+        _key_resp_allKeys.extend(theseKeys)
+        if len(_key_resp_allKeys):
+            key_resp.keys = _key_resp_allKeys[-1].name  # just the last key pressed
+            key_resp.rt = _key_resp_allKeys[-1].rt
+            # a response ends the routine
+            continueRoutine = False
     
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -281,6 +283,17 @@ thisExp.addData('joystick.time', joystick.time)
 thisExp.addData('joystick.started', joystick.tStart)
 thisExp.addData('joystick.stopped', joystick.tStop)
 thisExp.nextEntry()
+# check responses
+if key_resp.keys in ['', [], None]:  # No response was made
+    key_resp.keys = None
+thisExp.addData('key_resp.keys',key_resp.keys)
+if key_resp.keys != None:  # we had a response
+    thisExp.addData('key_resp.rt', key_resp.rt)
+thisExp.addData('key_resp.started', key_resp.tStartRefresh)
+thisExp.addData('key_resp.stopped', key_resp.tStopRefresh)
+thisExp.nextEntry()
+# the Routine "introduction" was not non-slip safe, so reset the non-slip timer
+routineTimer.reset()
 
 # Flip one final time so any remaining win.callOnFlip() 
 # and win.timeOnFlip() tasks get executed before quitting

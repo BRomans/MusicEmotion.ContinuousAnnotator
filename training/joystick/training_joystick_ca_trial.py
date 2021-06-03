@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 03, 2021, at 16:22
+    on June 03, 2021, at 17:13
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -166,7 +166,7 @@ white_noise.setVolume(0.5)
 white_noise_2 = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
     name='white_noise_2')
 white_noise_2.setVolume(0.5)
-song_trial = sound.Sound('res\\playlist\\Daft Punk - Within (Official Audio).ogg', secs=-1.0, stereo=True, hamming=True,
+song_trial = sound.Sound('res\\playlist\\song_1.ogg', secs=-1.0, stereo=True, hamming=True,
     name='song_trial')
 song_trial.setVolume(1.0)
 valence_arousal_space = visual.ImageStim(
@@ -258,7 +258,7 @@ instructions_8 = visual.TextStim(win=win, name='instructions_8',
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-21.0);
-song_trial_2 = sound.Sound('res\\playlist\\Metallica-Fade To Black www.my-free-mp3.net  (1).ogg', secs=-1.0, stereo=True, hamming=True,
+song_trial_2 = sound.Sound('res\\playlist\\song_2.ogg', secs=-1.0, stereo=True, hamming=True,
     name='song_trial_2')
 song_trial_2.setVolume(1.0)
 va_2 = visual.ImageStim(
@@ -352,7 +352,7 @@ white_noise.setSound('res\\1 min wn.wav', secs=60.0, hamming=True)
 white_noise.setVolume(0.5, log=False)
 white_noise_2.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
 white_noise_2.setVolume(0.5, log=False)
-song_trial.setSound('res\\playlist\\Daft Punk - Within (Official Audio).ogg', secs=45.0, hamming=True)
+song_trial.setSound('res\\playlist\\song_1.ogg', secs=45.0, hamming=True)
 song_trial.setVolume(1.0, log=False)
 joystick.oldButtonState = joystick.device.getAllButtons()[:]
 joystick.activeButtons=[i for i in range(joystick.numButtons)]
@@ -366,7 +366,7 @@ joystick.time = []
 gotValidClick = False  # until a click is received
 white_noise_3.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
 white_noise_3.setVolume(0.5, log=False)
-song_trial_2.setSound('res\\playlist\\Metallica-Fade To Black www.my-free-mp3.net  (1).ogg', secs=45.0, hamming=True)
+song_trial_2.setSound('res\\playlist\\song_2.ogg', secs=45.0, hamming=True)
 song_trial_2.setVolume(1.0, log=False)
 joystick_2.oldButtonState = joystick_2.device.getAllButtons()[:]
 joystick_2.activeButtons=[i for i in range(joystick_2.numButtons)]

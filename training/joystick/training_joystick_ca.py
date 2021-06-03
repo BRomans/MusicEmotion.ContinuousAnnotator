@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on May 31, 2021, at 22:28
+    on June 03, 2021, at 16:39
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -38,8 +38,8 @@ os.chdir(_thisDir)
 
 # Store info about the experiment session
 psychopyVersion = '2021.1.4'
-expName = 'experiment_eo_ec_controller_annotations'  # from the Builder filename that created this script
-expInfo = {'participant': '', 'id': '', 'gender (M/F/N)': '', 'age': '', 'session': '001', 'group': '01'}
+expName = 'training_joystick_ca'  # from the Builder filename that created this script
+expInfo = {'participant': '', 'session': '001'}
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
 if dlg.OK == False:
     core.quit()  # user pressed cancel
@@ -53,7 +53,7 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='C:\\Users\\miche\\EIT\\INTERNSHIP_MYBRAIN\\experimental_phase\\experiment_continuous_annotation\\training\\training_joystick_ca.py',
+    originPath='C:\\Users\\miche\\EIT\\INTERNSHIP_MYBRAIN\\experimental_phase\\experiment_continuous_annotation\\training\\joystick\\training_joystick_ca.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
@@ -407,7 +407,7 @@ while continueRoutine:
         joystick_introduction.releasedButtons = [i for i in range(joystick_introduction.numButtons) if not joystick_introduction.newButtonState[i] and joystick_introduction.oldButtonState[i]]
         joystick_introduction.newPressedButtons = [i for i in joystick_introduction.activeButtons if i in joystick_introduction.pressedButtons]
         joystick_introduction.buttons = joystick_introduction.newPressedButtons
-        [logging.data("joystick_{}_button: {}, pos=({:1.4f},{:1.4f})".format(joystick_introduction.device_number, i, joystick_introduction.getX(), joystick_introduction.getY()) for i in joystick_introduction.pressedButtons)]
+        [logging.data("joystick_{}_button: {}, pos=({:1.4f},{:1.4f})".format(joystick_introduction.device_number, i, joystick_introduction.getX(), joystick_introduction.getY())) for i in joystick_introduction.pressedButtons]
         x, y = clamp_stick(joystick_introduction.getX(), joystick_introduction.getY())
         joystick_introduction.x = x
         joystick_introduction.y = y

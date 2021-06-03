@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 01, 2021, at 15:30
+    on June 03, 2021, at 17:11
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -51,7 +51,7 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='C:\\Users\\miche\\EIT\\INTERNSHIP_MYBRAIN\\experimental_phase\\experiment_continuous_annotation\\training\\training_mouse_ca_trial.py',
+    originPath='C:\\Users\\miche\\EIT\\INTERNSHIP_MYBRAIN\\experimental_phase\\experiment_continuous_annotation\\training\\mouse\\training_mouse_ca_trial.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
@@ -160,7 +160,7 @@ white_noise.setVolume(0.5)
 white_noise_2 = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
     name='white_noise_2')
 white_noise_2.setVolume(0.5)
-song_trial = sound.Sound('res\\playlist\\Daft Punk - Within (Official Audio).ogg', secs=-1.0, stereo=True, hamming=True,
+song_trial = sound.Sound('res\\playlist\\song_1.ogg', secs=-1.0, stereo=True, hamming=True,
     name='song_trial')
 song_trial.setVolume(1.0)
 valence_arousal_space = visual.ImageStim(
@@ -216,9 +216,17 @@ eyes_closed_2 = visual.ImageStim(
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-21.0)
-song_trial_2 = sound.Sound('res\\playlist\\Metallica-Fade To Black www.my-free-mp3.net  (1).ogg', secs=-1.0, stereo=True, hamming=True,
+song_trial_2 = sound.Sound('res\\playlist\\song_2.ogg', secs=-1.0, stereo=True, hamming=True,
     name='song_trial_2')
 song_trial_2.setVolume(1.0)
+va_2 = visual.ImageStim(
+    win=win,
+    name='va_2', 
+    image='res\\\\img\\\\valence_arousal_space_basic.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-23.0)
 eyes_open_alarm_3 = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
     name='eyes_open_alarm_3')
 eyes_open_alarm_3.setVolume(0.5)
@@ -232,12 +240,13 @@ song_rating_2 = visual.Form(win=win, name='song_rating_2',
     style='dark',
     itemPadding=0.05,)
 instructions_9 = visual.TextStim(win=win, name='instructions_9',
-    text='In every trial, you will be instructed to listen to one song with eyes OPEN (and annotate your emotions) and one song with eyes CLOSED.  After each song you will give your rating, receive new instructions and listen to White Noise to reset your emotional state before the next one.\nWhen you are ready to start the real experiment, press ESC. For any doubts, ask the researcher, he is a cool dude. Have fun :)',
+    text='In every trial, you will be instructed to listen to one song with eyes OPEN (and annotate your emotions) and one song with eyes CLOSED.  After each song you will give your rating, receive new instructions and listen to White Noise to reset your emotional state before the next one.\nWhen you are ready to start the real experiment, press Q. \nFor any doubts, ask the researcher, he is a cool dude. Have fun :)',
     font='Open Sans',
     pos=(0, 0), height=0.03, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
-    depth=-25.0);
+    depth=-26.0);
+key_resp = keyboard.Keyboard()
 
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
@@ -254,7 +263,7 @@ white_noise.setSound('res\\1 min wn.wav', secs=60.0, hamming=True)
 white_noise.setVolume(0.5, log=False)
 white_noise_2.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
 white_noise_2.setVolume(0.5, log=False)
-song_trial.setSound('res\\playlist\\Daft Punk - Within (Official Audio).ogg', secs=45.0, hamming=True)
+song_trial.setSound('res\\playlist\\song_1.ogg', secs=45.0, hamming=True)
 song_trial.setVolume(1.0, log=False)
 # setup some python lists for storing info about the mouse
 mouse.x = []
@@ -266,12 +275,15 @@ mouse.time = []
 gotValidClick = False  # until a click is received
 white_noise_3.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
 white_noise_3.setVolume(0.5, log=False)
-song_trial_2.setSound('res\\playlist\\Metallica-Fade To Black www.my-free-mp3.net  (1).ogg', secs=45.0, hamming=True)
+song_trial_2.setSound('res\\playlist\\song_2.ogg', secs=45.0, hamming=True)
 song_trial_2.setVolume(1.0, log=False)
 eyes_open_alarm_3.setSound('A', secs=1.0, hamming=True)
 eyes_open_alarm_3.setVolume(0.5, log=False)
+key_resp.keys = []
+key_resp.rt = []
+_key_resp_allKeys = []
 # keep track of which components have finished
-example_trial_joystickComponents = [instructions_1, instructions_2, instructions_3, eyes_open, instructions_4, alarm_eyes_open_1, eyes_closed, eyes_open_alarm_2, instructions_5, instructions_6, eyes_open_2, white_noise, white_noise_2, song_trial, valence_arousal_space, reticle, mouse, instructions_7, song_rating, white_noise_3, instructions_8, eyes_closed_2, song_trial_2, eyes_open_alarm_3, song_rating_2, instructions_9]
+example_trial_joystickComponents = [instructions_1, instructions_2, instructions_3, eyes_open, instructions_4, alarm_eyes_open_1, eyes_closed, eyes_open_alarm_2, instructions_5, instructions_6, eyes_open_2, white_noise, white_noise_2, song_trial, valence_arousal_space, reticle, mouse, instructions_7, song_rating, white_noise_3, instructions_8, eyes_closed_2, song_trial_2, va_2, eyes_open_alarm_3, song_rating_2, instructions_9, key_resp]
 for thisComponent in example_trial_joystickComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -685,6 +697,23 @@ while continueRoutine:
             song_trial_2.frameNStop = frameN  # exact frame index
             win.timeOnFlip(song_trial_2, 'tStopRefresh')  # time at next scr refresh
             song_trial_2.stop()
+    
+    # *va_2* updates
+    if va_2.status == NOT_STARTED and tThisFlip >= 185.0-frameTolerance:
+        # keep track of start time/frame for later
+        va_2.frameNStart = frameN  # exact frame index
+        va_2.tStart = t  # local t and not account for scr refresh
+        va_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(va_2, 'tStartRefresh')  # time at next scr refresh
+        va_2.setAutoDraw(True)
+    if va_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > va_2.tStartRefresh + 45.0-frameTolerance:
+            # keep track of stop time/frame for later
+            va_2.tStop = t  # not accounting for scr refresh
+            va_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(va_2, 'tStopRefresh')  # time at next scr refresh
+            va_2.setAutoDraw(False)
     # start/stop eyes_open_alarm_3
     if eyes_open_alarm_3.status == NOT_STARTED and tThisFlip >= 230.0-frameTolerance:
         # keep track of start time/frame for later
@@ -726,6 +755,28 @@ while continueRoutine:
         instructions_9.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(instructions_9, 'tStartRefresh')  # time at next scr refresh
         instructions_9.setAutoDraw(True)
+    
+    # *key_resp* updates
+    waitOnFlip = False
+    if key_resp.status == NOT_STARTED and tThisFlip >= 260.0-frameTolerance:
+        # keep track of start time/frame for later
+        key_resp.frameNStart = frameN  # exact frame index
+        key_resp.tStart = t  # local t and not account for scr refresh
+        key_resp.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(key_resp, 'tStartRefresh')  # time at next scr refresh
+        key_resp.status = STARTED
+        # keyboard checking is just starting
+        waitOnFlip = True
+        win.callOnFlip(key_resp.clock.reset)  # t=0 on next screen flip
+        win.callOnFlip(key_resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
+    if key_resp.status == STARTED and not waitOnFlip:
+        theseKeys = key_resp.getKeys(keyList=['q'], waitRelease=False)
+        _key_resp_allKeys.extend(theseKeys)
+        if len(_key_resp_allKeys):
+            key_resp.keys = _key_resp_allKeys[-1].name  # just the last key pressed
+            key_resp.rt = _key_resp_allKeys[-1].rt
+            # a response ends the routine
+            continueRoutine = False
     
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -809,6 +860,8 @@ thisExp.addData('eyes_closed_2.stopped', eyes_closed_2.tStopRefresh)
 song_trial_2.stop()  # ensure sound has stopped at end of routine
 thisExp.addData('song_trial_2.started', song_trial_2.tStartRefresh)
 thisExp.addData('song_trial_2.stopped', song_trial_2.tStopRefresh)
+thisExp.addData('va_2.started', va_2.tStartRefresh)
+thisExp.addData('va_2.stopped', va_2.tStopRefresh)
 eyes_open_alarm_3.stop()  # ensure sound has stopped at end of routine
 thisExp.addData('eyes_open_alarm_3.started', eyes_open_alarm_3.tStartRefresh)
 thisExp.addData('eyes_open_alarm_3.stopped', eyes_open_alarm_3.tStopRefresh)
@@ -816,6 +869,15 @@ song_rating_2.addDataToExp(thisExp, 'rows')
 song_rating_2.autodraw = False
 thisExp.addData('instructions_9.started', instructions_9.tStartRefresh)
 thisExp.addData('instructions_9.stopped', instructions_9.tStopRefresh)
+# check responses
+if key_resp.keys in ['', [], None]:  # No response was made
+    key_resp.keys = None
+thisExp.addData('key_resp.keys',key_resp.keys)
+if key_resp.keys != None:  # we had a response
+    thisExp.addData('key_resp.rt', key_resp.rt)
+thisExp.addData('key_resp.started', key_resp.tStartRefresh)
+thisExp.addData('key_resp.stopped', key_resp.tStopRefresh)
+thisExp.nextEntry()
 # the Routine "example_trial_joystick" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 

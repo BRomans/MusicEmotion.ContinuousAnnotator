@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 03, 2021, at 15:52
+    on June 03, 2021, at 16:22
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -264,8 +264,8 @@ song_trial_2.setVolume(1.0)
 va_2 = visual.ImageStim(
     win=win,
     name='va_2', 
-    image=None, mask=None,
-    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    image='res\\\\img\\\\valence_arousal_space_basic.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(1, 1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-23.0)
@@ -310,9 +310,9 @@ joystick_2.getY = lambda: joystick_2.yFactor * joystick_2.device.getY()
 
 reticle_2 = visual.ImageStim(
     win=win,
-    name='reticle_2', 
+    name='reticle_2', units='norm', 
     image='res\\\\img\\\\reticle.png', mask=None,
-    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    ori=0.0, pos=(0, 0), size=(0.15, 0.15),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-25.0)
@@ -373,8 +373,6 @@ joystick_2.activeButtons=[i for i in range(joystick_2.numButtons)]
 # setup some python lists for storing info about the joystick_2
 joystick_2.x = []
 joystick_2.y = []
-joystick_2._x = []
-joystick_2._y = []
 joystick_2.buttonLogs = [[] for i in range(joystick_2.numButtons)]
 joystick_2.time = []
 gotValidClick = False  # until a click is received

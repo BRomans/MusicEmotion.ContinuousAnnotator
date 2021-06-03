@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 01, 2021, at 15:17
+    on June 03, 2021, at 15:52
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -31,7 +31,7 @@ from psychopy.hardware import keyboard
 
 
 # Ensure that relative paths start from the same directory as this script
-from utils.joystick_utilities import clamp_stick
+from utils.joystick_utilities import clamp_stick, get_clamped_position
 
 _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
@@ -53,7 +53,7 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='C:\\Users\\miche\\EIT\\INTERNSHIP_MYBRAIN\\experimental_phase\\experiment_continuous_annotation\\training\\training_joystick_ca_trial.py',
+    originPath='C:\\Users\\miche\\EIT\\INTERNSHIP_MYBRAIN\\experimental_phase\\experiment_continuous_annotation\\training\\joystick\\training_joystick_ca_trial.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
@@ -64,6 +64,8 @@ endExpNow = False  # flag for 'escape' or other condition => quit the exp
 frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # Start Code - component code to be run after the window creation
+from psychopy.hardware import joystick as joysticklib  # joystick/gamepad accsss
+from psychopy.experiment.components.joystick import virtualJoystick as virtualjoysticklib
 from psychopy.hardware import joystick as joysticklib  # joystick/gamepad accsss
 from psychopy.experiment.components.joystick import virtualJoystick as virtualjoysticklib
 
@@ -137,7 +139,7 @@ eyes_open_alarm_2 = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
     name='eyes_open_alarm_2')
 eyes_open_alarm_2.setVolume(1.0)
 instructions_5 = visual.TextStim(win=win, name='instructions_5',
-    text='When you are listening to music with eyes OPEN, you are supposed to continuously annotate your emotions with the cursor. With eyes CLOSED, just enjoy the music!',
+    text='When you are listening to music with eyes OPEN or CLOSED, you are supposed to continuously annotate your emotions by moving the cursor.',
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -176,7 +178,7 @@ valence_arousal_space = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-14.0)
 x, y = [None, None]
-joystick = joysticklib.XboxController(0)  # Create an object to use as a name space
+joystick = joysticklib.XboxController(0) # Create an object to use as a name space
 joystick.device = None
 joystick.device_number = 0
 joystick.joystickClock = core.Clock()
@@ -259,6 +261,61 @@ instructions_8 = visual.TextStim(win=win, name='instructions_8',
 song_trial_2 = sound.Sound('res\\playlist\\Metallica-Fade To Black www.my-free-mp3.net  (1).ogg', secs=-1.0, stereo=True, hamming=True,
     name='song_trial_2')
 song_trial_2.setVolume(1.0)
+va_2 = visual.ImageStim(
+    win=win,
+    name='va_2', 
+    image=None, mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-23.0)
+x, y = [None, None]
+joystick_2 = joysticklib.XboxController(0) # Create an object to use as a name space
+joystick_2.device = None
+joystick_2.device_number = 0
+joystick_2.joystickClock = core.Clock()
+joystick_2.xFactor = 1
+joystick_2.yFactor = 1
+
+try:
+    numJoysticks = joysticklib.getNumJoysticks()
+    if numJoysticks > 0:
+        try:
+            joystickCache
+        except NameError:
+            joystickCache={}
+        if not 0 in joystickCache:
+            joystickCache[0] = joysticklib.Joystick(0)
+        joystick_2.device = joystickCache[0]
+        if win.units == 'height':
+            joystick_2.xFactor = 0.5 * win.size[0]/win.size[1]
+            joystick_2.yFactor = 0.5
+    else:
+        joystick_2.device = virtualjoysticklib.VirtualJoystick(0)
+        logging.warning("joystick_{}: Using keyboard+mouse emulation 'ctrl' + 'Alt' + digit.".format(joystick_2.device_number))
+except Exception:
+    pass
+    
+if not joystick_2.device:
+    logging.error('No joystick/gamepad device found.')
+    core.quit()
+
+joystick_2.status = None
+joystick_2.clock = core.Clock()
+joystick_2.numButtons = joystick_2.device.getNumButtons()
+joystick_2.getNumButtons = joystick_2.device.getNumButtons
+joystick_2.getAllButtons = joystick_2.device.getAllButtons
+joystick_2.getX = lambda: joystick_2.xFactor * joystick_2.device.getX()
+joystick_2.getY = lambda: joystick_2.yFactor * joystick_2.device.getY()
+
+reticle_2 = visual.ImageStim(
+    win=win,
+    name='reticle_2', 
+    image='res\\\\img\\\\reticle.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-25.0)
 eyes_open_alarm = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
     name='eyes_open_alarm')
 eyes_open_alarm.setVolume(0.5)
@@ -272,12 +329,13 @@ song_rating_2 = visual.Form(win=win, name='song_rating_2',
     style='dark',
     itemPadding=0.05,)
 instructions_9 = visual.TextStim(win=win, name='instructions_9',
-    text='In every trial, you will be instructed to listen to one song with eyes OPEN (and annotate your emotions) and one song with eyes CLOSED.  After each song you will give your rating, receive new instructions and listen to White Noise to reset your emotional state before the next one. \nWhen you are ready to start the real experiment, press ESC. For any doubts, ask the researcher, he is a cool dude. Have fun :)',
+    text='In every trial, you will be instructed to listen to one song with eyes OPEN (and annotate your emotions) and one song with eyes CLOSED.  After each song you will give your rating, receive new instructions and listen to White Noise to reset your emotional state before the next one. \nWhen you are ready to start the real experiment, press Q. \nFor any doubts, ask the researcher, he is a cool dude. Have fun :)',
     font='Open Sans',
     pos=(0, 0), height=0.03, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
-    depth=-25.0);
+    depth=-28.0);
+key_resp = keyboard.Keyboard()
 
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
@@ -301,6 +359,8 @@ joystick.activeButtons=[i for i in range(joystick.numButtons)]
 # setup some python lists for storing info about the joystick
 joystick.x = []
 joystick.y = []
+joystick._x = []
+joystick._y = []
 joystick.buttonLogs = [[] for i in range(joystick.numButtons)]
 joystick.time = []
 gotValidClick = False  # until a click is received
@@ -308,10 +368,23 @@ white_noise_3.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
 white_noise_3.setVolume(0.5, log=False)
 song_trial_2.setSound('res\\playlist\\Metallica-Fade To Black www.my-free-mp3.net  (1).ogg', secs=45.0, hamming=True)
 song_trial_2.setVolume(1.0, log=False)
+joystick_2.oldButtonState = joystick_2.device.getAllButtons()[:]
+joystick_2.activeButtons=[i for i in range(joystick_2.numButtons)]
+# setup some python lists for storing info about the joystick_2
+joystick_2.x = []
+joystick_2.y = []
+joystick_2._x = []
+joystick_2._y = []
+joystick_2.buttonLogs = [[] for i in range(joystick_2.numButtons)]
+joystick_2.time = []
+gotValidClick = False  # until a click is received
 eyes_open_alarm.setSound('A', secs=1.0, hamming=True)
 eyes_open_alarm.setVolume(0.5, log=False)
+key_resp.keys = []
+key_resp.rt = []
+_key_resp_allKeys = []
 # keep track of which components have finished
-example_trial_joystickComponents = [instructions_1, instructions_2, instructions_3, eyes_open, instructions_4, alarm_eyes_open_1, eyes_closed, eyes_open_alarm_2, instructions_5, instructions_6, eyes_open_2, white_noise, white_noise_2, song_trial, valence_arousal_space, joystick, reticle, instructions_7, song_rating, white_noise_3, eyes_closed_2, instructions_8, song_trial_2, eyes_open_alarm, song_rating_2, instructions_9]
+example_trial_joystickComponents = [instructions_1, instructions_2, instructions_3, eyes_open, instructions_4, alarm_eyes_open_1, eyes_closed, eyes_open_alarm_2, instructions_5, instructions_6, eyes_open_2, white_noise, white_noise_2, song_trial, valence_arousal_space, joystick, reticle, instructions_7, song_rating, white_noise_3, eyes_closed_2, instructions_8, song_trial_2, va_2, joystick_2, reticle_2, eyes_open_alarm, song_rating_2, instructions_9, key_resp]
 for thisComponent in example_trial_joystickComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -601,14 +674,11 @@ while continueRoutine:
         joystick.releasedButtons = [i for i in range(joystick.numButtons) if not joystick.newButtonState[i] and joystick.oldButtonState[i]]
         joystick.newPressedButtons = [i for i in joystick.activeButtons if i in joystick.pressedButtons]
         joystick.buttons = joystick.newPressedButtons
-        [logging.data("joystick_{}_button: {}, pos=({:1.4f},{:1.4f})".format(joystick.device_number, i, joystick.getX(), joystick.getY()) for i in joystick.pressedButtons)]
+        [logging.data("joystick_{}_button: {}, pos=({:1.4f},{:1.4f})".format(joystick.device_number, i, joystick.getX(), joystick.getY())) for i in joystick.pressedButtons]
         x, y = clamp_stick(joystick.getX(), joystick.getY())
-        joystick.x = x
-        joystick.y = y
-        new_target_position = [
-            clamp_stick(joystick.get_left_thumbstick_axis()[0],
-                        -joystick.get_left_thumbstick_axis()[1])]
-        reticle.pos = new_target_position
+        joystick._x.append(x)
+        joystick._y.append(y)
+        reticle.pos = get_clamped_position(joystick)
         [joystick.buttonLogs[i].append(int(joystick.newButtonState[i])) for i in joystick.activeButtons]
         joystick.time.append(joystick.joystickClock.getTime())
     
@@ -726,6 +796,70 @@ while continueRoutine:
             song_trial_2.frameNStop = frameN  # exact frame index
             win.timeOnFlip(song_trial_2, 'tStopRefresh')  # time at next scr refresh
             song_trial_2.stop()
+    
+    # *va_2* updates
+    if va_2.status == NOT_STARTED and tThisFlip >= 185.0-frameTolerance:
+        # keep track of start time/frame for later
+        va_2.frameNStart = frameN  # exact frame index
+        va_2.tStart = t  # local t and not account for scr refresh
+        va_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(va_2, 'tStartRefresh')  # time at next scr refresh
+        va_2.setAutoDraw(True)
+    if va_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > va_2.tStartRefresh + 45.0-frameTolerance:
+            # keep track of stop time/frame for later
+            va_2.tStop = t  # not accounting for scr refresh
+            va_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(va_2, 'tStopRefresh')  # time at next scr refresh
+            va_2.setAutoDraw(False)
+    # *joystick_2* updates
+    if joystick_2.status == NOT_STARTED and t >= 185.0-frameTolerance:
+        # keep track of start time/frame for later
+        joystick_2.frameNStart = frameN  # exact frame index
+        joystick_2.tStart = t  # local t and not account for scr refresh
+        joystick_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(joystick_2, 'tStartRefresh')  # time at next scr refresh
+        joystick_2.status = STARTED
+        joystick_2.joystickClock.reset()
+    if joystick_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > joystick_2.tStartRefresh + 45.0-frameTolerance:
+            # keep track of stop time/frame for later
+            joystick_2.tStop = t  # not accounting for scr refresh
+            joystick_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(joystick_2, 'tStopRefresh')  # time at next scr refresh
+            joystick_2.status = FINISHED
+    if joystick_2.status == STARTED:  # only update if started and not finished!
+        joystick_2.newButtonState = joystick_2.getAllButtons()[:]
+        joystick_2.pressedButtons = [i for i in range(joystick_2.numButtons) if joystick_2.newButtonState[i] and not joystick_2.oldButtonState[i]]
+        joystick_2.releasedButtons = [i for i in range(joystick_2.numButtons) if not joystick_2.newButtonState[i] and joystick_2.oldButtonState[i]]
+        joystick_2.newPressedButtons = [i for i in joystick_2.activeButtons if i in joystick_2.pressedButtons]
+        joystick_2.buttons = joystick_2.newPressedButtons
+        [logging.data("joystick_{}_button: {}, pos=({:1.4f},{:1.4f})".format(joystick_2.device_number, i, joystick_2.getX(), joystick_2.getY())) for i in joystick_2.pressedButtons]
+        x, y = clamp_stick(joystick_2.getX(), joystick_2.getY())
+        joystick_2._x.append(x)
+        joystick_2._y.append(y)
+        reticle_2.pos = get_clamped_position(joystick_2)
+        [joystick_2.buttonLogs[i].append(int(joystick_2.newButtonState[i])) for i in joystick_2.activeButtons]
+        joystick_2.time.append(joystick_2.joystickClock.getTime())
+    
+    # *reticle_2* updates
+    if reticle_2.status == NOT_STARTED and tThisFlip >= 185.0-frameTolerance:
+        # keep track of start time/frame for later
+        reticle_2.frameNStart = frameN  # exact frame index
+        reticle_2.tStart = t  # local t and not account for scr refresh
+        reticle_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(reticle_2, 'tStartRefresh')  # time at next scr refresh
+        reticle_2.setAutoDraw(True)
+    if reticle_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > reticle_2.tStartRefresh + 45.0-frameTolerance:
+            # keep track of stop time/frame for later
+            reticle_2.tStop = t  # not accounting for scr refresh
+            reticle_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(reticle_2, 'tStopRefresh')  # time at next scr refresh
+            reticle_2.setAutoDraw(False)
     # start/stop eyes_open_alarm
     if eyes_open_alarm.status == NOT_STARTED and tThisFlip >= 230.0-frameTolerance:
         # keep track of start time/frame for later
@@ -767,6 +901,28 @@ while continueRoutine:
         instructions_9.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(instructions_9, 'tStartRefresh')  # time at next scr refresh
         instructions_9.setAutoDraw(True)
+    
+    # *key_resp* updates
+    waitOnFlip = False
+    if key_resp.status == NOT_STARTED and tThisFlip >= 260.0-frameTolerance:
+        # keep track of start time/frame for later
+        key_resp.frameNStart = frameN  # exact frame index
+        key_resp.tStart = t  # local t and not account for scr refresh
+        key_resp.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(key_resp, 'tStartRefresh')  # time at next scr refresh
+        key_resp.status = STARTED
+        # keyboard checking is just starting
+        waitOnFlip = True
+        win.callOnFlip(key_resp.clock.reset)  # t=0 on next screen flip
+        win.callOnFlip(key_resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
+    if key_resp.status == STARTED and not waitOnFlip:
+        theseKeys = key_resp.getKeys(keyList=['q'], waitRelease=False)
+        _key_resp_allKeys.extend(theseKeys)
+        if len(_key_resp_allKeys):
+            key_resp.keys = _key_resp_allKeys[-1].name  # just the last key pressed
+            key_resp.rt = _key_resp_allKeys[-1].rt
+            # a response ends the routine
+            continueRoutine = False
     
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -825,8 +981,8 @@ thisExp.addData('song_trial.stopped', song_trial.tStop)
 thisExp.addData('valence_arousal_space.started', valence_arousal_space.tStartRefresh)
 thisExp.addData('valence_arousal_space.stopped', valence_arousal_space.tStopRefresh)
 # store data for thisExp (ExperimentHandler)
-thisExp.addData('joystick.x', joystick.x)
-thisExp.addData('joystick.y', joystick.y)
+thisExp.addData('joystick.x', joystick._x)
+thisExp.addData('joystick.y', joystick._y)
 thisExp.addData('joystick.time', joystick.time)
 [thisExp.addData('joystick.button_{0}'.format(i), joystick.buttonLogs[i]) for i in joystick.activeButtons if len(joystick.buttonLogs[i])]
 thisExp.addData('joystick.started', joystick.tStart)
@@ -848,6 +1004,18 @@ thisExp.addData('instructions_8.stopped', instructions_8.tStopRefresh)
 song_trial_2.stop()  # ensure sound has stopped at end of routine
 thisExp.addData('song_trial_2.started', song_trial_2.tStartRefresh)
 thisExp.addData('song_trial_2.stopped', song_trial_2.tStopRefresh)
+thisExp.addData('va_2.started', va_2.tStartRefresh)
+thisExp.addData('va_2.stopped', va_2.tStopRefresh)
+# store data for thisExp (ExperimentHandler)
+thisExp.addData('joystick_2.x', joystick_2._x)
+thisExp.addData('joystick_2.y', joystick_2._y)
+thisExp.addData('joystick_2.time', joystick_2.time)
+[thisExp.addData('joystick_2.button_{0}'.format(i), joystick_2.buttonLogs[i]) for i in joystick_2.activeButtons if len(joystick_2.buttonLogs[i])]
+thisExp.addData('joystick_2.started', joystick_2.tStart)
+thisExp.addData('joystick_2.stopped', joystick_2.tStop)
+thisExp.nextEntry()
+thisExp.addData('reticle_2.started', reticle_2.tStartRefresh)
+thisExp.addData('reticle_2.stopped', reticle_2.tStopRefresh)
 eyes_open_alarm.stop()  # ensure sound has stopped at end of routine
 thisExp.addData('eyes_open_alarm.started', eyes_open_alarm.tStartRefresh)
 thisExp.addData('eyes_open_alarm.stopped', eyes_open_alarm.tStopRefresh)
@@ -855,6 +1023,15 @@ song_rating_2.addDataToExp(thisExp, 'rows')
 song_rating_2.autodraw = False
 thisExp.addData('instructions_9.started', instructions_9.tStartRefresh)
 thisExp.addData('instructions_9.stopped', instructions_9.tStopRefresh)
+# check responses
+if key_resp.keys in ['', [], None]:  # No response was made
+    key_resp.keys = None
+thisExp.addData('key_resp.keys',key_resp.keys)
+if key_resp.keys != None:  # we had a response
+    thisExp.addData('key_resp.rt', key_resp.rt)
+thisExp.addData('key_resp.started', key_resp.tStartRefresh)
+thisExp.addData('key_resp.stopped', key_resp.tStopRefresh)
+thisExp.nextEntry()
 # the Routine "example_trial_joystick" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 

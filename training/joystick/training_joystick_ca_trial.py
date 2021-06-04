@@ -139,7 +139,7 @@ eyes_open_alarm_2 = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
     name='eyes_open_alarm_2')
 eyes_open_alarm_2.setVolume(1.0)
 instructions_5 = visual.TextStim(win=win, name='instructions_5',
-    text='When you are listening to music with eyes OPEN or CLOSED, you are supposed to continuously annotate your emotions by moving the cursor.',
+    text='When you are listening to music with eyes OPEN, you are supposed to continuously annotate your emotions with the cursor. With eyes CLOSED, just enjoy the music!',
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 

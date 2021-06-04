@@ -237,7 +237,7 @@
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="10" valType="num"/>
         <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
-        <Param name="text" updates="constant" val="When you are listening to music with eyes OPEN or CLOSED, you are supposed to continuously annotate your emotions by moving the cursor." valType="str"/>
+        <Param name="text" updates="constant" val="When you are listening to music with eyes OPEN, you are supposed to continuously annotate your emotions with the cursor. With eyes CLOSED, just enjoy the music!" valType="str"/>
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
         <Param name="wrapWidth" updates="constant" val="" valType="num"/>
       </TextComponent>

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 03, 2021, at 17:11
+    on June 04, 2021, at 09:56
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -223,7 +223,7 @@ va_2 = visual.ImageStim(
     win=win,
     name='va_2', 
     image='res\\\\img\\\\valence_arousal_space_basic.png', mask=None,
-    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    ori=0.0, pos=(0, 0), size=(1, 1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-23.0)

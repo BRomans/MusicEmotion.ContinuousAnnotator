@@ -28,12 +28,12 @@
     <Param name="blendMode" updates="None" val="avg" valType="str"/>
     <Param name="color" updates="None" val="$[0,0,0]" valType="color"/>
     <Param name="colorSpace" updates="None" val="rgb" valType="str"/>
-    <Param name="expName" updates="None" val="training_joystick_ca_trial" valType="str"/>
+    <Param name="expName" updates="None" val="training_mouse_ca_trial" valType="str"/>
     <Param name="exportHTML" updates="None" val="on Sync" valType="str"/>
     <Param name="logging level" updates="None" val="exp" valType="code"/>
   </Settings>
   <Routines>
-    <Routine name="example_trial_joystick">
+    <Routine name="example_trial_mouse">
       <TextComponent name="instructions_1">
         <Param name="color" updates="constant" val="white" valType="color"/>
         <Param name="colorSpace" updates="constant" val="rgb" valType="str"/>
@@ -552,7 +552,7 @@
         <Param name="ori" updates="constant" val="0" valType="num"/>
         <Param name="pos" updates="constant" val="(0, 0)" valType="list"/>
         <Param name="saveStartStop" updates="None" val="True" valType="bool"/>
-        <Param name="size" updates="constant" val="(0.5, 0.5)" valType="list"/>
+        <Param name="size" updates="constant" val="(1, 1)" valType="list"/>
         <Param name="startEstim" updates="None" val="" valType="num"/>
         <Param name="startType" updates="None" val="time (s)" valType="str"/>
         <Param name="startVal" updates="None" val="185" valType="num"/>
@@ -646,6 +646,6 @@
     </Routine>
   </Routines>
   <Flow>
-    <Routine name="example_trial_joystick"/>
+    <Routine name="example_trial_mouse"/>
   </Flow>
 </PsychoPy2experiment>

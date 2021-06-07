@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 04, 2021, at 09:56
+    on June 07, 2021, at 16:46
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -36,7 +36,7 @@ os.chdir(_thisDir)
 
 # Store info about the experiment session
 psychopyVersion = '2021.1.4'
-expName = 'training_joystick_ca_trial'  # from the Builder filename that created this script
+expName = 'training_mouse_ca_trial'  # from the Builder filename that created this script
 expInfo = {'participant': '', 'session': '001'}
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
 if dlg.OK == False:
@@ -80,8 +80,8 @@ else:
 # create a default keyboard (e.g. to check for escape)
 defaultKeyboard = keyboard.Keyboard()
 
-# Initialize components for Routine "example_trial_joystick"
-example_trial_joystickClock = core.Clock()
+# Initialize components for Routine "example_trial_mouse"
+example_trial_mouseClock = core.Clock()
 instructions_1 = visual.TextStim(win=win, name='instructions_1',
     text="Now that you know how to move your reticle, let's try to simulate a trial.",
     font='Open Sans',
@@ -252,7 +252,7 @@ key_resp = keyboard.Keyboard()
 globalClock = core.Clock()  # to track the time since experiment started
 routineTimer = core.CountdownTimer()  # to track time remaining of each (non-slip) routine 
 
-# ------Prepare to start Routine "example_trial_joystick"-------
+# ------Prepare to start Routine "example_trial_mouse"-------
 continueRoutine = True
 # update component parameters for each repeat
 alarm_eyes_open_1.setSound('A', secs=1.0, hamming=True)
@@ -283,8 +283,8 @@ key_resp.keys = []
 key_resp.rt = []
 _key_resp_allKeys = []
 # keep track of which components have finished
-example_trial_joystickComponents = [instructions_1, instructions_2, instructions_3, eyes_open, instructions_4, alarm_eyes_open_1, eyes_closed, eyes_open_alarm_2, instructions_5, instructions_6, eyes_open_2, white_noise, white_noise_2, song_trial, valence_arousal_space, reticle, mouse, instructions_7, song_rating, white_noise_3, instructions_8, eyes_closed_2, song_trial_2, va_2, eyes_open_alarm_3, song_rating_2, instructions_9, key_resp]
-for thisComponent in example_trial_joystickComponents:
+example_trial_mouseComponents = [instructions_1, instructions_2, instructions_3, eyes_open, instructions_4, alarm_eyes_open_1, eyes_closed, eyes_open_alarm_2, instructions_5, instructions_6, eyes_open_2, white_noise, white_noise_2, song_trial, valence_arousal_space, reticle, mouse, instructions_7, song_rating, white_noise_3, instructions_8, eyes_closed_2, song_trial_2, va_2, eyes_open_alarm_3, song_rating_2, instructions_9, key_resp]
+for thisComponent in example_trial_mouseComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
     thisComponent.tStartRefresh = None
@@ -294,15 +294,14 @@ for thisComponent in example_trial_joystickComponents:
 # reset timers
 t = 0
 _timeToFirstFrame = win.getFutureFlipTime(clock="now")
-example_trial_joystickClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
+example_trial_mouseClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
 frameN = -1
-first_mouse_frame = True
 
-# -------Run Routine "example_trial_joystick"-------
+# -------Run Routine "example_trial_mouse"-------
 while continueRoutine:
     # get current time
-    t = example_trial_joystickClock.getTime()
-    tThisFlip = win.getFutureFlipTime(clock=example_trial_joystickClock)
+    t = example_trial_mouseClock.getTime()
+    tThisFlip = win.getFutureFlipTime(clock=example_trial_mouseClock)
     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
@@ -786,7 +785,7 @@ while continueRoutine:
     if not continueRoutine:  # a component has requested a forced-end of Routine
         break
     continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in example_trial_joystickComponents:
+    for thisComponent in example_trial_mouseComponents:
         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
             continueRoutine = True
             break  # at least one component has not yet finished
@@ -795,8 +794,8 @@ while continueRoutine:
     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
         win.flip()
 
-# -------Ending Routine "example_trial_joystick"-------
-for thisComponent in example_trial_joystickComponents:
+# -------Ending Routine "example_trial_mouse"-------
+for thisComponent in example_trial_mouseComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
 thisExp.addData('instructions_1.started', instructions_1.tStartRefresh)
@@ -878,7 +877,7 @@ if key_resp.keys != None:  # we had a response
 thisExp.addData('key_resp.started', key_resp.tStartRefresh)
 thisExp.addData('key_resp.stopped', key_resp.tStopRefresh)
 thisExp.nextEntry()
-# the Routine "example_trial_joystick" was not non-slip safe, so reset the non-slip timer
+# the Routine "example_trial_mouse" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # Flip one final time so any remaining win.callOnFlip() 

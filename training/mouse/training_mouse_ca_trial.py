@@ -296,6 +296,7 @@ t = 0
 _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 example_trial_mouseClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
 frameN = -1
+first_mouse_frame = True
 
 # -------Run Routine "example_trial_mouse"-------
 while continueRoutine:

@@ -1,4 +1,5 @@
 from serial import Serial, SerialException
+import time
 
 
 class TriggerBox(Serial):
@@ -7,6 +8,8 @@ class TriggerBox(Serial):
         super().__init__()
         self.port = serial_port
         self.baudrate = baudrate
+        self.test_port()
+        self.open()
 
     def test_port(self):
         try:
@@ -29,6 +32,7 @@ class TriggerBox(Serial):
                 print("COM" + str(ns + 1) + " NOT available")
 
     def write_trigger(self, trigger):
+        print("Sending trigger: ", trigger)
         self.write(trigger.encode('utf-8'))
 
     def set_port(self, port):
@@ -36,3 +40,15 @@ class TriggerBox(Serial):
 
     def set_baudrate(self, baudrate):
         self.baudrate = baudrate
+
+
+
+
+box = TriggerBox("COM5", 9600)
+box.write_trigger('t')
+time.sleep(1)
+box.write_trigger('s')
+time.sleep(1)
+box.write_trigger('z')
+time.sleep(1)
+box.close()

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 07, 2021, at 17:23
+    on June 07, 2021, at 17:26
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -99,7 +99,7 @@ description = visual.TextStim(win=win, name='description',
 instructions = visual.TextStim(win=win, name='instructions',
     text='For the next 3 minutes, you will hear a mix of different songs with no breaks in between.\nYour task is:\n- Move the reticle along the Valence-Arousal space in the area corresponding to the emotion you are feeling\n- Adjust the reticle position if the arousal intensity or the emotional valence changes over time\n- Return to the Neutral Zone when a new song starts',
     font='Open Sans',
-    pos=(0, 0), height=0.1, wrapWidth=None, ori=0.0, 
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-2.0);
@@ -341,6 +341,7 @@ while continueRoutine:
             mouse.setPos([0, 0])
             first_mouse_frame = False
         x, y = mouse.getPos()
+        reticle.pos = [x, y]
         mouse.x.append(x)
         mouse.y.append(y)
         buttons = mouse.getPressed()

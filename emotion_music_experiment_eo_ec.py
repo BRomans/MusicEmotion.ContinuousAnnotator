@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 02, 2021, at 10:13
+    on June 08, 2021, at 18:37
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -27,18 +27,16 @@ import os  # handy system and path functions
 import sys  # to get file system encoding
 
 from psychopy.hardware import keyboard
-from utils.joystick_utilities import clamp_stick, get_clamped_position
+
 
 
 # Ensure that relative paths start from the same directory as this script
-
-
 _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
 
 # Store info about the experiment session
 psychopyVersion = '2021.1.4'
-expName = 'experiment_eo_ec_controller_annotations'  # from the Builder filename that created this script
+expName = 'experiment_eo_ec'  # from the Builder filename that created this script
 expInfo = {'participant': '', 'id': '', 'gender (M/F/N)': '', 'age': '', 'hand(R/L)': '', 'session': '001', 'group': '01'}
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
 if dlg.OK == False:
@@ -57,17 +55,13 @@ thisExp = data.ExperimentHandler(name=expName, version='',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
-logFile = logging.LogFile(filename+'.log', level=logging.EXP)
+logFile = logging.LogFile(filename+'.log', level=logging.DATA)
 logging.console.setLevel(logging.WARNING)  # this outputs to the screen, not a file
 
 endExpNow = False  # flag for 'escape' or other condition => quit the exp
 frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # Start Code - component code to be run after the window creation
-from psychopy.hardware import joystick as joysticklib  # joystick/gamepad accsss
-from psychopy.experiment.components.joystick import virtualJoystick as virtualjoysticklib
-from psychopy.hardware import joystick as joysticklib  # joystick/gamepad accsss
-from psychopy.experiment.components.joystick import virtualJoystick as virtualjoysticklib
 
 # Setup the Window
 win = visual.Window(
@@ -88,15 +82,100 @@ defaultKeyboard = keyboard.Keyboard()
 
 # Initialize components for Routine "intro"
 introClock = core.Clock()
+welcome_instruction = visual.TextStim(win=win, name='welcome_instruction',
+    text='Welcome to the Emotion Music experiment.\n\nThis is the recorded experimental session.\n',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=0.0);
+welcome_instructions_2 = visual.TextStim(win=win, name='welcome_instructions_2',
+    text='The experiment is based on timed routines, it is important that you follow the instructions and answer the song ratings in the given time (15 seconds).\n\nYour main task is to listen to the proposed music playlist and annotate your emotions continuously by moving the red reticle on the Valence-Arousal space.\n\nThe total length of the experiment is about 20-25 minutes, with the possibility of a short break in the middle.',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-1.0);
+start_button = visual.ButtonStim(win, 
+   text='Start Experiment', font='Arvo',
+   pos=(0, 0),
+   letterHeight=0.05,
+   size=None, borderWidth=0.0,
+   fillColor='darkgrey', borderColor=None,
+   color='white', colorSpace='rgb',
+   opacity=None,
+   bold=True, italic=False,
+   padding=None,
+   anchor='center',
+   name='start_button')
+start_button.buttonClock = core.Clock()
 
 # Initialize components for Routine "enter_rest_state"
 enter_rest_stateClock = core.Clock()
+resting_state_instructions = visual.TextStim(win=win, name='resting_state_instructions',
+    text='Before the we begin, we need to record your "resting" state with both eyes OPEN and eyes CLOSED for 2 minutes each.\n\nThink of it as short meditation session, relax your brain and focus on your breathing.',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=0.0);
+rest_state_eyes_open = visual.TextStim(win=win, name='rest_state_eyes_open',
+    text='We start we eyes OPEN, get ready!',
+    font='Open Sans',
+    pos=(0, 0), height=0.1, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-1.0);
+rest_state_eyes_open_icon = visual.ImageStim(
+    win=win,
+    name='rest_state_eyes_open_icon', 
+    image='res\\\\img\\\\eye_open.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-2.0)
+rest_eyes_closed = visual.TextStim(win=win, name='rest_eyes_closed',
+    text="Now eyes CLOSED, a sound will tell you when it's over.",
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-3.0);
+rest_eyes_closed_icon = visual.ImageStim(
+    win=win,
+    name='rest_eyes_closed_icon', 
+    image='res\\\\img\\\\eye_closed.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-4.0)
+sound_1 = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
+    name='sound_1')
+sound_1.setVolume(1.0)
 
 # Initialize components for Routine "white_noise"
 white_noiseClock = core.Clock()
+intro_white_noise = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
+    name='intro_white_noise')
+intro_white_noise.setVolume(1.0)
+first_instruction = visual.TextStim(win=win, name='first_instruction',
+    text='The experiment is about to begin. Before each song we will use White Noise to "wash" away your emotions.\n\nPlease follow carefully the instructions and make sure your eyes stay OPEN or CLOSED accordingly until the end of the song.\n\nThe first trial will begin with your eyes OPEN.',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-1.0);
+first_eyes_instruction = visual.ImageStim(
+    win=win,
+    name='first_eyes_instruction', 
+    image='res\\\\img\\\\eye_open.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-2.0)
 
-# Initialize components for Routine "trial"
-trialClock = core.Clock()
+# Initialize components for Routine "trials_first_part"
+trials_first_partClock = core.Clock()
 valence_arousal_space = visual.ImageStim(
     win=win,
     name='valence_arousal_space', 
@@ -113,48 +192,12 @@ reticle = visual.ImageStim(
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
-song_one = sound.Sound('res\\playlist\\song_1.ogg', secs=-1.0, stereo=True, hamming=True,
+song_one = sound.Sound(None, secs=-1.0, stereo=True, hamming=True,
     name='song_one')
 song_one.setVolume(1.0)
+mouse = event.Mouse(win=win)
 x, y = [None, None]
-joystick = type('', (), {})() # Create an object to use as a name space
-joystick.device = None
-joystick.device_number = 0
-joystick.joystickClock = core.Clock()
-joystick.xFactor = 1
-joystick.yFactor = 1
-
-try:
-    numJoysticks = joysticklib.getNumJoysticks()
-    if numJoysticks > 0:
-        try:
-            joystickCache
-        except NameError:
-            joystickCache={}
-        if not 0 in joystickCache:
-            joystickCache[0] = joysticklib.Joystick(0)
-        joystick.device = joystickCache[0]
-        if win.units == 'height':
-            joystick.xFactor = 0.5 * win.size[0]/win.size[1]
-            joystick.yFactor = 0.5
-    else:
-        joystick.device = virtualjoysticklib.VirtualJoystick(0)
-        logging.warning("joystick_{}: Using keyboard+mouse emulation 'ctrl' + 'Alt' + digit.".format(joystick.device_number))
-except Exception:
-    pass
-    
-if not joystick.device:
-    logging.error('No joystick/gamepad device found.')
-    core.quit()
-
-joystick.status = None
-joystick.clock = core.Clock()
-joystick.numButtons = joystick.device.getNumButtons()
-joystick.getNumButtons = joystick.device.getNumButtons
-joystick.getAllButtons = joystick.device.getAllButtons
-joystick.getX = lambda: joystick.xFactor * joystick.device.getX()
-joystick.getY = lambda: joystick.yFactor * joystick.device.getY()
-
+mouse.mouseClock = core.Clock()
 open_eyes = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
     name='open_eyes')
 open_eyes.setVolume(0.5)
@@ -167,13 +210,13 @@ song_one_rating = visual.Form(win=win, name='song_one_rating',
     pos=(0, 0),
     style='dark',
     itemPadding=0.1,)
-white_noise_rating = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
-    name='white_noise_rating')
-white_noise_rating.setVolume(1.0)
+white_noise_one = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
+    name='white_noise_one')
+white_noise_one.setVolume(0.7)
 instruction_ec = visual.TextStim(win=win, name='instruction_ec',
     text='Now CLOSE your eyes and get ready for the next song.',
     font='Open Sans',
-    pos=(0, 0), height=0.1, wrapWidth=None, ori=0.0, 
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-7.0);
@@ -193,7 +236,7 @@ valence_arousal_space_2 = visual.ImageStim(
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-9.0)
-song_two = sound.Sound('res\\playlist\\song_2.ogg', secs=-1.0, stereo=True, hamming=True,
+song_two = sound.Sound(None, secs=-1.0, stereo=True, hamming=True,
     name='song_two')
 song_two.setVolume(1.0)
 reticle_2 = visual.ImageStim(
@@ -204,64 +247,28 @@ reticle_2 = visual.ImageStim(
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-11.0)
+mouse_2 = event.Mouse(win=win)
 x, y = [None, None]
-joystick_2 = type('', (), {})() # Create an object to use as a name space
-joystick_2.device = None
-joystick_2.device_number = 0
-joystick_2.joystickClock = core.Clock()
-joystick_2.xFactor = 1
-joystick_2.yFactor = 1
-
-try:
-    numJoysticks = joysticklib.getNumJoysticks()
-    if numJoysticks > 0:
-        try:
-            joystickCache
-        except NameError:
-            joystickCache={}
-        if not 0 in joystickCache:
-            joystickCache[0] = joysticklib.Joystick(0)
-        joystick_2.device = joystickCache[0]
-        if win.units == 'height':
-            joystick_2.xFactor = 0.5 * win.size[0]/win.size[1]
-            joystick_2.yFactor = 0.5
-    else:
-        joystick_2.device = virtualjoysticklib.VirtualJoystick(0)
-        logging.warning("joystick_{}: Using keyboard+mouse emulation 'ctrl' + 'Alt' + digit.".format(joystick_2.device_number))
-except Exception:
-    pass
-    
-if not joystick_2.device:
-    logging.error('No joystick/gamepad device found.')
-    core.quit()
-
-joystick_2.status = None
-joystick_2.clock = core.Clock()
-joystick_2.numButtons = joystick_2.device.getNumButtons()
-joystick_2.getNumButtons = joystick_2.device.getNumButtons
-joystick_2.getAllButtons = joystick_2.device.getAllButtons
-joystick_2.getX = lambda: joystick_2.xFactor * joystick_2.device.getX()
-joystick_2.getY = lambda: joystick_2.yFactor * joystick_2.device.getY()
-
-eyes_open = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
-    name='eyes_open')
-eyes_open.setVolume(0.5)
+mouse_2.mouseClock = core.Clock()
+open_eyes_two = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
+    name='open_eyes_two')
+open_eyes_two.setVolume(0.5)
 win.allowStencil = True
 song_two_rating = visual.Form(win=win, name='song_two_rating',
-    items='res\\\\rating_form.csv',
+    items='res\\\\forms\\\\rating_form.csv',
     textHeight=0.03,
     randomize=False,
     size=(1, 0.7),
     pos=(0, 0),
     style='dark',
     itemPadding=0.05,)
-white_noise_rating_two = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
-    name='white_noise_rating_two')
-white_noise_rating_two.setVolume(1.0)
+white_noise_two = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
+    name='white_noise_two')
+white_noise_two.setVolume(0.7)
 instruction_eo = visual.TextStim(win=win, name='instruction_eo',
     text='Now OPEN your eyes and get ready for the next song.',
     font='Open Sans',
-    pos=(0, 0), height=0.1, wrapWidth=None, ori=0.0, 
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-16.0);
@@ -274,8 +281,206 @@ eyes_open_2 = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-17.0)
 
+# Initialize components for Routine "mid_break"
+mid_breakClock = core.Clock()
+break_instruction = visual.TextStim(win=win, name='break_instruction',
+    text='You are on a break.\n\nFeel free to look around and relax your eyes.\n\nPlease do NOT remove your headset.\n\nWhen you are ready to continue, click the button.',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=0.0);
+resume_experiment = visual.ButtonStim(win, 
+   text='Resume Experiment', font='Arvo',
+   pos=(0, 0),
+   letterHeight=0.05,
+   size=None, borderWidth=0.0,
+   fillColor='darkgrey', borderColor=None,
+   color='white', colorSpace='rgb',
+   opacity=None,
+   bold=True, italic=False,
+   padding=None,
+   anchor='center',
+   name='resume_experiment')
+resume_experiment.buttonClock = core.Clock()
+
+# Initialize components for Routine "white_noise_break"
+white_noise_breakClock = core.Clock()
+after_break_white_noise = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
+    name='after_break_white_noise')
+after_break_white_noise.setVolume(1.0)
+after_break_instruction = visual.TextStim(win=win, name='after_break_instruction',
+    text='We are about to resume the experiment.\n\nThe next trial will begin with your eyes OPEN.',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-1.0);
+first_eyes_instruction_2 = visual.ImageStim(
+    win=win,
+    name='first_eyes_instruction_2', 
+    image='res\\\\img\\\\eye_open.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-2.0)
+
+# Initialize components for Routine "trials_second_part"
+trials_second_partClock = core.Clock()
+valence_arousal_space_3 = visual.ImageStim(
+    win=win,
+    name='valence_arousal_space_3', 
+    image='res\\\\img\\\\valence_arousal_space_basic.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(1, 1),
+    color=[1,1,1], colorSpace='rgb', opacity=0.5,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=0.0)
+reticle_3 = visual.ImageStim(
+    win=win,
+    name='reticle_3', 
+    image='res\\\\img\\\\reticle.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.075, 0.075),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-1.0)
+song_one_2 = sound.Sound(None, secs=-1.0, stereo=True, hamming=True,
+    name='song_one_2')
+song_one_2.setVolume(1.0)
+mouse_3 = event.Mouse(win=win)
+x, y = [None, None]
+mouse_3.mouseClock = core.Clock()
+open_eyes_2 = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
+    name='open_eyes_2')
+open_eyes_2.setVolume(0.5)
+win.allowStencil = True
+song_one_rating_2 = visual.Form(win=win, name='song_one_rating_2',
+    items='res\\\\forms\\\\rating_form.csv',
+    textHeight=0.03,
+    randomize=False,
+    size=(1, 0.7),
+    pos=(0, 0),
+    style='dark',
+    itemPadding=0.1,)
+white_noise_one_2 = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
+    name='white_noise_one_2')
+white_noise_one_2.setVolume(0.7)
+instruction_ec_2 = visual.TextStim(win=win, name='instruction_ec_2',
+    text='Now CLOSE your eyes and get ready for the next song.',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-7.0);
+eyes_closed_2 = visual.ImageStim(
+    win=win,
+    name='eyes_closed_2', 
+    image='res\\\\img\\\\eye_closed.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(1, 1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-8.0)
+valence_arousal_space_4 = visual.ImageStim(
+    win=win,
+    name='valence_arousal_space_4', 
+    image='res\\\\img\\\\valence_arousal_space_basic.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-9.0)
+song_two_2 = sound.Sound(None, secs=-1.0, stereo=True, hamming=True,
+    name='song_two_2')
+song_two_2.setVolume(1.0)
+reticle_4 = visual.ImageStim(
+    win=win,
+    name='reticle_4', 
+    image='res\\\\img\\\\reticle.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.075, 0.075),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-11.0)
+mouse_4 = event.Mouse(win=win)
+x, y = [None, None]
+mouse_4.mouseClock = core.Clock()
+open_eyes_two_2 = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
+    name='open_eyes_two_2')
+open_eyes_two_2.setVolume(0.5)
+win.allowStencil = True
+song_two_rating_2 = visual.Form(win=win, name='song_two_rating_2',
+    items='res\\\\forms\\\\rating_form.csv',
+    textHeight=0.03,
+    randomize=False,
+    size=(1, 0.7),
+    pos=(0, 0),
+    style='dark',
+    itemPadding=0.05,)
+white_noise_two_2 = sound.Sound('res\\1 min wn.wav', secs=-1.0, stereo=True, hamming=True,
+    name='white_noise_two_2')
+white_noise_two_2.setVolume(0.7)
+instruction_eo_2 = visual.TextStim(win=win, name='instruction_eo_2',
+    text='Now OPEN your eyes and get ready for the next song.',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-16.0);
+eyes_open = visual.ImageStim(
+    win=win,
+    name='eyes_open', 
+    image='res\\\\img\\\\eye_open.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-17.0)
+
 # Initialize components for Routine "exit_rest_state"
 exit_rest_stateClock = core.Clock()
+resting_state_instructions_2 = visual.TextStim(win=win, name='resting_state_instructions_2',
+    text='Congratulations, you made it!\nBefore you leave, we need to record your "resting" state with both eyes OPEN and eyes CLOSED for 2 minutes each.\n\nThink of it as short meditation session, relax your brain and focus on your breathing.',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=0.0);
+rest_state_eyes_open_2 = visual.TextStim(win=win, name='rest_state_eyes_open_2',
+    text='We start we eyes OPEN, get ready!',
+    font='Open Sans',
+    pos=(0, 0), height=0.1, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-1.0);
+rest_state_eyes_open_icon_2 = visual.ImageStim(
+    win=win,
+    name='rest_state_eyes_open_icon_2', 
+    image='res\\\\img\\\\eye_open.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-2.0)
+rest_eyes_closed_2 = visual.TextStim(win=win, name='rest_eyes_closed_2',
+    text="Now eyes CLOSED, a sound will tell you when it's over.",
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-3.0);
+rest_eyes_closed_icon_2 = visual.ImageStim(
+    win=win,
+    name='rest_eyes_closed_icon_2', 
+    image='res\\\\img\\\\eye_closed.png', mask=None,
+    ori=0.0, pos=(0, 0), size=(0.5, 0.5),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-4.0)
+sound_2 = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
+    name='sound_2')
+sound_2.setVolume(1.0)
+text = visual.TextStim(win=win, name='text',
+    text='And this is the END!\n\nThanks again for participating, please do NOT touch or close anything, the researcher will come to help you remove the headset. This window will close automatically...',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-6.0);
 
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
@@ -285,7 +490,7 @@ routineTimer = core.CountdownTimer()  # to track time remaining of each (non-sli
 continueRoutine = True
 # update component parameters for each repeat
 # keep track of which components have finished
-introComponents = []
+introComponents = [welcome_instruction, welcome_instructions_2, start_button]
 for thisComponent in introComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -308,6 +513,66 @@ while continueRoutine:
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
     
+    # *welcome_instruction* updates
+    if welcome_instruction.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        welcome_instruction.frameNStart = frameN  # exact frame index
+        welcome_instruction.tStart = t  # local t and not account for scr refresh
+        welcome_instruction.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(welcome_instruction, 'tStartRefresh')  # time at next scr refresh
+        welcome_instruction.setAutoDraw(True)
+    if welcome_instruction.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > welcome_instruction.tStartRefresh + 15.0-frameTolerance:
+            # keep track of stop time/frame for later
+            welcome_instruction.tStop = t  # not accounting for scr refresh
+            welcome_instruction.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(welcome_instruction, 'tStopRefresh')  # time at next scr refresh
+            welcome_instruction.setAutoDraw(False)
+    
+    # *welcome_instructions_2* updates
+    if welcome_instructions_2.status == NOT_STARTED and tThisFlip >= 15.0-frameTolerance:
+        # keep track of start time/frame for later
+        welcome_instructions_2.frameNStart = frameN  # exact frame index
+        welcome_instructions_2.tStart = t  # local t and not account for scr refresh
+        welcome_instructions_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(welcome_instructions_2, 'tStartRefresh')  # time at next scr refresh
+        welcome_instructions_2.setAutoDraw(True)
+    if welcome_instructions_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > welcome_instructions_2.tStartRefresh + 40.0-frameTolerance:
+            # keep track of stop time/frame for later
+            welcome_instructions_2.tStop = t  # not accounting for scr refresh
+            welcome_instructions_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(welcome_instructions_2, 'tStopRefresh')  # time at next scr refresh
+            welcome_instructions_2.setAutoDraw(False)
+    
+    # *start_button* updates
+    if start_button.status == NOT_STARTED and tThisFlip >= 55.0-frameTolerance:
+        # keep track of start time/frame for later
+        start_button.frameNStart = frameN  # exact frame index
+        start_button.tStart = t  # local t and not account for scr refresh
+        start_button.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(start_button, 'tStartRefresh')  # time at next scr refresh
+        start_button.setAutoDraw(True)
+    if start_button.status == STARTED:
+        # check whether start_button has been pressed
+        if start_button.isClicked:
+            if not start_button.wasClicked:
+                start_button.timesOn.append(start_button.buttonClock.getTime()) # store time of first click
+                start_button.timesOff.append(start_button.buttonClock.getTime()) # store time clicked until
+            else:
+                start_button.timesOff[-1] = start_button.buttonClock.getTime() # update time clicked until
+            if not start_button.wasClicked:
+                continueRoutine = False  # end routine when start_button is clicked
+                None
+            start_button.wasClicked = True  # if start_button is still clicked next frame, it is not a new click
+        else:
+            start_button.wasClicked = False  # if start_button is clicked next frame, it is a new click
+    else:
+        start_button.buttonClock.reset() # keep clock at 0 if button hasn't started / has finished
+        start_button.wasClicked = False  # if start_button is clicked next frame, it is a new click
+    
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
         core.quit()
@@ -329,14 +594,30 @@ while continueRoutine:
 for thisComponent in introComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
+thisExp.addData('welcome_instruction.started', welcome_instruction.tStartRefresh)
+thisExp.addData('welcome_instruction.stopped', welcome_instruction.tStopRefresh)
+thisExp.addData('welcome_instructions_2.started', welcome_instructions_2.tStartRefresh)
+thisExp.addData('welcome_instructions_2.stopped', welcome_instructions_2.tStopRefresh)
+thisExp.addData('start_button.started', start_button.tStartRefresh)
+thisExp.addData('start_button.stopped', start_button.tStopRefresh)
+thisExp.addData('start_button.numClicks', start_button.numClicks)
+if start_button.numClicks:
+   thisExp.addData('start_button.timesOn', start_button.timesOn)
+   thisExp.addData('start_button.timesOff', start_button.timesOff)
+else:
+   thisExp.addData('start_button.timesOn', "")
+   thisExp.addData('start_button.timesOff', "")
 # the Routine "intro" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # ------Prepare to start Routine "enter_rest_state"-------
 continueRoutine = True
+routineTimer.add(280.000000)
 # update component parameters for each repeat
+sound_1.setSound('A', secs=1.0, hamming=True)
+sound_1.setVolume(1.0, log=False)
 # keep track of which components have finished
-enter_rest_stateComponents = []
+enter_rest_stateComponents = [resting_state_instructions, rest_state_eyes_open, rest_state_eyes_open_icon, rest_eyes_closed, rest_eyes_closed_icon, sound_1]
 for thisComponent in enter_rest_stateComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -351,13 +632,113 @@ enter_rest_stateClock.reset(-_timeToFirstFrame)  # t0 is time of first possible 
 frameN = -1
 
 # -------Run Routine "enter_rest_state"-------
-while continueRoutine:
+while continueRoutine and routineTimer.getTime() > 0:
     # get current time
     t = enter_rest_stateClock.getTime()
     tThisFlip = win.getFutureFlipTime(clock=enter_rest_stateClock)
     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
+    
+    # *resting_state_instructions* updates
+    if resting_state_instructions.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        resting_state_instructions.frameNStart = frameN  # exact frame index
+        resting_state_instructions.tStart = t  # local t and not account for scr refresh
+        resting_state_instructions.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(resting_state_instructions, 'tStartRefresh')  # time at next scr refresh
+        resting_state_instructions.setAutoDraw(True)
+    if resting_state_instructions.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > resting_state_instructions.tStartRefresh + 20.0-frameTolerance:
+            # keep track of stop time/frame for later
+            resting_state_instructions.tStop = t  # not accounting for scr refresh
+            resting_state_instructions.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(resting_state_instructions, 'tStopRefresh')  # time at next scr refresh
+            resting_state_instructions.setAutoDraw(False)
+    
+    # *rest_state_eyes_open* updates
+    if rest_state_eyes_open.status == NOT_STARTED and tThisFlip >= 20.0-frameTolerance:
+        # keep track of start time/frame for later
+        rest_state_eyes_open.frameNStart = frameN  # exact frame index
+        rest_state_eyes_open.tStart = t  # local t and not account for scr refresh
+        rest_state_eyes_open.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(rest_state_eyes_open, 'tStartRefresh')  # time at next scr refresh
+        rest_state_eyes_open.setAutoDraw(True)
+    if rest_state_eyes_open.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > rest_state_eyes_open.tStartRefresh + 5.0-frameTolerance:
+            # keep track of stop time/frame for later
+            rest_state_eyes_open.tStop = t  # not accounting for scr refresh
+            rest_state_eyes_open.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(rest_state_eyes_open, 'tStopRefresh')  # time at next scr refresh
+            rest_state_eyes_open.setAutoDraw(False)
+    
+    # *rest_state_eyes_open_icon* updates
+    if rest_state_eyes_open_icon.status == NOT_STARTED and tThisFlip >= 25.0-frameTolerance:
+        # keep track of start time/frame for later
+        rest_state_eyes_open_icon.frameNStart = frameN  # exact frame index
+        rest_state_eyes_open_icon.tStart = t  # local t and not account for scr refresh
+        rest_state_eyes_open_icon.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(rest_state_eyes_open_icon, 'tStartRefresh')  # time at next scr refresh
+        rest_state_eyes_open_icon.setAutoDraw(True)
+    if rest_state_eyes_open_icon.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > rest_state_eyes_open_icon.tStartRefresh + 120.0-frameTolerance:
+            # keep track of stop time/frame for later
+            rest_state_eyes_open_icon.tStop = t  # not accounting for scr refresh
+            rest_state_eyes_open_icon.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(rest_state_eyes_open_icon, 'tStopRefresh')  # time at next scr refresh
+            rest_state_eyes_open_icon.setAutoDraw(False)
+    
+    # *rest_eyes_closed* updates
+    if rest_eyes_closed.status == NOT_STARTED and tThisFlip >= 145.0-frameTolerance:
+        # keep track of start time/frame for later
+        rest_eyes_closed.frameNStart = frameN  # exact frame index
+        rest_eyes_closed.tStart = t  # local t and not account for scr refresh
+        rest_eyes_closed.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(rest_eyes_closed, 'tStartRefresh')  # time at next scr refresh
+        rest_eyes_closed.setAutoDraw(True)
+    if rest_eyes_closed.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > rest_eyes_closed.tStartRefresh + 15.0-frameTolerance:
+            # keep track of stop time/frame for later
+            rest_eyes_closed.tStop = t  # not accounting for scr refresh
+            rest_eyes_closed.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(rest_eyes_closed, 'tStopRefresh')  # time at next scr refresh
+            rest_eyes_closed.setAutoDraw(False)
+    
+    # *rest_eyes_closed_icon* updates
+    if rest_eyes_closed_icon.status == NOT_STARTED and tThisFlip >= 160.0-frameTolerance:
+        # keep track of start time/frame for later
+        rest_eyes_closed_icon.frameNStart = frameN  # exact frame index
+        rest_eyes_closed_icon.tStart = t  # local t and not account for scr refresh
+        rest_eyes_closed_icon.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(rest_eyes_closed_icon, 'tStartRefresh')  # time at next scr refresh
+        rest_eyes_closed_icon.setAutoDraw(True)
+    if rest_eyes_closed_icon.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > rest_eyes_closed_icon.tStartRefresh + 120.0-frameTolerance:
+            # keep track of stop time/frame for later
+            rest_eyes_closed_icon.tStop = t  # not accounting for scr refresh
+            rest_eyes_closed_icon.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(rest_eyes_closed_icon, 'tStopRefresh')  # time at next scr refresh
+            rest_eyes_closed_icon.setAutoDraw(False)
+    # start/stop sound_1
+    if sound_1.status == NOT_STARTED and tThisFlip >= 279.0-frameTolerance:
+        # keep track of start time/frame for later
+        sound_1.frameNStart = frameN  # exact frame index
+        sound_1.tStart = t  # local t and not account for scr refresh
+        sound_1.tStartRefresh = tThisFlipGlobal  # on global time
+        sound_1.play(when=win)  # sync with win flip
+    if sound_1.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > sound_1.tStartRefresh + 1.0-frameTolerance:
+            # keep track of stop time/frame for later
+            sound_1.tStop = t  # not accounting for scr refresh
+            sound_1.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(sound_1, 'tStopRefresh')  # time at next scr refresh
+            sound_1.stop()
     
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -380,14 +761,28 @@ while continueRoutine:
 for thisComponent in enter_rest_stateComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-# the Routine "enter_rest_state" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
+thisExp.addData('resting_state_instructions.started', resting_state_instructions.tStartRefresh)
+thisExp.addData('resting_state_instructions.stopped', resting_state_instructions.tStopRefresh)
+thisExp.addData('rest_state_eyes_open.started', rest_state_eyes_open.tStartRefresh)
+thisExp.addData('rest_state_eyes_open.stopped', rest_state_eyes_open.tStopRefresh)
+thisExp.addData('rest_state_eyes_open_icon.started', rest_state_eyes_open_icon.tStartRefresh)
+thisExp.addData('rest_state_eyes_open_icon.stopped', rest_state_eyes_open_icon.tStopRefresh)
+thisExp.addData('rest_eyes_closed.started', rest_eyes_closed.tStartRefresh)
+thisExp.addData('rest_eyes_closed.stopped', rest_eyes_closed.tStopRefresh)
+thisExp.addData('rest_eyes_closed_icon.started', rest_eyes_closed_icon.tStartRefresh)
+thisExp.addData('rest_eyes_closed_icon.stopped', rest_eyes_closed_icon.tStopRefresh)
+sound_1.stop()  # ensure sound has stopped at end of routine
+thisExp.addData('sound_1.started', sound_1.tStartRefresh)
+thisExp.addData('sound_1.stopped', sound_1.tStopRefresh)
 
 # ------Prepare to start Routine "white_noise"-------
 continueRoutine = True
+routineTimer.add(30.000000)
 # update component parameters for each repeat
+intro_white_noise.setSound('res\\1 min wn.wav', secs=30.0, hamming=True)
+intro_white_noise.setVolume(1.0, log=False)
 # keep track of which components have finished
-white_noiseComponents = []
+white_noiseComponents = [intro_white_noise, first_instruction, first_eyes_instruction]
 for thisComponent in white_noiseComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -402,13 +797,62 @@ white_noiseClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
 frameN = -1
 
 # -------Run Routine "white_noise"-------
-while continueRoutine:
+while continueRoutine and routineTimer.getTime() > 0:
     # get current time
     t = white_noiseClock.getTime()
     tThisFlip = win.getFutureFlipTime(clock=white_noiseClock)
     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
+    # start/stop intro_white_noise
+    if intro_white_noise.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        intro_white_noise.frameNStart = frameN  # exact frame index
+        intro_white_noise.tStart = t  # local t and not account for scr refresh
+        intro_white_noise.tStartRefresh = tThisFlipGlobal  # on global time
+        intro_white_noise.play(when=win)  # sync with win flip
+    if intro_white_noise.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > intro_white_noise.tStartRefresh + 30.0-frameTolerance:
+            # keep track of stop time/frame for later
+            intro_white_noise.tStop = t  # not accounting for scr refresh
+            intro_white_noise.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(intro_white_noise, 'tStopRefresh')  # time at next scr refresh
+            intro_white_noise.stop()
+    
+    # *first_instruction* updates
+    if first_instruction.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        first_instruction.frameNStart = frameN  # exact frame index
+        first_instruction.tStart = t  # local t and not account for scr refresh
+        first_instruction.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(first_instruction, 'tStartRefresh')  # time at next scr refresh
+        first_instruction.setAutoDraw(True)
+    if first_instruction.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > first_instruction.tStartRefresh + 25.0-frameTolerance:
+            # keep track of stop time/frame for later
+            first_instruction.tStop = t  # not accounting for scr refresh
+            first_instruction.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(first_instruction, 'tStopRefresh')  # time at next scr refresh
+            first_instruction.setAutoDraw(False)
+    
+    # *first_eyes_instruction* updates
+    if first_eyes_instruction.status == NOT_STARTED and tThisFlip >= 25.0-frameTolerance:
+        # keep track of start time/frame for later
+        first_eyes_instruction.frameNStart = frameN  # exact frame index
+        first_eyes_instruction.tStart = t  # local t and not account for scr refresh
+        first_eyes_instruction.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(first_eyes_instruction, 'tStartRefresh')  # time at next scr refresh
+        first_eyes_instruction.setAutoDraw(True)
+    if first_eyes_instruction.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > first_eyes_instruction.tStartRefresh + 5.0-frameTolerance:
+            # keep track of stop time/frame for later
+            first_eyes_instruction.tStop = t  # not accounting for scr refresh
+            first_eyes_instruction.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(first_eyes_instruction, 'tStopRefresh')  # time at next scr refresh
+            first_eyes_instruction.setAutoDraw(False)
     
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -431,64 +875,68 @@ while continueRoutine:
 for thisComponent in white_noiseComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-# the Routine "white_noise" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
+intro_white_noise.stop()  # ensure sound has stopped at end of routine
+thisExp.addData('intro_white_noise.started', intro_white_noise.tStartRefresh)
+thisExp.addData('intro_white_noise.stopped', intro_white_noise.tStopRefresh)
+thisExp.addData('first_instruction.started', first_instruction.tStartRefresh)
+thisExp.addData('first_instruction.stopped', first_instruction.tStopRefresh)
+thisExp.addData('first_eyes_instruction.started', first_eyes_instruction.tStartRefresh)
+thisExp.addData('first_eyes_instruction.stopped', first_eyes_instruction.tStopRefresh)
 
 # set up handler to look after randomisation of conditions etc
-music_emotion_trial_eo_ec = data.TrialHandler(nReps=4.0, method='random', 
+phase_1 = data.TrialHandler(nReps=4.0, method='random', 
     extraInfo=expInfo, originPath=-1,
     trialList=[None],
-    seed=None, name='music_emotion_trial_eo_ec')
-thisExp.addLoop(music_emotion_trial_eo_ec)  # add the loop to the experiment
-thisMusic_emotion_trial_eo_ec = music_emotion_trial_eo_ec.trialList[0]  # so we can initialise stimuli with some values
-# abbreviate parameter names if possible (e.g. rgb = thisMusic_emotion_trial_eo_ec.rgb)
-if thisMusic_emotion_trial_eo_ec != None:
-    for paramName in thisMusic_emotion_trial_eo_ec:
-        exec('{} = thisMusic_emotion_trial_eo_ec[paramName]'.format(paramName))
+    seed=None, name='phase_1')
+thisExp.addLoop(phase_1)  # add the loop to the experiment
+thisPhase_1 = phase_1.trialList[0]  # so we can initialise stimuli with some values
+# abbreviate parameter names if possible (e.g. rgb = thisPhase_1.rgb)
+if thisPhase_1 != None:
+    for paramName in thisPhase_1:
+        exec('{} = thisPhase_1[paramName]'.format(paramName))
 
-for thisMusic_emotion_trial_eo_ec in music_emotion_trial_eo_ec:
-    currentLoop = music_emotion_trial_eo_ec
-    # abbreviate parameter names if possible (e.g. rgb = thisMusic_emotion_trial_eo_ec.rgb)
-    if thisMusic_emotion_trial_eo_ec != None:
-        for paramName in thisMusic_emotion_trial_eo_ec:
-            exec('{} = thisMusic_emotion_trial_eo_ec[paramName]'.format(paramName))
+for thisPhase_1 in phase_1:
+    currentLoop = phase_1
+    # abbreviate parameter names if possible (e.g. rgb = thisPhase_1.rgb)
+    if thisPhase_1 != None:
+        for paramName in thisPhase_1:
+            exec('{} = thisPhase_1[paramName]'.format(paramName))
     
-    # ------Prepare to start Routine "trial"-------
+    # ------Prepare to start Routine "trials_first_part"-------
     continueRoutine = True
     routineTimer.add(190.000000)
     # update component parameters for each repeat
-    song_one.setSound('res\\playlist\\song_1.ogg', secs=60.0, hamming=True)
+    song_one.setSound('', secs=60.0, hamming=True)
     song_one.setVolume(1.0, log=False)
-    joystick.oldButtonState = joystick.device.getAllButtons()[:]
-    joystick.activeButtons=[i for i in range(joystick.numButtons)]
-    # setup some python lists for storing info about the joystick
-    joystick.x = []
-    joystick.y = []
-    joystick.buttonLogs = [[] for i in range(joystick.numButtons)]
-    joystick.time = []
+    # setup some python lists for storing info about the mouse
+    mouse.x = []
+    mouse.y = []
+    mouse.leftButton = []
+    mouse.midButton = []
+    mouse.rightButton = []
+    mouse.time = []
     gotValidClick = False  # until a click is received
-    joystick.joystickClock.reset()
     open_eyes.setSound('A', secs=1.0, hamming=True)
     open_eyes.setVolume(0.5, log=False)
-    white_noise_rating.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
-    white_noise_rating.setVolume(1.0, log=False)
-    song_two.setSound('res\\playlist\\song_2.ogg', secs=60.0, hamming=True)
+    white_noise_one.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
+    white_noise_one.setVolume(0.7, log=False)
+    song_two.setSound('', secs=60.0, hamming=True)
     song_two.setVolume(1.0, log=False)
-    joystick_2.oldButtonState = joystick_2.device.getAllButtons()[:]
-    joystick_2.activeButtons=[i for i in range(joystick_2.numButtons)]
-    # setup some python lists for storing info about the joystick_2
-    joystick_2.x = []
-    joystick_2.y = []
-    joystick_2.buttonLogs = [[] for i in range(joystick_2.numButtons)]
-    joystick_2.time = []
+    # setup some python lists for storing info about the mouse_2
+    mouse_2.x = []
+    mouse_2.y = []
+    mouse_2.leftButton = []
+    mouse_2.midButton = []
+    mouse_2.rightButton = []
+    mouse_2.time = []
     gotValidClick = False  # until a click is received
-    eyes_open.setSound('A', secs=1.0, hamming=True)
-    eyes_open.setVolume(0.5, log=False)
-    white_noise_rating_two.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
-    white_noise_rating_two.setVolume(1.0, log=False)
+    open_eyes_two.setSound('A', secs=1.0, hamming=True)
+    open_eyes_two.setVolume(0.5, log=False)
+    white_noise_two.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
+    white_noise_two.setVolume(0.7, log=False)
     # keep track of which components have finished
-    trialComponents = [valence_arousal_space, reticle, song_one, joystick, open_eyes, song_one_rating, white_noise_rating, instruction_ec, eyes_closed, valence_arousal_space_2, song_two, reticle_2, joystick_2, eyes_open, song_two_rating, white_noise_rating_two, instruction_eo, eyes_open_2]
-    for thisComponent in trialComponents:
+    trials_first_partComponents = [valence_arousal_space, reticle, song_one, mouse, open_eyes, song_one_rating, white_noise_one, instruction_ec, eyes_closed, valence_arousal_space_2, song_two, reticle_2, mouse_2, open_eyes_two, song_two_rating, white_noise_two, instruction_eo, eyes_open_2]
+    for thisComponent in trials_first_partComponents:
         thisComponent.tStart = None
         thisComponent.tStop = None
         thisComponent.tStartRefresh = None
@@ -498,14 +946,14 @@ for thisMusic_emotion_trial_eo_ec in music_emotion_trial_eo_ec:
     # reset timers
     t = 0
     _timeToFirstFrame = win.getFutureFlipTime(clock="now")
-    trialClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
+    trials_first_partClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
     frameN = -1
     
-    # -------Run Routine "trial"-------
+    # -------Run Routine "trials_first_part"-------
     while continueRoutine and routineTimer.getTime() > 0:
         # get current time
-        t = trialClock.getTime()
-        tThisFlip = win.getFutureFlipTime(clock=trialClock)
+        t = trials_first_partClock.getTime()
+        tThisFlip = win.getFutureFlipTime(clock=trials_first_partClock)
         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
@@ -558,35 +1006,33 @@ for thisMusic_emotion_trial_eo_ec in music_emotion_trial_eo_ec:
                 song_one.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(song_one, 'tStopRefresh')  # time at next scr refresh
                 song_one.stop()
-        # *joystick* updates
-        if joystick.status == NOT_STARTED and t >= 0.0-frameTolerance:
+        # *mouse* updates
+        if mouse.status == NOT_STARTED and t >= 0.0-frameTolerance:
             # keep track of start time/frame for later
-            joystick.frameNStart = frameN  # exact frame index
-            joystick.tStart = t  # local t and not account for scr refresh
-            joystick.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(joystick, 'tStartRefresh')  # time at next scr refresh
-            joystick.status = STARTED
-        if joystick.status == STARTED:
+            mouse.frameNStart = frameN  # exact frame index
+            mouse.tStart = t  # local t and not account for scr refresh
+            mouse.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(mouse, 'tStartRefresh')  # time at next scr refresh
+            mouse.status = STARTED
+            mouse.mouseClock.reset()
+            prevButtonState = mouse.getPressed()  # if button is down already this ISN'T a new click
+        if mouse.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > joystick.tStartRefresh + 60.0-frameTolerance:
+            if tThisFlipGlobal > mouse.tStartRefresh + 60.0-frameTolerance:
                 # keep track of stop time/frame for later
-                joystick.tStop = t  # not accounting for scr refresh
-                joystick.frameNStop = frameN  # exact frame index
-                win.timeOnFlip(joystick, 'tStopRefresh')  # time at next scr refresh
-                joystick.status = FINISHED
-        if joystick.status == STARTED:  # only update if started and not finished!
-            joystick.newButtonState = joystick.getAllButtons()[:]
-            joystick.pressedButtons = [i for i in range(joystick.numButtons) if joystick.newButtonState[i] and not joystick.oldButtonState[i]]
-            joystick.releasedButtons = [i for i in range(joystick.numButtons) if not joystick.newButtonState[i] and joystick.oldButtonState[i]]
-            joystick.newPressedButtons = [i for i in joystick.activeButtons if i in joystick.pressedButtons]
-            joystick.buttons = joystick.newPressedButtons
-            [logging.data("joystick_{}_button: {}, pos=({:1.4f},{:1.4f})".format(joystick.device_number, i, joystick.getX(), joystick.getY()) for i in joystick.pressedButtons)]
-            x, y = clamp_stick(joystick.getX(), joystick.getY())
-            joystick.x = x
-            joystick.y = y
-            reticle.pos = get_clamped_position(joystick)
-            [joystick.buttonLogs[i].append(int(joystick.newButtonState[i])) for i in joystick.activeButtons]
-            joystick.time.append(joystick.joystickClock.getTime())
+                mouse.tStop = t  # not accounting for scr refresh
+                mouse.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(mouse, 'tStopRefresh')  # time at next scr refresh
+                mouse.status = FINISHED
+        if mouse.status == STARTED:  # only update if started and not finished!
+            x, y = mouse.getPos()
+            mouse.x.append(x)
+            mouse.y.append(y)
+            buttons = mouse.getPressed()
+            mouse.leftButton.append(buttons[0])
+            mouse.midButton.append(buttons[1])
+            mouse.rightButton.append(buttons[2])
+            mouse.time.append(mouse.mouseClock.getTime())
         # start/stop open_eyes
         if open_eyes.status == NOT_STARTED and tThisFlip >= 59.0-frameTolerance:
             # keep track of start time/frame for later
@@ -619,21 +1065,21 @@ for thisMusic_emotion_trial_eo_ec in music_emotion_trial_eo_ec:
                 song_one_rating.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(song_one_rating, 'tStopRefresh')  # time at next scr refresh
                 song_one_rating.setAutoDraw(False)
-        # start/stop white_noise_rating
-        if white_noise_rating.status == NOT_STARTED and tThisFlip >= 80.0-frameTolerance:
+        # start/stop white_noise_one
+        if white_noise_one.status == NOT_STARTED and tThisFlip >= 80.0-frameTolerance:
             # keep track of start time/frame for later
-            white_noise_rating.frameNStart = frameN  # exact frame index
-            white_noise_rating.tStart = t  # local t and not account for scr refresh
-            white_noise_rating.tStartRefresh = tThisFlipGlobal  # on global time
-            white_noise_rating.play(when=win)  # sync with win flip
-        if white_noise_rating.status == STARTED:
+            white_noise_one.frameNStart = frameN  # exact frame index
+            white_noise_one.tStart = t  # local t and not account for scr refresh
+            white_noise_one.tStartRefresh = tThisFlipGlobal  # on global time
+            white_noise_one.play(when=win)  # sync with win flip
+        if white_noise_one.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > white_noise_rating.tStartRefresh + 15.0-frameTolerance:
+            if tThisFlipGlobal > white_noise_one.tStartRefresh + 15.0-frameTolerance:
                 # keep track of stop time/frame for later
-                white_noise_rating.tStop = t  # not accounting for scr refresh
-                white_noise_rating.frameNStop = frameN  # exact frame index
-                win.timeOnFlip(white_noise_rating, 'tStopRefresh')  # time at next scr refresh
-                white_noise_rating.stop()
+                white_noise_one.tStop = t  # not accounting for scr refresh
+                white_noise_one.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(white_noise_one, 'tStopRefresh')  # time at next scr refresh
+                white_noise_one.stop()
         
         # *instruction_ec* updates
         if instruction_ec.status == NOT_STARTED and tThisFlip >= 80.0-frameTolerance:
@@ -717,51 +1163,48 @@ for thisMusic_emotion_trial_eo_ec in music_emotion_trial_eo_ec:
                 reticle_2.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(reticle_2, 'tStopRefresh')  # time at next scr refresh
                 reticle_2.setAutoDraw(False)
-        # *joystick_2* updates
-        if joystick_2.status == NOT_STARTED and t >= 95.0-frameTolerance:
+        # *mouse_2* updates
+        if mouse_2.status == NOT_STARTED and t >= 95.0-frameTolerance:
             # keep track of start time/frame for later
-            joystick_2.frameNStart = frameN  # exact frame index
-            joystick_2.tStart = t  # local t and not account for scr refresh
-            joystick_2.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(joystick_2, 'tStartRefresh')  # time at next scr refresh
-            joystick_2.status = STARTED
-            joystick_2.joystickClock.reset()
-        if joystick_2.status == STARTED:
+            mouse_2.frameNStart = frameN  # exact frame index
+            mouse_2.tStart = t  # local t and not account for scr refresh
+            mouse_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(mouse_2, 'tStartRefresh')  # time at next scr refresh
+            mouse_2.status = STARTED
+            mouse_2.mouseClock.reset()
+            prevButtonState = mouse_2.getPressed()  # if button is down already this ISN'T a new click
+        if mouse_2.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > joystick_2.tStartRefresh + 60.0-frameTolerance:
+            if tThisFlipGlobal > mouse_2.tStartRefresh + 60.0-frameTolerance:
                 # keep track of stop time/frame for later
-                joystick_2.tStop = t  # not accounting for scr refresh
-                joystick_2.frameNStop = frameN  # exact frame index
-                win.timeOnFlip(joystick_2, 'tStopRefresh')  # time at next scr refresh
-                joystick_2.status = FINISHED
-        if joystick_2.status == STARTED:  # only update if started and not finished!
-            joystick_2.newButtonState = joystick_2.getAllButtons()[:]
-            joystick_2.pressedButtons = [i for i in range(joystick_2.numButtons) if joystick_2.newButtonState[i] and not joystick_2.oldButtonState[i]]
-            joystick_2.releasedButtons = [i for i in range(joystick_2.numButtons) if not joystick_2.newButtonState[i] and joystick_2.oldButtonState[i]]
-            joystick_2.newPressedButtons = [i for i in joystick_2.activeButtons if i in joystick_2.pressedButtons]
-            joystick_2.buttons = joystick_2.newPressedButtons
-            [logging.data("joystick_{}_button: {}, pos=({:1.4f},{:1.4f})".format(joystick_2.device_number, i, joystick_2.getX(), joystick_2.getY()) for i in joystick_2.pressedButtons)]
-            x, y = clamp_stick(joystick_2.getX(), joystick_2.getY())
-            joystick_2.x = x
-            joystick_2.y = y
-            reticle_2.pos = get_clamped_position(joystick_2)
-            [joystick_2.buttonLogs[i].append(int(joystick_2.newButtonState[i])) for i in joystick_2.activeButtons]
-            joystick_2.time.append(joystick_2.joystickClock.getTime())
-        # start/stop eyes_open
-        if eyes_open.status == NOT_STARTED and tThisFlip >= 154.0-frameTolerance:
+                mouse_2.tStop = t  # not accounting for scr refresh
+                mouse_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(mouse_2, 'tStopRefresh')  # time at next scr refresh
+                mouse_2.status = FINISHED
+        if mouse_2.status == STARTED:  # only update if started and not finished!
+            x, y = mouse_2.getPos()
+            mouse_2.x.append(x)
+            mouse_2.y.append(y)
+            buttons = mouse_2.getPressed()
+            mouse_2.leftButton.append(buttons[0])
+            mouse_2.midButton.append(buttons[1])
+            mouse_2.rightButton.append(buttons[2])
+            mouse_2.time.append(mouse_2.mouseClock.getTime())
+        # start/stop open_eyes_two
+        if open_eyes_two.status == NOT_STARTED and tThisFlip >= 154.0-frameTolerance:
             # keep track of start time/frame for later
-            eyes_open.frameNStart = frameN  # exact frame index
-            eyes_open.tStart = t  # local t and not account for scr refresh
-            eyes_open.tStartRefresh = tThisFlipGlobal  # on global time
-            eyes_open.play(when=win)  # sync with win flip
-        if eyes_open.status == STARTED:
+            open_eyes_two.frameNStart = frameN  # exact frame index
+            open_eyes_two.tStart = t  # local t and not account for scr refresh
+            open_eyes_two.tStartRefresh = tThisFlipGlobal  # on global time
+            open_eyes_two.play(when=win)  # sync with win flip
+        if open_eyes_two.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > eyes_open.tStartRefresh + 1.0-frameTolerance:
+            if tThisFlipGlobal > open_eyes_two.tStartRefresh + 1.0-frameTolerance:
                 # keep track of stop time/frame for later
-                eyes_open.tStop = t  # not accounting for scr refresh
-                eyes_open.frameNStop = frameN  # exact frame index
-                win.timeOnFlip(eyes_open, 'tStopRefresh')  # time at next scr refresh
-                eyes_open.stop()
+                open_eyes_two.tStop = t  # not accounting for scr refresh
+                open_eyes_two.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(open_eyes_two, 'tStopRefresh')  # time at next scr refresh
+                open_eyes_two.stop()
         
         # *song_two_rating* updates
         if song_two_rating.status == NOT_STARTED and tThisFlip >= 155.0-frameTolerance:
@@ -779,21 +1222,21 @@ for thisMusic_emotion_trial_eo_ec in music_emotion_trial_eo_ec:
                 song_two_rating.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(song_two_rating, 'tStopRefresh')  # time at next scr refresh
                 song_two_rating.setAutoDraw(False)
-        # start/stop white_noise_rating_two
-        if white_noise_rating_two.status == NOT_STARTED and tThisFlip >= 175.0-frameTolerance:
+        # start/stop white_noise_two
+        if white_noise_two.status == NOT_STARTED and tThisFlip >= 175.0-frameTolerance:
             # keep track of start time/frame for later
-            white_noise_rating_two.frameNStart = frameN  # exact frame index
-            white_noise_rating_two.tStart = t  # local t and not account for scr refresh
-            white_noise_rating_two.tStartRefresh = tThisFlipGlobal  # on global time
-            white_noise_rating_two.play(when=win)  # sync with win flip
-        if white_noise_rating_two.status == STARTED:
+            white_noise_two.frameNStart = frameN  # exact frame index
+            white_noise_two.tStart = t  # local t and not account for scr refresh
+            white_noise_two.tStartRefresh = tThisFlipGlobal  # on global time
+            white_noise_two.play(when=win)  # sync with win flip
+        if white_noise_two.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > white_noise_rating_two.tStartRefresh + 15.0-frameTolerance:
+            if tThisFlipGlobal > white_noise_two.tStartRefresh + 15.0-frameTolerance:
                 # keep track of stop time/frame for later
-                white_noise_rating_two.tStop = t  # not accounting for scr refresh
-                white_noise_rating_two.frameNStop = frameN  # exact frame index
-                win.timeOnFlip(white_noise_rating_two, 'tStopRefresh')  # time at next scr refresh
-                white_noise_rating_two.stop()
+                white_noise_two.tStop = t  # not accounting for scr refresh
+                white_noise_two.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(white_noise_two, 'tStopRefresh')  # time at next scr refresh
+                white_noise_two.stop()
         
         # *instruction_eo* updates
         if instruction_eo.status == NOT_STARTED and tThisFlip >= 175.0-frameTolerance:
@@ -837,7 +1280,7 @@ for thisMusic_emotion_trial_eo_ec in music_emotion_trial_eo_ec:
         if not continueRoutine:  # a component has requested a forced-end of Routine
             break
         continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in trialComponents:
+        for thisComponent in trials_first_partComponents:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
@@ -846,84 +1289,789 @@ for thisMusic_emotion_trial_eo_ec in music_emotion_trial_eo_ec:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    # -------Ending Routine "trial"-------
-    for thisComponent in trialComponents:
+    # -------Ending Routine "trials_first_part"-------
+    for thisComponent in trials_first_partComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
-    music_emotion_trial_eo_ec.addData('valence_arousal_space.started', valence_arousal_space.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('valence_arousal_space.stopped', valence_arousal_space.tStopRefresh)
-    music_emotion_trial_eo_ec.addData('reticle.started', reticle.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('reticle.stopped', reticle.tStopRefresh)
+    phase_1.addData('valence_arousal_space.started', valence_arousal_space.tStartRefresh)
+    phase_1.addData('valence_arousal_space.stopped', valence_arousal_space.tStopRefresh)
+    phase_1.addData('reticle.started', reticle.tStartRefresh)
+    phase_1.addData('reticle.stopped', reticle.tStopRefresh)
     song_one.stop()  # ensure sound has stopped at end of routine
-    music_emotion_trial_eo_ec.addData('song_one.started', song_one.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('song_one.stopped', song_one.tStopRefresh)
-    # store data for music_emotion_trial_eo_ec (TrialHandler)
-    music_emotion_trial_eo_ec.addData('joystick.x', joystick.x)
-    music_emotion_trial_eo_ec.addData('joystick.y', joystick.y)
-    music_emotion_trial_eo_ec.addData('joystick.time', joystick.time)
-    [music_emotion_trial_eo_ec.addData('joystick.button_{0}'.format(i), joystick.buttonLogs[i]) for i in joystick.activeButtons if len(joystick.buttonLogs[i])]
-    music_emotion_trial_eo_ec.addData('joystick.started', joystick.tStart)
-    music_emotion_trial_eo_ec.addData('joystick.stopped', joystick.tStop)
+    phase_1.addData('song_one.started', song_one.tStartRefresh)
+    phase_1.addData('song_one.stopped', song_one.tStopRefresh)
+    # store data for phase_1 (TrialHandler)
+    phase_1.addData('mouse.x', mouse.x)
+    phase_1.addData('mouse.y', mouse.y)
+    phase_1.addData('mouse.leftButton', mouse.leftButton)
+    phase_1.addData('mouse.midButton', mouse.midButton)
+    phase_1.addData('mouse.rightButton', mouse.rightButton)
+    phase_1.addData('mouse.time', mouse.time)
+    phase_1.addData('mouse.started', mouse.tStart)
+    phase_1.addData('mouse.stopped', mouse.tStop)
     open_eyes.stop()  # ensure sound has stopped at end of routine
-    music_emotion_trial_eo_ec.addData('open_eyes.started', open_eyes.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('open_eyes.stopped', open_eyes.tStopRefresh)
+    phase_1.addData('open_eyes.started', open_eyes.tStartRefresh)
+    phase_1.addData('open_eyes.stopped', open_eyes.tStopRefresh)
     song_one_rating.addDataToExp(thisExp, 'rows')
     song_one_rating.autodraw = False
-    white_noise_rating.stop()  # ensure sound has stopped at end of routine
-    music_emotion_trial_eo_ec.addData('white_noise_rating.started', white_noise_rating.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('white_noise_rating.stopped', white_noise_rating.tStopRefresh)
-    music_emotion_trial_eo_ec.addData('instruction_ec.started', instruction_ec.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('instruction_ec.stopped', instruction_ec.tStopRefresh)
-    music_emotion_trial_eo_ec.addData('eyes_closed.started', eyes_closed.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('eyes_closed.stopped', eyes_closed.tStopRefresh)
-    music_emotion_trial_eo_ec.addData('valence_arousal_space_2.started', valence_arousal_space_2.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('valence_arousal_space_2.stopped', valence_arousal_space_2.tStopRefresh)
+    white_noise_one.stop()  # ensure sound has stopped at end of routine
+    phase_1.addData('white_noise_one.started', white_noise_one.tStartRefresh)
+    phase_1.addData('white_noise_one.stopped', white_noise_one.tStopRefresh)
+    phase_1.addData('instruction_ec.started', instruction_ec.tStartRefresh)
+    phase_1.addData('instruction_ec.stopped', instruction_ec.tStopRefresh)
+    phase_1.addData('eyes_closed.started', eyes_closed.tStartRefresh)
+    phase_1.addData('eyes_closed.stopped', eyes_closed.tStopRefresh)
+    phase_1.addData('valence_arousal_space_2.started', valence_arousal_space_2.tStartRefresh)
+    phase_1.addData('valence_arousal_space_2.stopped', valence_arousal_space_2.tStopRefresh)
     song_two.stop()  # ensure sound has stopped at end of routine
-    music_emotion_trial_eo_ec.addData('song_two.started', song_two.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('song_two.stopped', song_two.tStopRefresh)
-    music_emotion_trial_eo_ec.addData('reticle_2.started', reticle_2.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('reticle_2.stopped', reticle_2.tStopRefresh)
-    # store data for music_emotion_trial_eo_ec (TrialHandler)
-    music_emotion_trial_eo_ec.addData('joystick_2.x', joystick_2.x)
-    music_emotion_trial_eo_ec.addData('joystick_2.y', joystick_2.y)
-    music_emotion_trial_eo_ec.addData('joystick_2.time', joystick_2.time)
-    [music_emotion_trial_eo_ec.addData('joystick_2.button_{0}'.format(i), joystick_2.buttonLogs[i]) for i in joystick_2.activeButtons if len(joystick_2.buttonLogs[i])]
-    music_emotion_trial_eo_ec.addData('joystick_2.started', joystick_2.tStart)
-    music_emotion_trial_eo_ec.addData('joystick_2.stopped', joystick_2.tStop)
-    eyes_open.stop()  # ensure sound has stopped at end of routine
-    music_emotion_trial_eo_ec.addData('eyes_open.started', eyes_open.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('eyes_open.stopped', eyes_open.tStopRefresh)
+    phase_1.addData('song_two.started', song_two.tStartRefresh)
+    phase_1.addData('song_two.stopped', song_two.tStopRefresh)
+    phase_1.addData('reticle_2.started', reticle_2.tStartRefresh)
+    phase_1.addData('reticle_2.stopped', reticle_2.tStopRefresh)
+    # store data for phase_1 (TrialHandler)
+    phase_1.addData('mouse_2.x', mouse_2.x)
+    phase_1.addData('mouse_2.y', mouse_2.y)
+    phase_1.addData('mouse_2.leftButton', mouse_2.leftButton)
+    phase_1.addData('mouse_2.midButton', mouse_2.midButton)
+    phase_1.addData('mouse_2.rightButton', mouse_2.rightButton)
+    phase_1.addData('mouse_2.time', mouse_2.time)
+    phase_1.addData('mouse_2.started', mouse_2.tStart)
+    phase_1.addData('mouse_2.stopped', mouse_2.tStop)
+    open_eyes_two.stop()  # ensure sound has stopped at end of routine
+    phase_1.addData('open_eyes_two.started', open_eyes_two.tStartRefresh)
+    phase_1.addData('open_eyes_two.stopped', open_eyes_two.tStopRefresh)
     song_two_rating.addDataToExp(thisExp, 'rows')
     song_two_rating.autodraw = False
-    white_noise_rating_two.stop()  # ensure sound has stopped at end of routine
-    music_emotion_trial_eo_ec.addData('white_noise_rating_two.started', white_noise_rating_two.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('white_noise_rating_two.stopped', white_noise_rating_two.tStopRefresh)
-    music_emotion_trial_eo_ec.addData('instruction_eo.started', instruction_eo.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('instruction_eo.stopped', instruction_eo.tStopRefresh)
-    music_emotion_trial_eo_ec.addData('eyes_open_2.started', eyes_open_2.tStartRefresh)
-    music_emotion_trial_eo_ec.addData('eyes_open_2.stopped', eyes_open_2.tStopRefresh)
+    white_noise_two.stop()  # ensure sound has stopped at end of routine
+    phase_1.addData('white_noise_two.started', white_noise_two.tStartRefresh)
+    phase_1.addData('white_noise_two.stopped', white_noise_two.tStopRefresh)
+    phase_1.addData('instruction_eo.started', instruction_eo.tStartRefresh)
+    phase_1.addData('instruction_eo.stopped', instruction_eo.tStopRefresh)
+    phase_1.addData('eyes_open_2.started', eyes_open_2.tStartRefresh)
+    phase_1.addData('eyes_open_2.stopped', eyes_open_2.tStopRefresh)
     thisExp.nextEntry()
     
-# completed 4.0 repeats of 'music_emotion_trial_eo_ec'
+# completed 4.0 repeats of 'phase_1'
 
 # get names of stimulus parameters
-if music_emotion_trial_eo_ec.trialList in ([], [None], None):
+if phase_1.trialList in ([], [None], None):
     params = []
 else:
-    params = music_emotion_trial_eo_ec.trialList[0].keys()
+    params = phase_1.trialList[0].keys()
 # save data for this loop
-music_emotion_trial_eo_ec.saveAsExcel(filename + '.xlsx', sheetName='music_emotion_trial_eo_ec',
+phase_1.saveAsExcel(filename + '.xlsx', sheetName='phase_1',
     stimOut=params,
     dataOut=['n','all_mean','all_std', 'all_raw'])
-music_emotion_trial_eo_ec.saveAsText(filename + 'music_emotion_trial_eo_ec.csv', delim=',',
+phase_1.saveAsText(filename + 'phase_1.csv', delim=',',
+    stimOut=params,
+    dataOut=['n','all_mean','all_std', 'all_raw'])
+
+# ------Prepare to start Routine "mid_break"-------
+continueRoutine = True
+# update component parameters for each repeat
+# keep track of which components have finished
+mid_breakComponents = [break_instruction, resume_experiment]
+for thisComponent in mid_breakComponents:
+    thisComponent.tStart = None
+    thisComponent.tStop = None
+    thisComponent.tStartRefresh = None
+    thisComponent.tStopRefresh = None
+    if hasattr(thisComponent, 'status'):
+        thisComponent.status = NOT_STARTED
+# reset timers
+t = 0
+_timeToFirstFrame = win.getFutureFlipTime(clock="now")
+mid_breakClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
+frameN = -1
+
+# -------Run Routine "mid_break"-------
+while continueRoutine:
+    # get current time
+    t = mid_breakClock.getTime()
+    tThisFlip = win.getFutureFlipTime(clock=mid_breakClock)
+    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+    # update/draw components on each frame
+    
+    # *break_instruction* updates
+    if break_instruction.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        break_instruction.frameNStart = frameN  # exact frame index
+        break_instruction.tStart = t  # local t and not account for scr refresh
+        break_instruction.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(break_instruction, 'tStartRefresh')  # time at next scr refresh
+        break_instruction.setAutoDraw(True)
+    if break_instruction.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > break_instruction.tStartRefresh + 15.0-frameTolerance:
+            # keep track of stop time/frame for later
+            break_instruction.tStop = t  # not accounting for scr refresh
+            break_instruction.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(break_instruction, 'tStopRefresh')  # time at next scr refresh
+            break_instruction.setAutoDraw(False)
+    
+    # *resume_experiment* updates
+    if resume_experiment.status == NOT_STARTED and tThisFlip >= 15.0-frameTolerance:
+        # keep track of start time/frame for later
+        resume_experiment.frameNStart = frameN  # exact frame index
+        resume_experiment.tStart = t  # local t and not account for scr refresh
+        resume_experiment.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(resume_experiment, 'tStartRefresh')  # time at next scr refresh
+        resume_experiment.setAutoDraw(True)
+    if resume_experiment.status == STARTED:
+        # check whether resume_experiment has been pressed
+        if resume_experiment.isClicked:
+            if not resume_experiment.wasClicked:
+                resume_experiment.timesOn.append(resume_experiment.buttonClock.getTime()) # store time of first click
+                resume_experiment.timesOff.append(resume_experiment.buttonClock.getTime()) # store time clicked until
+            else:
+                resume_experiment.timesOff[-1] = resume_experiment.buttonClock.getTime() # update time clicked until
+            if not resume_experiment.wasClicked:
+                continueRoutine = False  # end routine when resume_experiment is clicked
+                None
+            resume_experiment.wasClicked = True  # if resume_experiment is still clicked next frame, it is not a new click
+        else:
+            resume_experiment.wasClicked = False  # if resume_experiment is clicked next frame, it is a new click
+    else:
+        resume_experiment.buttonClock.reset() # keep clock at 0 if button hasn't started / has finished
+        resume_experiment.wasClicked = False  # if resume_experiment is clicked next frame, it is a new click
+    
+    # check for quit (typically the Esc key)
+    if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+        core.quit()
+    
+    # check if all components have finished
+    if not continueRoutine:  # a component has requested a forced-end of Routine
+        break
+    continueRoutine = False  # will revert to True if at least one component still running
+    for thisComponent in mid_breakComponents:
+        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+            continueRoutine = True
+            break  # at least one component has not yet finished
+    
+    # refresh the screen
+    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+        win.flip()
+
+# -------Ending Routine "mid_break"-------
+for thisComponent in mid_breakComponents:
+    if hasattr(thisComponent, "setAutoDraw"):
+        thisComponent.setAutoDraw(False)
+thisExp.addData('break_instruction.started', break_instruction.tStartRefresh)
+thisExp.addData('break_instruction.stopped', break_instruction.tStopRefresh)
+thisExp.addData('resume_experiment.started', resume_experiment.tStartRefresh)
+thisExp.addData('resume_experiment.stopped', resume_experiment.tStopRefresh)
+thisExp.addData('resume_experiment.numClicks', resume_experiment.numClicks)
+if resume_experiment.numClicks:
+   thisExp.addData('resume_experiment.timesOn', resume_experiment.timesOn)
+   thisExp.addData('resume_experiment.timesOff', resume_experiment.timesOff)
+else:
+   thisExp.addData('resume_experiment.timesOn', "")
+   thisExp.addData('resume_experiment.timesOff', "")
+# the Routine "mid_break" was not non-slip safe, so reset the non-slip timer
+routineTimer.reset()
+
+# ------Prepare to start Routine "white_noise_break"-------
+continueRoutine = True
+routineTimer.add(20.000000)
+# update component parameters for each repeat
+after_break_white_noise.setSound('res\\1 min wn.wav', secs=20.0, hamming=True)
+after_break_white_noise.setVolume(1.0, log=False)
+# keep track of which components have finished
+white_noise_breakComponents = [after_break_white_noise, after_break_instruction, first_eyes_instruction_2]
+for thisComponent in white_noise_breakComponents:
+    thisComponent.tStart = None
+    thisComponent.tStop = None
+    thisComponent.tStartRefresh = None
+    thisComponent.tStopRefresh = None
+    if hasattr(thisComponent, 'status'):
+        thisComponent.status = NOT_STARTED
+# reset timers
+t = 0
+_timeToFirstFrame = win.getFutureFlipTime(clock="now")
+white_noise_breakClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
+frameN = -1
+
+# -------Run Routine "white_noise_break"-------
+while continueRoutine and routineTimer.getTime() > 0:
+    # get current time
+    t = white_noise_breakClock.getTime()
+    tThisFlip = win.getFutureFlipTime(clock=white_noise_breakClock)
+    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+    # update/draw components on each frame
+    # start/stop after_break_white_noise
+    if after_break_white_noise.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        after_break_white_noise.frameNStart = frameN  # exact frame index
+        after_break_white_noise.tStart = t  # local t and not account for scr refresh
+        after_break_white_noise.tStartRefresh = tThisFlipGlobal  # on global time
+        after_break_white_noise.play(when=win)  # sync with win flip
+    if after_break_white_noise.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > after_break_white_noise.tStartRefresh + 20.0-frameTolerance:
+            # keep track of stop time/frame for later
+            after_break_white_noise.tStop = t  # not accounting for scr refresh
+            after_break_white_noise.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(after_break_white_noise, 'tStopRefresh')  # time at next scr refresh
+            after_break_white_noise.stop()
+    
+    # *after_break_instruction* updates
+    if after_break_instruction.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        after_break_instruction.frameNStart = frameN  # exact frame index
+        after_break_instruction.tStart = t  # local t and not account for scr refresh
+        after_break_instruction.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(after_break_instruction, 'tStartRefresh')  # time at next scr refresh
+        after_break_instruction.setAutoDraw(True)
+    if after_break_instruction.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > after_break_instruction.tStartRefresh + 15.0-frameTolerance:
+            # keep track of stop time/frame for later
+            after_break_instruction.tStop = t  # not accounting for scr refresh
+            after_break_instruction.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(after_break_instruction, 'tStopRefresh')  # time at next scr refresh
+            after_break_instruction.setAutoDraw(False)
+    
+    # *first_eyes_instruction_2* updates
+    if first_eyes_instruction_2.status == NOT_STARTED and tThisFlip >= 15.0-frameTolerance:
+        # keep track of start time/frame for later
+        first_eyes_instruction_2.frameNStart = frameN  # exact frame index
+        first_eyes_instruction_2.tStart = t  # local t and not account for scr refresh
+        first_eyes_instruction_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(first_eyes_instruction_2, 'tStartRefresh')  # time at next scr refresh
+        first_eyes_instruction_2.setAutoDraw(True)
+    if first_eyes_instruction_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > first_eyes_instruction_2.tStartRefresh + 5.0-frameTolerance:
+            # keep track of stop time/frame for later
+            first_eyes_instruction_2.tStop = t  # not accounting for scr refresh
+            first_eyes_instruction_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(first_eyes_instruction_2, 'tStopRefresh')  # time at next scr refresh
+            first_eyes_instruction_2.setAutoDraw(False)
+    
+    # check for quit (typically the Esc key)
+    if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+        core.quit()
+    
+    # check if all components have finished
+    if not continueRoutine:  # a component has requested a forced-end of Routine
+        break
+    continueRoutine = False  # will revert to True if at least one component still running
+    for thisComponent in white_noise_breakComponents:
+        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+            continueRoutine = True
+            break  # at least one component has not yet finished
+    
+    # refresh the screen
+    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+        win.flip()
+
+# -------Ending Routine "white_noise_break"-------
+for thisComponent in white_noise_breakComponents:
+    if hasattr(thisComponent, "setAutoDraw"):
+        thisComponent.setAutoDraw(False)
+after_break_white_noise.stop()  # ensure sound has stopped at end of routine
+thisExp.addData('after_break_white_noise.started', after_break_white_noise.tStartRefresh)
+thisExp.addData('after_break_white_noise.stopped', after_break_white_noise.tStopRefresh)
+thisExp.addData('after_break_instruction.started', after_break_instruction.tStartRefresh)
+thisExp.addData('after_break_instruction.stopped', after_break_instruction.tStopRefresh)
+thisExp.addData('first_eyes_instruction_2.started', first_eyes_instruction_2.tStartRefresh)
+thisExp.addData('first_eyes_instruction_2.stopped', first_eyes_instruction_2.tStopRefresh)
+
+# set up handler to look after randomisation of conditions etc
+phase_2 = data.TrialHandler(nReps=4.0, method='random', 
+    extraInfo=expInfo, originPath=-1,
+    trialList=[None],
+    seed=None, name='phase_2')
+thisExp.addLoop(phase_2)  # add the loop to the experiment
+thisPhase_2 = phase_2.trialList[0]  # so we can initialise stimuli with some values
+# abbreviate parameter names if possible (e.g. rgb = thisPhase_2.rgb)
+if thisPhase_2 != None:
+    for paramName in thisPhase_2:
+        exec('{} = thisPhase_2[paramName]'.format(paramName))
+
+for thisPhase_2 in phase_2:
+    currentLoop = phase_2
+    # abbreviate parameter names if possible (e.g. rgb = thisPhase_2.rgb)
+    if thisPhase_2 != None:
+        for paramName in thisPhase_2:
+            exec('{} = thisPhase_2[paramName]'.format(paramName))
+    
+    # ------Prepare to start Routine "trials_second_part"-------
+    continueRoutine = True
+    routineTimer.add(190.000000)
+    # update component parameters for each repeat
+    song_one_2.setSound('', secs=60.0, hamming=True)
+    song_one_2.setVolume(1.0, log=False)
+    # setup some python lists for storing info about the mouse_3
+    mouse_3.x = []
+    mouse_3.y = []
+    mouse_3.leftButton = []
+    mouse_3.midButton = []
+    mouse_3.rightButton = []
+    mouse_3.time = []
+    gotValidClick = False  # until a click is received
+    open_eyes_2.setSound('A', secs=1.0, hamming=True)
+    open_eyes_2.setVolume(0.5, log=False)
+    white_noise_one_2.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
+    white_noise_one_2.setVolume(0.7, log=False)
+    song_two_2.setSound('', secs=60.0, hamming=True)
+    song_two_2.setVolume(1.0, log=False)
+    # setup some python lists for storing info about the mouse_4
+    mouse_4.x = []
+    mouse_4.y = []
+    mouse_4.leftButton = []
+    mouse_4.midButton = []
+    mouse_4.rightButton = []
+    mouse_4.time = []
+    gotValidClick = False  # until a click is received
+    open_eyes_two_2.setSound('A', secs=1.0, hamming=True)
+    open_eyes_two_2.setVolume(0.5, log=False)
+    white_noise_two_2.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
+    white_noise_two_2.setVolume(0.7, log=False)
+    # keep track of which components have finished
+    trials_second_partComponents = [valence_arousal_space_3, reticle_3, song_one_2, mouse_3, open_eyes_2, song_one_rating_2, white_noise_one_2, instruction_ec_2, eyes_closed_2, valence_arousal_space_4, song_two_2, reticle_4, mouse_4, open_eyes_two_2, song_two_rating_2, white_noise_two_2, instruction_eo_2, eyes_open]
+    for thisComponent in trials_second_partComponents:
+        thisComponent.tStart = None
+        thisComponent.tStop = None
+        thisComponent.tStartRefresh = None
+        thisComponent.tStopRefresh = None
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    # reset timers
+    t = 0
+    _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+    trials_second_partClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
+    frameN = -1
+    
+    # -------Run Routine "trials_second_part"-------
+    while continueRoutine and routineTimer.getTime() > 0:
+        # get current time
+        t = trials_second_partClock.getTime()
+        tThisFlip = win.getFutureFlipTime(clock=trials_second_partClock)
+        tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *valence_arousal_space_3* updates
+        if valence_arousal_space_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            valence_arousal_space_3.frameNStart = frameN  # exact frame index
+            valence_arousal_space_3.tStart = t  # local t and not account for scr refresh
+            valence_arousal_space_3.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(valence_arousal_space_3, 'tStartRefresh')  # time at next scr refresh
+            valence_arousal_space_3.setAutoDraw(True)
+        if valence_arousal_space_3.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > valence_arousal_space_3.tStartRefresh + 60.0-frameTolerance:
+                # keep track of stop time/frame for later
+                valence_arousal_space_3.tStop = t  # not accounting for scr refresh
+                valence_arousal_space_3.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(valence_arousal_space_3, 'tStopRefresh')  # time at next scr refresh
+                valence_arousal_space_3.setAutoDraw(False)
+        
+        # *reticle_3* updates
+        if reticle_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            reticle_3.frameNStart = frameN  # exact frame index
+            reticle_3.tStart = t  # local t and not account for scr refresh
+            reticle_3.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(reticle_3, 'tStartRefresh')  # time at next scr refresh
+            reticle_3.setAutoDraw(True)
+        if reticle_3.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > reticle_3.tStartRefresh + 60.0-frameTolerance:
+                # keep track of stop time/frame for later
+                reticle_3.tStop = t  # not accounting for scr refresh
+                reticle_3.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(reticle_3, 'tStopRefresh')  # time at next scr refresh
+                reticle_3.setAutoDraw(False)
+        # start/stop song_one_2
+        if song_one_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            song_one_2.frameNStart = frameN  # exact frame index
+            song_one_2.tStart = t  # local t and not account for scr refresh
+            song_one_2.tStartRefresh = tThisFlipGlobal  # on global time
+            song_one_2.play(when=win)  # sync with win flip
+        if song_one_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > song_one_2.tStartRefresh + 60.0-frameTolerance:
+                # keep track of stop time/frame for later
+                song_one_2.tStop = t  # not accounting for scr refresh
+                song_one_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(song_one_2, 'tStopRefresh')  # time at next scr refresh
+                song_one_2.stop()
+        # *mouse_3* updates
+        if mouse_3.status == NOT_STARTED and t >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            mouse_3.frameNStart = frameN  # exact frame index
+            mouse_3.tStart = t  # local t and not account for scr refresh
+            mouse_3.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(mouse_3, 'tStartRefresh')  # time at next scr refresh
+            mouse_3.status = STARTED
+            mouse_3.mouseClock.reset()
+            prevButtonState = mouse_3.getPressed()  # if button is down already this ISN'T a new click
+        if mouse_3.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > mouse_3.tStartRefresh + 60.0-frameTolerance:
+                # keep track of stop time/frame for later
+                mouse_3.tStop = t  # not accounting for scr refresh
+                mouse_3.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(mouse_3, 'tStopRefresh')  # time at next scr refresh
+                mouse_3.status = FINISHED
+        if mouse_3.status == STARTED:  # only update if started and not finished!
+            x, y = mouse_3.getPos()
+            mouse_3.x.append(x)
+            mouse_3.y.append(y)
+            buttons = mouse_3.getPressed()
+            mouse_3.leftButton.append(buttons[0])
+            mouse_3.midButton.append(buttons[1])
+            mouse_3.rightButton.append(buttons[2])
+            mouse_3.time.append(mouse_3.mouseClock.getTime())
+        # start/stop open_eyes_2
+        if open_eyes_2.status == NOT_STARTED and tThisFlip >= 59.0-frameTolerance:
+            # keep track of start time/frame for later
+            open_eyes_2.frameNStart = frameN  # exact frame index
+            open_eyes_2.tStart = t  # local t and not account for scr refresh
+            open_eyes_2.tStartRefresh = tThisFlipGlobal  # on global time
+            open_eyes_2.play(when=win)  # sync with win flip
+        if open_eyes_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > open_eyes_2.tStartRefresh + 1.0-frameTolerance:
+                # keep track of stop time/frame for later
+                open_eyes_2.tStop = t  # not accounting for scr refresh
+                open_eyes_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(open_eyes_2, 'tStopRefresh')  # time at next scr refresh
+                open_eyes_2.stop()
+        
+        # *song_one_rating_2* updates
+        if song_one_rating_2.status == NOT_STARTED and tThisFlip >= 60.0-frameTolerance:
+            # keep track of start time/frame for later
+            song_one_rating_2.frameNStart = frameN  # exact frame index
+            song_one_rating_2.tStart = t  # local t and not account for scr refresh
+            song_one_rating_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(song_one_rating_2, 'tStartRefresh')  # time at next scr refresh
+            song_one_rating_2.setAutoDraw(True)
+        if song_one_rating_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > song_one_rating_2.tStartRefresh + 20.0-frameTolerance:
+                # keep track of stop time/frame for later
+                song_one_rating_2.tStop = t  # not accounting for scr refresh
+                song_one_rating_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(song_one_rating_2, 'tStopRefresh')  # time at next scr refresh
+                song_one_rating_2.setAutoDraw(False)
+        # start/stop white_noise_one_2
+        if white_noise_one_2.status == NOT_STARTED and tThisFlip >= 80.0-frameTolerance:
+            # keep track of start time/frame for later
+            white_noise_one_2.frameNStart = frameN  # exact frame index
+            white_noise_one_2.tStart = t  # local t and not account for scr refresh
+            white_noise_one_2.tStartRefresh = tThisFlipGlobal  # on global time
+            white_noise_one_2.play(when=win)  # sync with win flip
+        if white_noise_one_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > white_noise_one_2.tStartRefresh + 15.0-frameTolerance:
+                # keep track of stop time/frame for later
+                white_noise_one_2.tStop = t  # not accounting for scr refresh
+                white_noise_one_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(white_noise_one_2, 'tStopRefresh')  # time at next scr refresh
+                white_noise_one_2.stop()
+        
+        # *instruction_ec_2* updates
+        if instruction_ec_2.status == NOT_STARTED and tThisFlip >= 80.0-frameTolerance:
+            # keep track of start time/frame for later
+            instruction_ec_2.frameNStart = frameN  # exact frame index
+            instruction_ec_2.tStart = t  # local t and not account for scr refresh
+            instruction_ec_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(instruction_ec_2, 'tStartRefresh')  # time at next scr refresh
+            instruction_ec_2.setAutoDraw(True)
+        if instruction_ec_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > instruction_ec_2.tStartRefresh + 10.0-frameTolerance:
+                # keep track of stop time/frame for later
+                instruction_ec_2.tStop = t  # not accounting for scr refresh
+                instruction_ec_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(instruction_ec_2, 'tStopRefresh')  # time at next scr refresh
+                instruction_ec_2.setAutoDraw(False)
+        
+        # *eyes_closed_2* updates
+        if eyes_closed_2.status == NOT_STARTED and tThisFlip >= 90.0-frameTolerance:
+            # keep track of start time/frame for later
+            eyes_closed_2.frameNStart = frameN  # exact frame index
+            eyes_closed_2.tStart = t  # local t and not account for scr refresh
+            eyes_closed_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(eyes_closed_2, 'tStartRefresh')  # time at next scr refresh
+            eyes_closed_2.setAutoDraw(True)
+        if eyes_closed_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > eyes_closed_2.tStartRefresh + 5.0-frameTolerance:
+                # keep track of stop time/frame for later
+                eyes_closed_2.tStop = t  # not accounting for scr refresh
+                eyes_closed_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(eyes_closed_2, 'tStopRefresh')  # time at next scr refresh
+                eyes_closed_2.setAutoDraw(False)
+        
+        # *valence_arousal_space_4* updates
+        if valence_arousal_space_4.status == NOT_STARTED and tThisFlip >= 95.0-frameTolerance:
+            # keep track of start time/frame for later
+            valence_arousal_space_4.frameNStart = frameN  # exact frame index
+            valence_arousal_space_4.tStart = t  # local t and not account for scr refresh
+            valence_arousal_space_4.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(valence_arousal_space_4, 'tStartRefresh')  # time at next scr refresh
+            valence_arousal_space_4.setAutoDraw(True)
+        if valence_arousal_space_4.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > valence_arousal_space_4.tStartRefresh + 60.0-frameTolerance:
+                # keep track of stop time/frame for later
+                valence_arousal_space_4.tStop = t  # not accounting for scr refresh
+                valence_arousal_space_4.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(valence_arousal_space_4, 'tStopRefresh')  # time at next scr refresh
+                valence_arousal_space_4.setAutoDraw(False)
+        # start/stop song_two_2
+        if song_two_2.status == NOT_STARTED and tThisFlip >= 95.0-frameTolerance:
+            # keep track of start time/frame for later
+            song_two_2.frameNStart = frameN  # exact frame index
+            song_two_2.tStart = t  # local t and not account for scr refresh
+            song_two_2.tStartRefresh = tThisFlipGlobal  # on global time
+            song_two_2.play(when=win)  # sync with win flip
+        if song_two_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > song_two_2.tStartRefresh + 60.0-frameTolerance:
+                # keep track of stop time/frame for later
+                song_two_2.tStop = t  # not accounting for scr refresh
+                song_two_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(song_two_2, 'tStopRefresh')  # time at next scr refresh
+                song_two_2.stop()
+        
+        # *reticle_4* updates
+        if reticle_4.status == NOT_STARTED and tThisFlip >= 95.0-frameTolerance:
+            # keep track of start time/frame for later
+            reticle_4.frameNStart = frameN  # exact frame index
+            reticle_4.tStart = t  # local t and not account for scr refresh
+            reticle_4.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(reticle_4, 'tStartRefresh')  # time at next scr refresh
+            reticle_4.setAutoDraw(True)
+        if reticle_4.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > reticle_4.tStartRefresh + 60.0-frameTolerance:
+                # keep track of stop time/frame for later
+                reticle_4.tStop = t  # not accounting for scr refresh
+                reticle_4.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(reticle_4, 'tStopRefresh')  # time at next scr refresh
+                reticle_4.setAutoDraw(False)
+        # *mouse_4* updates
+        if mouse_4.status == NOT_STARTED and t >= 95.0-frameTolerance:
+            # keep track of start time/frame for later
+            mouse_4.frameNStart = frameN  # exact frame index
+            mouse_4.tStart = t  # local t and not account for scr refresh
+            mouse_4.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(mouse_4, 'tStartRefresh')  # time at next scr refresh
+            mouse_4.status = STARTED
+            mouse_4.mouseClock.reset()
+            prevButtonState = mouse_4.getPressed()  # if button is down already this ISN'T a new click
+        if mouse_4.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > mouse_4.tStartRefresh + 60.0-frameTolerance:
+                # keep track of stop time/frame for later
+                mouse_4.tStop = t  # not accounting for scr refresh
+                mouse_4.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(mouse_4, 'tStopRefresh')  # time at next scr refresh
+                mouse_4.status = FINISHED
+        if mouse_4.status == STARTED:  # only update if started and not finished!
+            x, y = mouse_4.getPos()
+            mouse_4.x.append(x)
+            mouse_4.y.append(y)
+            buttons = mouse_4.getPressed()
+            mouse_4.leftButton.append(buttons[0])
+            mouse_4.midButton.append(buttons[1])
+            mouse_4.rightButton.append(buttons[2])
+            mouse_4.time.append(mouse_4.mouseClock.getTime())
+        # start/stop open_eyes_two_2
+        if open_eyes_two_2.status == NOT_STARTED and tThisFlip >= 154.0-frameTolerance:
+            # keep track of start time/frame for later
+            open_eyes_two_2.frameNStart = frameN  # exact frame index
+            open_eyes_two_2.tStart = t  # local t and not account for scr refresh
+            open_eyes_two_2.tStartRefresh = tThisFlipGlobal  # on global time
+            open_eyes_two_2.play(when=win)  # sync with win flip
+        if open_eyes_two_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > open_eyes_two_2.tStartRefresh + 1.0-frameTolerance:
+                # keep track of stop time/frame for later
+                open_eyes_two_2.tStop = t  # not accounting for scr refresh
+                open_eyes_two_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(open_eyes_two_2, 'tStopRefresh')  # time at next scr refresh
+                open_eyes_two_2.stop()
+        
+        # *song_two_rating_2* updates
+        if song_two_rating_2.status == NOT_STARTED and tThisFlip >= 155.0-frameTolerance:
+            # keep track of start time/frame for later
+            song_two_rating_2.frameNStart = frameN  # exact frame index
+            song_two_rating_2.tStart = t  # local t and not account for scr refresh
+            song_two_rating_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(song_two_rating_2, 'tStartRefresh')  # time at next scr refresh
+            song_two_rating_2.setAutoDraw(True)
+        if song_two_rating_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > song_two_rating_2.tStartRefresh + 20.0-frameTolerance:
+                # keep track of stop time/frame for later
+                song_two_rating_2.tStop = t  # not accounting for scr refresh
+                song_two_rating_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(song_two_rating_2, 'tStopRefresh')  # time at next scr refresh
+                song_two_rating_2.setAutoDraw(False)
+        # start/stop white_noise_two_2
+        if white_noise_two_2.status == NOT_STARTED and tThisFlip >= 175.0-frameTolerance:
+            # keep track of start time/frame for later
+            white_noise_two_2.frameNStart = frameN  # exact frame index
+            white_noise_two_2.tStart = t  # local t and not account for scr refresh
+            white_noise_two_2.tStartRefresh = tThisFlipGlobal  # on global time
+            white_noise_two_2.play(when=win)  # sync with win flip
+        if white_noise_two_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > white_noise_two_2.tStartRefresh + 15.0-frameTolerance:
+                # keep track of stop time/frame for later
+                white_noise_two_2.tStop = t  # not accounting for scr refresh
+                white_noise_two_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(white_noise_two_2, 'tStopRefresh')  # time at next scr refresh
+                white_noise_two_2.stop()
+        
+        # *instruction_eo_2* updates
+        if instruction_eo_2.status == NOT_STARTED and tThisFlip >= 175.0-frameTolerance:
+            # keep track of start time/frame for later
+            instruction_eo_2.frameNStart = frameN  # exact frame index
+            instruction_eo_2.tStart = t  # local t and not account for scr refresh
+            instruction_eo_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(instruction_eo_2, 'tStartRefresh')  # time at next scr refresh
+            instruction_eo_2.setAutoDraw(True)
+        if instruction_eo_2.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > instruction_eo_2.tStartRefresh + 10.0-frameTolerance:
+                # keep track of stop time/frame for later
+                instruction_eo_2.tStop = t  # not accounting for scr refresh
+                instruction_eo_2.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(instruction_eo_2, 'tStopRefresh')  # time at next scr refresh
+                instruction_eo_2.setAutoDraw(False)
+        
+        # *eyes_open* updates
+        if eyes_open.status == NOT_STARTED and tThisFlip >= 185.0-frameTolerance:
+            # keep track of start time/frame for later
+            eyes_open.frameNStart = frameN  # exact frame index
+            eyes_open.tStart = t  # local t and not account for scr refresh
+            eyes_open.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(eyes_open, 'tStartRefresh')  # time at next scr refresh
+            eyes_open.setAutoDraw(True)
+        if eyes_open.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > eyes_open.tStartRefresh + 5.0-frameTolerance:
+                # keep track of stop time/frame for later
+                eyes_open.tStop = t  # not accounting for scr refresh
+                eyes_open.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(eyes_open, 'tStopRefresh')  # time at next scr refresh
+                eyes_open.setAutoDraw(False)
+        
+        # check for quit (typically the Esc key)
+        if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in trials_second_partComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "trials_second_part"-------
+    for thisComponent in trials_second_partComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    thisExp.addData('valence_arousal_space_3.started', valence_arousal_space_3.tStartRefresh)
+    thisExp.addData('valence_arousal_space_3.stopped', valence_arousal_space_3.tStopRefresh)
+    thisExp.addData('reticle_3.started', reticle_3.tStartRefresh)
+    thisExp.addData('reticle_3.stopped', reticle_3.tStopRefresh)
+    song_one_2.stop()  # ensure sound has stopped at end of routine
+    thisExp.addData('song_one_2.started', song_one_2.tStartRefresh)
+    thisExp.addData('song_one_2.stopped', song_one_2.tStopRefresh)
+    # store data for thisExp (ExperimentHandler)
+    thisExp.addData('mouse_3.x', mouse_3.x)
+    thisExp.addData('mouse_3.y', mouse_3.y)
+    thisExp.addData('mouse_3.leftButton', mouse_3.leftButton)
+    thisExp.addData('mouse_3.midButton', mouse_3.midButton)
+    thisExp.addData('mouse_3.rightButton', mouse_3.rightButton)
+    thisExp.addData('mouse_3.time', mouse_3.time)
+    thisExp.addData('mouse_3.started', mouse_3.tStart)
+    thisExp.addData('mouse_3.stopped', mouse_3.tStop)
+    thisExp.nextEntry()
+    open_eyes_2.stop()  # ensure sound has stopped at end of routine
+    thisExp.addData('open_eyes_2.started', open_eyes_2.tStartRefresh)
+    thisExp.addData('open_eyes_2.stopped', open_eyes_2.tStopRefresh)
+    song_one_rating_2.addDataToExp(thisExp, 'rows')
+    song_one_rating_2.autodraw = False
+    white_noise_one_2.stop()  # ensure sound has stopped at end of routine
+    thisExp.addData('white_noise_one_2.started', white_noise_one_2.tStartRefresh)
+    thisExp.addData('white_noise_one_2.stopped', white_noise_one_2.tStopRefresh)
+    thisExp.addData('instruction_ec_2.started', instruction_ec_2.tStartRefresh)
+    thisExp.addData('instruction_ec_2.stopped', instruction_ec_2.tStopRefresh)
+    thisExp.addData('eyes_closed_2.started', eyes_closed_2.tStartRefresh)
+    thisExp.addData('eyes_closed_2.stopped', eyes_closed_2.tStopRefresh)
+    thisExp.addData('valence_arousal_space_4.started', valence_arousal_space_4.tStartRefresh)
+    thisExp.addData('valence_arousal_space_4.stopped', valence_arousal_space_4.tStopRefresh)
+    song_two_2.stop()  # ensure sound has stopped at end of routine
+    thisExp.addData('song_two_2.started', song_two_2.tStartRefresh)
+    thisExp.addData('song_two_2.stopped', song_two_2.tStopRefresh)
+    thisExp.addData('reticle_4.started', reticle_4.tStartRefresh)
+    thisExp.addData('reticle_4.stopped', reticle_4.tStopRefresh)
+    # store data for thisExp (ExperimentHandler)
+    thisExp.addData('mouse_4.x', mouse_4.x)
+    thisExp.addData('mouse_4.y', mouse_4.y)
+    thisExp.addData('mouse_4.leftButton', mouse_4.leftButton)
+    thisExp.addData('mouse_4.midButton', mouse_4.midButton)
+    thisExp.addData('mouse_4.rightButton', mouse_4.rightButton)
+    thisExp.addData('mouse_4.time', mouse_4.time)
+    thisExp.addData('mouse_4.started', mouse_4.tStart)
+    thisExp.addData('mouse_4.stopped', mouse_4.tStop)
+    thisExp.nextEntry()
+    open_eyes_two_2.stop()  # ensure sound has stopped at end of routine
+    thisExp.addData('open_eyes_two_2.started', open_eyes_two_2.tStartRefresh)
+    thisExp.addData('open_eyes_two_2.stopped', open_eyes_two_2.tStopRefresh)
+    song_two_rating_2.addDataToExp(thisExp, 'rows')
+    song_two_rating_2.autodraw = False
+    white_noise_two_2.stop()  # ensure sound has stopped at end of routine
+    thisExp.addData('white_noise_two_2.started', white_noise_two_2.tStartRefresh)
+    thisExp.addData('white_noise_two_2.stopped', white_noise_two_2.tStopRefresh)
+    thisExp.addData('instruction_eo_2.started', instruction_eo_2.tStartRefresh)
+    thisExp.addData('instruction_eo_2.stopped', instruction_eo_2.tStopRefresh)
+    thisExp.addData('eyes_open.started', eyes_open.tStartRefresh)
+    thisExp.addData('eyes_open.stopped', eyes_open.tStopRefresh)
+    thisExp.nextEntry()
+    
+# completed 4.0 repeats of 'phase_2'
+
+# get names of stimulus parameters
+if phase_2.trialList in ([], [None], None):
+    params = []
+else:
+    params = phase_2.trialList[0].keys()
+# save data for this loop
+phase_2.saveAsExcel(filename + '.xlsx', sheetName='phase_2',
+    stimOut=params,
+    dataOut=['n','all_mean','all_std', 'all_raw'])
+phase_2.saveAsText(filename + 'phase_2.csv', delim=',',
     stimOut=params,
     dataOut=['n','all_mean','all_std', 'all_raw'])
 
 # ------Prepare to start Routine "exit_rest_state"-------
 continueRoutine = True
+routineTimer.add(290.000000)
 # update component parameters for each repeat
+sound_2.setSound('A', secs=1.0, hamming=True)
+sound_2.setVolume(1.0, log=False)
 # keep track of which components have finished
-exit_rest_stateComponents = []
+exit_rest_stateComponents = [resting_state_instructions_2, rest_state_eyes_open_2, rest_state_eyes_open_icon_2, rest_eyes_closed_2, rest_eyes_closed_icon_2, sound_2, text]
 for thisComponent in exit_rest_stateComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -938,13 +2086,130 @@ exit_rest_stateClock.reset(-_timeToFirstFrame)  # t0 is time of first possible f
 frameN = -1
 
 # -------Run Routine "exit_rest_state"-------
-while continueRoutine:
+while continueRoutine and routineTimer.getTime() > 0:
     # get current time
     t = exit_rest_stateClock.getTime()
     tThisFlip = win.getFutureFlipTime(clock=exit_rest_stateClock)
     tThisFlipGlobal = win.getFutureFlipTime(clock=None)
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
+    
+    # *resting_state_instructions_2* updates
+    if resting_state_instructions_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        resting_state_instructions_2.frameNStart = frameN  # exact frame index
+        resting_state_instructions_2.tStart = t  # local t and not account for scr refresh
+        resting_state_instructions_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(resting_state_instructions_2, 'tStartRefresh')  # time at next scr refresh
+        resting_state_instructions_2.setAutoDraw(True)
+    if resting_state_instructions_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > resting_state_instructions_2.tStartRefresh + 20.0-frameTolerance:
+            # keep track of stop time/frame for later
+            resting_state_instructions_2.tStop = t  # not accounting for scr refresh
+            resting_state_instructions_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(resting_state_instructions_2, 'tStopRefresh')  # time at next scr refresh
+            resting_state_instructions_2.setAutoDraw(False)
+    
+    # *rest_state_eyes_open_2* updates
+    if rest_state_eyes_open_2.status == NOT_STARTED and tThisFlip >= 20.0-frameTolerance:
+        # keep track of start time/frame for later
+        rest_state_eyes_open_2.frameNStart = frameN  # exact frame index
+        rest_state_eyes_open_2.tStart = t  # local t and not account for scr refresh
+        rest_state_eyes_open_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(rest_state_eyes_open_2, 'tStartRefresh')  # time at next scr refresh
+        rest_state_eyes_open_2.setAutoDraw(True)
+    if rest_state_eyes_open_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > rest_state_eyes_open_2.tStartRefresh + 5.0-frameTolerance:
+            # keep track of stop time/frame for later
+            rest_state_eyes_open_2.tStop = t  # not accounting for scr refresh
+            rest_state_eyes_open_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(rest_state_eyes_open_2, 'tStopRefresh')  # time at next scr refresh
+            rest_state_eyes_open_2.setAutoDraw(False)
+    
+    # *rest_state_eyes_open_icon_2* updates
+    if rest_state_eyes_open_icon_2.status == NOT_STARTED and tThisFlip >= 25.0-frameTolerance:
+        # keep track of start time/frame for later
+        rest_state_eyes_open_icon_2.frameNStart = frameN  # exact frame index
+        rest_state_eyes_open_icon_2.tStart = t  # local t and not account for scr refresh
+        rest_state_eyes_open_icon_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(rest_state_eyes_open_icon_2, 'tStartRefresh')  # time at next scr refresh
+        rest_state_eyes_open_icon_2.setAutoDraw(True)
+    if rest_state_eyes_open_icon_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > rest_state_eyes_open_icon_2.tStartRefresh + 120.0-frameTolerance:
+            # keep track of stop time/frame for later
+            rest_state_eyes_open_icon_2.tStop = t  # not accounting for scr refresh
+            rest_state_eyes_open_icon_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(rest_state_eyes_open_icon_2, 'tStopRefresh')  # time at next scr refresh
+            rest_state_eyes_open_icon_2.setAutoDraw(False)
+    
+    # *rest_eyes_closed_2* updates
+    if rest_eyes_closed_2.status == NOT_STARTED and tThisFlip >= 145.0-frameTolerance:
+        # keep track of start time/frame for later
+        rest_eyes_closed_2.frameNStart = frameN  # exact frame index
+        rest_eyes_closed_2.tStart = t  # local t and not account for scr refresh
+        rest_eyes_closed_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(rest_eyes_closed_2, 'tStartRefresh')  # time at next scr refresh
+        rest_eyes_closed_2.setAutoDraw(True)
+    if rest_eyes_closed_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > rest_eyes_closed_2.tStartRefresh + 15.0-frameTolerance:
+            # keep track of stop time/frame for later
+            rest_eyes_closed_2.tStop = t  # not accounting for scr refresh
+            rest_eyes_closed_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(rest_eyes_closed_2, 'tStopRefresh')  # time at next scr refresh
+            rest_eyes_closed_2.setAutoDraw(False)
+    
+    # *rest_eyes_closed_icon_2* updates
+    if rest_eyes_closed_icon_2.status == NOT_STARTED and tThisFlip >= 160.0-frameTolerance:
+        # keep track of start time/frame for later
+        rest_eyes_closed_icon_2.frameNStart = frameN  # exact frame index
+        rest_eyes_closed_icon_2.tStart = t  # local t and not account for scr refresh
+        rest_eyes_closed_icon_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(rest_eyes_closed_icon_2, 'tStartRefresh')  # time at next scr refresh
+        rest_eyes_closed_icon_2.setAutoDraw(True)
+    if rest_eyes_closed_icon_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > rest_eyes_closed_icon_2.tStartRefresh + 120.0-frameTolerance:
+            # keep track of stop time/frame for later
+            rest_eyes_closed_icon_2.tStop = t  # not accounting for scr refresh
+            rest_eyes_closed_icon_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(rest_eyes_closed_icon_2, 'tStopRefresh')  # time at next scr refresh
+            rest_eyes_closed_icon_2.setAutoDraw(False)
+    # start/stop sound_2
+    if sound_2.status == NOT_STARTED and tThisFlip >= 279.0-frameTolerance:
+        # keep track of start time/frame for later
+        sound_2.frameNStart = frameN  # exact frame index
+        sound_2.tStart = t  # local t and not account for scr refresh
+        sound_2.tStartRefresh = tThisFlipGlobal  # on global time
+        sound_2.play(when=win)  # sync with win flip
+    if sound_2.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > sound_2.tStartRefresh + 1.0-frameTolerance:
+            # keep track of stop time/frame for later
+            sound_2.tStop = t  # not accounting for scr refresh
+            sound_2.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(sound_2, 'tStopRefresh')  # time at next scr refresh
+            sound_2.stop()
+    
+    # *text* updates
+    if text.status == NOT_STARTED and tThisFlip >= 280.0-frameTolerance:
+        # keep track of start time/frame for later
+        text.frameNStart = frameN  # exact frame index
+        text.tStart = t  # local t and not account for scr refresh
+        text.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(text, 'tStartRefresh')  # time at next scr refresh
+        text.setAutoDraw(True)
+    if text.status == STARTED:
+        # is it time to stop? (based on global clock, using actual start)
+        if tThisFlipGlobal > text.tStartRefresh + 10.0-frameTolerance:
+            # keep track of stop time/frame for later
+            text.tStop = t  # not accounting for scr refresh
+            text.frameNStop = frameN  # exact frame index
+            win.timeOnFlip(text, 'tStopRefresh')  # time at next scr refresh
+            text.setAutoDraw(False)
     
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -967,8 +2232,21 @@ while continueRoutine:
 for thisComponent in exit_rest_stateComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-# the Routine "exit_rest_state" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
+thisExp.addData('resting_state_instructions_2.started', resting_state_instructions_2.tStartRefresh)
+thisExp.addData('resting_state_instructions_2.stopped', resting_state_instructions_2.tStopRefresh)
+thisExp.addData('rest_state_eyes_open_2.started', rest_state_eyes_open_2.tStartRefresh)
+thisExp.addData('rest_state_eyes_open_2.stopped', rest_state_eyes_open_2.tStopRefresh)
+thisExp.addData('rest_state_eyes_open_icon_2.started', rest_state_eyes_open_icon_2.tStartRefresh)
+thisExp.addData('rest_state_eyes_open_icon_2.stopped', rest_state_eyes_open_icon_2.tStopRefresh)
+thisExp.addData('rest_eyes_closed_2.started', rest_eyes_closed_2.tStartRefresh)
+thisExp.addData('rest_eyes_closed_2.stopped', rest_eyes_closed_2.tStopRefresh)
+thisExp.addData('rest_eyes_closed_icon_2.started', rest_eyes_closed_icon_2.tStartRefresh)
+thisExp.addData('rest_eyes_closed_icon_2.stopped', rest_eyes_closed_icon_2.tStopRefresh)
+sound_2.stop()  # ensure sound has stopped at end of routine
+thisExp.addData('sound_2.started', sound_2.tStartRefresh)
+thisExp.addData('sound_2.stopped', sound_2.tStopRefresh)
+thisExp.addData('text.started', text.tStartRefresh)
+thisExp.addData('text.stopped', text.tStopRefresh)
 
 # Flip one final time so any remaining win.callOnFlip() 
 # and win.timeOnFlip() tasks get executed before quitting

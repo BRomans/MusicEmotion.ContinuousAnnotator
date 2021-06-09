@@ -1,0 +1,22 @@
+import json
+import time
+
+
+class ExperimentTracker:
+
+    def __init__(self):
+        self.trial_data = {}
+
+    def add_entry(self, key, entry):
+        self.trial_data[key] = {}
+        self.trial_data[key]['val'] = entry
+        self.trial_data[key]['timestamp'] = time.time()  #in seconds
+
+    def write_trial(self, trial_name):
+        with open(trial_name + '.json', 'w+') as f:
+            json.dump(self.trial_data, f, indent=4)
+
+
+tracker = ExperimentTracker()
+tracker.add_entry('test', [1,2,3,4])
+tracker.write_trial('test_trial')

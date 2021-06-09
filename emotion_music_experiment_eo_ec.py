@@ -1790,6 +1790,7 @@ for thisPhase_2 in phase_2:
     phase_2.addData('eyes_open.stopped', eyes_open.tStopRefresh)
     thisExp.nextEntry()
 
+
     # re-init mouse position
     mouse_3_first_frame = True
     mouse_4_first_frame = True

@@ -982,7 +982,11 @@ for thisPhase_1 in phase_1:
         # refresh the screen
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
-    
+
+    # re-init mouse position
+    mouse_first_frame = True
+    mouse_2_first_frame = True
+
     # -------Ending Routine "trials_first_part"-------
     for thisComponent in trials_first_partComponents:
         if hasattr(thisComponent, "setAutoDraw"):
@@ -1705,7 +1709,11 @@ for thisPhase_2 in phase_2:
         # refresh the screen
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
-    
+
+    # re-init mouse position
+    mouse_3_first_frame = True
+    mouse_4_first_frame = True
+
     # -------Ending Routine "trials_second_part"-------
     for thisComponent in trials_second_partComponents:
         if hasattr(thisComponent, "setAutoDraw"):

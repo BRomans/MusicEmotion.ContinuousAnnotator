@@ -495,7 +495,7 @@
         <Param name="sound" updates="constant" val="A" valType="str"/>
         <Param name="startEstim" updates="None" val="" valType="num"/>
         <Param name="startType" updates="None" val="time (s)" valType="str"/>
-        <Param name="startVal" updates="None" val="59" valType="num"/>
+        <Param name="startVal" updates="None" val="60" valType="num"/>
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="1.0" valType="num"/>
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
@@ -684,7 +684,7 @@
         <Param name="sound" updates="constant" val="A" valType="str"/>
         <Param name="startEstim" updates="None" val="" valType="num"/>
         <Param name="startType" updates="None" val="time (s)" valType="str"/>
-        <Param name="startVal" updates="None" val="154" valType="num"/>
+        <Param name="startVal" updates="None" val="155" valType="num"/>
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="1.0" valType="num"/>
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
@@ -875,7 +875,7 @@
         <Param name="sound" updates="constant" val="A" valType="str"/>
         <Param name="startEstim" updates="None" val="" valType="num"/>
         <Param name="startType" updates="None" val="time (s)" valType="str"/>
-        <Param name="startVal" updates="None" val="59" valType="num"/>
+        <Param name="startVal" updates="None" val="60" valType="num"/>
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="1.0" valType="num"/>
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
@@ -1064,7 +1064,7 @@
         <Param name="sound" updates="constant" val="A" valType="str"/>
         <Param name="startEstim" updates="None" val="" valType="num"/>
         <Param name="startType" updates="None" val="time (s)" valType="str"/>
-        <Param name="startVal" updates="None" val="154" valType="num"/>
+        <Param name="startVal" updates="None" val="155" valType="num"/>
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="1.0" valType="num"/>
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 09, 2021, at 13:12
+    on June 09, 2021, at 16:04
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -724,7 +724,7 @@ for thisPhase_1 in phase_1:
             mouse.rightButton.append(buttons[2])
             mouse.time.append(mouse.mouseClock.getTime())
         # start/stop open_eyes
-        if open_eyes.status == NOT_STARTED and tThisFlip >= 59.0-frameTolerance:
+        if open_eyes.status == NOT_STARTED and tThisFlip >= 60.0-frameTolerance:
             # keep track of start time/frame for later
             open_eyes.frameNStart = frameN  # exact frame index
             open_eyes.tStart = t  # local t and not account for scr refresh
@@ -885,7 +885,7 @@ for thisPhase_1 in phase_1:
             mouse_2.rightButton.append(buttons[2])
             mouse_2.time.append(mouse_2.mouseClock.getTime())
         # start/stop open_eyes_two
-        if open_eyes_two.status == NOT_STARTED and tThisFlip >= 154.0-frameTolerance:
+        if open_eyes_two.status == NOT_STARTED and tThisFlip >= 155.0-frameTolerance:
             # keep track of start time/frame for later
             open_eyes_two.frameNStart = frameN  # exact frame index
             open_eyes_two.tStart = t  # local t and not account for scr refresh
@@ -1451,7 +1451,7 @@ for thisPhase_2 in phase_2:
             mouse_3.rightButton.append(buttons[2])
             mouse_3.time.append(mouse_3.mouseClock.getTime())
         # start/stop open_eyes_2
-        if open_eyes_2.status == NOT_STARTED and tThisFlip >= 59.0-frameTolerance:
+        if open_eyes_2.status == NOT_STARTED and tThisFlip >= 60.0-frameTolerance:
             # keep track of start time/frame for later
             open_eyes_2.frameNStart = frameN  # exact frame index
             open_eyes_2.tStart = t  # local t and not account for scr refresh
@@ -1612,7 +1612,7 @@ for thisPhase_2 in phase_2:
             mouse_4.rightButton.append(buttons[2])
             mouse_4.time.append(mouse_4.mouseClock.getTime())
         # start/stop open_eyes_two_2
-        if open_eyes_two_2.status == NOT_STARTED and tThisFlip >= 154.0-frameTolerance:
+        if open_eyes_two_2.status == NOT_STARTED and tThisFlip >= 155.0-frameTolerance:
             # keep track of start time/frame for later
             open_eyes_two_2.frameNStart = frameN  # exact frame index
             open_eyes_two_2.tStart = t  # local t and not account for scr refresh

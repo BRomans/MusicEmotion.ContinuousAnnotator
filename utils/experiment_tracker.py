@@ -13,6 +13,7 @@ class ExperimentTracker:
         self.trial_data[key]['timestamp'] = time.time()  #in seconds
 
     def add_entry_trial(self, trial_name, key, entry):
+        self.trial_data[trial_name] = {}
         self.trial_data[trial_name][key] = {}
         self.trial_data[trial_name][key]['val'] = entry
         self.trial_data[trial_name][key]['timestamp'] = time.time()

@@ -582,7 +582,7 @@ mouse_first_frame = True
 mouse_2_first_frame = True
 
 for thisPhase_1 in phase_1:
-    experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'trialBegins', '')
+    experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'trialBegins', 'begins')
     currentLoop = phase_1
     # abbreviate parameter names if possible (e.g. rgb = thisPhase_1.rgb)
     if thisPhase_1 != None:

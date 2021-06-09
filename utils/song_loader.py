@@ -13,15 +13,15 @@ class SongLoader:
         self.prepare_song_classes()
 
     def prepare_song_classes(self):
-        self.playlist_phase_one.append(['res\\class_1_A.ogg', 'res\\class_1_B.ogg'])
-        self.playlist_phase_one.append(['res\\class_2_A.ogg', 'res\\class_2_B.ogg'])
-        self.playlist_phase_one.append(['res\\class_3_A.ogg', 'res\\class_3_B.ogg'])
-        self.playlist_phase_one.append(['res\\class_4_A.ogg', 'res\\class_4_B.ogg'])
+        self.playlist_phase_one.append(['res\\playlist\\class_1_A.ogg', 'res\\playlist\\class_1_B.ogg'])
+        self.playlist_phase_one.append(['res\\playlist\\class_2_A.ogg', 'res\\playlist\\class_2_B.ogg'])
+        self.playlist_phase_one.append(['res\\playlist\\class_3_A.ogg', 'res\\playlist\\class_3_B.ogg'])
+        self.playlist_phase_one.append(['res\\playlist\\class_4_A.ogg', 'res\\playlist\\class_4_B.ogg'])
 
-        self.playlist_phase_two.append(['res\\class_1_B.ogg', 'res\\class_1_A.ogg'])
-        self.playlist_phase_two.append(['res\\class_2_B.ogg', 'res\\class_2_A.ogg'])
-        self.playlist_phase_two.append(['res\\class_3_B.ogg', 'res\\class_3_A.ogg'])
-        self.playlist_phase_two.append(['res\\class_4_B.ogg', 'res\\class_4_A.ogg'])
+        self.playlist_phase_two.append(['res\\playlist\\class_1_B.ogg', 'res\\playlist\\class_1_A.ogg'])
+        self.playlist_phase_two.append(['res\\playlist\\class_2_B.ogg', 'res\\playlist\\class_2_A.ogg'])
+        self.playlist_phase_two.append(['res\\playlist\\class_3_B.ogg', 'res\\playlist\\class_3_A.ogg'])
+        self.playlist_phase_two.append(['res\\playlist\\class_4_B.ogg', 'res\\playlist\\class_4_A.ogg'])
 
     def generate_shuffle_playlist(self, phase='phase_1'):
         """

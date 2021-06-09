@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.4),
-    on June 08, 2021, at 18:37
+    on June 09, 2021, at 10:35
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -37,7 +37,7 @@ os.chdir(_thisDir)
 # Store info about the experiment session
 psychopyVersion = '2021.1.4'
 expName = 'experiment_eo_ec'  # from the Builder filename that created this script
-expInfo = {'participant': '', 'id': '', 'gender (M/F/N)': '', 'age': '', 'hand(R/L)': '', 'session': '001', 'group': '01'}
+expInfo = {'participant': '', 'session': '001', 'group': 'EOEC'}
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
 if dlg.OK == False:
     core.quit()  # user pressed cancel
@@ -1989,64 +1989,62 @@ for thisPhase_2 in phase_2:
     for thisComponent in trials_second_partComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
-    thisExp.addData('valence_arousal_space_3.started', valence_arousal_space_3.tStartRefresh)
-    thisExp.addData('valence_arousal_space_3.stopped', valence_arousal_space_3.tStopRefresh)
-    thisExp.addData('reticle_3.started', reticle_3.tStartRefresh)
-    thisExp.addData('reticle_3.stopped', reticle_3.tStopRefresh)
+    phase_2.addData('valence_arousal_space_3.started', valence_arousal_space_3.tStartRefresh)
+    phase_2.addData('valence_arousal_space_3.stopped', valence_arousal_space_3.tStopRefresh)
+    phase_2.addData('reticle_3.started', reticle_3.tStartRefresh)
+    phase_2.addData('reticle_3.stopped', reticle_3.tStopRefresh)
     song_one_2.stop()  # ensure sound has stopped at end of routine
-    thisExp.addData('song_one_2.started', song_one_2.tStartRefresh)
-    thisExp.addData('song_one_2.stopped', song_one_2.tStopRefresh)
-    # store data for thisExp (ExperimentHandler)
-    thisExp.addData('mouse_3.x', mouse_3.x)
-    thisExp.addData('mouse_3.y', mouse_3.y)
-    thisExp.addData('mouse_3.leftButton', mouse_3.leftButton)
-    thisExp.addData('mouse_3.midButton', mouse_3.midButton)
-    thisExp.addData('mouse_3.rightButton', mouse_3.rightButton)
-    thisExp.addData('mouse_3.time', mouse_3.time)
-    thisExp.addData('mouse_3.started', mouse_3.tStart)
-    thisExp.addData('mouse_3.stopped', mouse_3.tStop)
-    thisExp.nextEntry()
+    phase_2.addData('song_one_2.started', song_one_2.tStartRefresh)
+    phase_2.addData('song_one_2.stopped', song_one_2.tStopRefresh)
+    # store data for phase_2 (TrialHandler)
+    phase_2.addData('mouse_3.x', mouse_3.x)
+    phase_2.addData('mouse_3.y', mouse_3.y)
+    phase_2.addData('mouse_3.leftButton', mouse_3.leftButton)
+    phase_2.addData('mouse_3.midButton', mouse_3.midButton)
+    phase_2.addData('mouse_3.rightButton', mouse_3.rightButton)
+    phase_2.addData('mouse_3.time', mouse_3.time)
+    phase_2.addData('mouse_3.started', mouse_3.tStart)
+    phase_2.addData('mouse_3.stopped', mouse_3.tStop)
     open_eyes_2.stop()  # ensure sound has stopped at end of routine
-    thisExp.addData('open_eyes_2.started', open_eyes_2.tStartRefresh)
-    thisExp.addData('open_eyes_2.stopped', open_eyes_2.tStopRefresh)
+    phase_2.addData('open_eyes_2.started', open_eyes_2.tStartRefresh)
+    phase_2.addData('open_eyes_2.stopped', open_eyes_2.tStopRefresh)
     song_one_rating_2.addDataToExp(thisExp, 'rows')
     song_one_rating_2.autodraw = False
     white_noise_one_2.stop()  # ensure sound has stopped at end of routine
-    thisExp.addData('white_noise_one_2.started', white_noise_one_2.tStartRefresh)
-    thisExp.addData('white_noise_one_2.stopped', white_noise_one_2.tStopRefresh)
-    thisExp.addData('instruction_ec_2.started', instruction_ec_2.tStartRefresh)
-    thisExp.addData('instruction_ec_2.stopped', instruction_ec_2.tStopRefresh)
-    thisExp.addData('eyes_closed_2.started', eyes_closed_2.tStartRefresh)
-    thisExp.addData('eyes_closed_2.stopped', eyes_closed_2.tStopRefresh)
-    thisExp.addData('valence_arousal_space_4.started', valence_arousal_space_4.tStartRefresh)
-    thisExp.addData('valence_arousal_space_4.stopped', valence_arousal_space_4.tStopRefresh)
+    phase_2.addData('white_noise_one_2.started', white_noise_one_2.tStartRefresh)
+    phase_2.addData('white_noise_one_2.stopped', white_noise_one_2.tStopRefresh)
+    phase_2.addData('instruction_ec_2.started', instruction_ec_2.tStartRefresh)
+    phase_2.addData('instruction_ec_2.stopped', instruction_ec_2.tStopRefresh)
+    phase_2.addData('eyes_closed_2.started', eyes_closed_2.tStartRefresh)
+    phase_2.addData('eyes_closed_2.stopped', eyes_closed_2.tStopRefresh)
+    phase_2.addData('valence_arousal_space_4.started', valence_arousal_space_4.tStartRefresh)
+    phase_2.addData('valence_arousal_space_4.stopped', valence_arousal_space_4.tStopRefresh)
     song_two_2.stop()  # ensure sound has stopped at end of routine
-    thisExp.addData('song_two_2.started', song_two_2.tStartRefresh)
-    thisExp.addData('song_two_2.stopped', song_two_2.tStopRefresh)
-    thisExp.addData('reticle_4.started', reticle_4.tStartRefresh)
-    thisExp.addData('reticle_4.stopped', reticle_4.tStopRefresh)
-    # store data for thisExp (ExperimentHandler)
-    thisExp.addData('mouse_4.x', mouse_4.x)
-    thisExp.addData('mouse_4.y', mouse_4.y)
-    thisExp.addData('mouse_4.leftButton', mouse_4.leftButton)
-    thisExp.addData('mouse_4.midButton', mouse_4.midButton)
-    thisExp.addData('mouse_4.rightButton', mouse_4.rightButton)
-    thisExp.addData('mouse_4.time', mouse_4.time)
-    thisExp.addData('mouse_4.started', mouse_4.tStart)
-    thisExp.addData('mouse_4.stopped', mouse_4.tStop)
-    thisExp.nextEntry()
+    phase_2.addData('song_two_2.started', song_two_2.tStartRefresh)
+    phase_2.addData('song_two_2.stopped', song_two_2.tStopRefresh)
+    phase_2.addData('reticle_4.started', reticle_4.tStartRefresh)
+    phase_2.addData('reticle_4.stopped', reticle_4.tStopRefresh)
+    # store data for phase_2 (TrialHandler)
+    phase_2.addData('mouse_4.x', mouse_4.x)
+    phase_2.addData('mouse_4.y', mouse_4.y)
+    phase_2.addData('mouse_4.leftButton', mouse_4.leftButton)
+    phase_2.addData('mouse_4.midButton', mouse_4.midButton)
+    phase_2.addData('mouse_4.rightButton', mouse_4.rightButton)
+    phase_2.addData('mouse_4.time', mouse_4.time)
+    phase_2.addData('mouse_4.started', mouse_4.tStart)
+    phase_2.addData('mouse_4.stopped', mouse_4.tStop)
     open_eyes_two_2.stop()  # ensure sound has stopped at end of routine
-    thisExp.addData('open_eyes_two_2.started', open_eyes_two_2.tStartRefresh)
-    thisExp.addData('open_eyes_two_2.stopped', open_eyes_two_2.tStopRefresh)
+    phase_2.addData('open_eyes_two_2.started', open_eyes_two_2.tStartRefresh)
+    phase_2.addData('open_eyes_two_2.stopped', open_eyes_two_2.tStopRefresh)
     song_two_rating_2.addDataToExp(thisExp, 'rows')
     song_two_rating_2.autodraw = False
     white_noise_two_2.stop()  # ensure sound has stopped at end of routine
-    thisExp.addData('white_noise_two_2.started', white_noise_two_2.tStartRefresh)
-    thisExp.addData('white_noise_two_2.stopped', white_noise_two_2.tStopRefresh)
-    thisExp.addData('instruction_eo_2.started', instruction_eo_2.tStartRefresh)
-    thisExp.addData('instruction_eo_2.stopped', instruction_eo_2.tStopRefresh)
-    thisExp.addData('eyes_open.started', eyes_open.tStartRefresh)
-    thisExp.addData('eyes_open.stopped', eyes_open.tStopRefresh)
+    phase_2.addData('white_noise_two_2.started', white_noise_two_2.tStartRefresh)
+    phase_2.addData('white_noise_two_2.stopped', white_noise_two_2.tStopRefresh)
+    phase_2.addData('instruction_eo_2.started', instruction_eo_2.tStartRefresh)
+    phase_2.addData('instruction_eo_2.stopped', instruction_eo_2.tStopRefresh)
+    phase_2.addData('eyes_open.started', eyes_open.tStartRefresh)
+    phase_2.addData('eyes_open.stopped', eyes_open.tStopRefresh)
     thisExp.nextEntry()
     
 # completed 4.0 repeats of 'phase_2'

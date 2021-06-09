@@ -40,11 +40,3 @@ class SongLoader:
         else:
             raise Exception('Please provide a valid argument: {phase_1} or {phase_2} are valid arguments')
 
-
-song_loader = SongLoader()
-print(song_loader.playlist_phase_one)
-print(song_loader.playlist_phase_two)
-print(song_loader.generate_shuffle_playlist('phase_1'))
-print(song_loader.generate_shuffle_playlist('phase_2'))
-print(song_loader.playlist_phase_one)
-print(song_loader.playlist_phase_two)

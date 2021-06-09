@@ -983,10 +983,6 @@ for thisPhase_1 in phase_1:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
 
-    # re-init mouse position
-    mouse_first_frame = True
-    mouse_2_first_frame = True
-
     # -------Ending Routine "trials_first_part"-------
     for thisComponent in trials_first_partComponents:
         if hasattr(thisComponent, "setAutoDraw"):
@@ -1048,6 +1044,28 @@ for thisPhase_1 in phase_1:
     phase_1.addData('eyes_open_2.started', eyes_open_2.tStartRefresh)
     phase_1.addData('eyes_open_2.stopped', eyes_open_2.tStopRefresh)
     thisExp.nextEntry()
+
+    # re-init mouse position
+    mouse_first_frame = True
+    mouse_2_first_frame = True
+
+    # re-init form data
+    song_one_rating = visual.Form(win=win, name='song_one_rating',
+                                    items='res\\\\forms\\\\rating_form.csv',
+                                    textHeight=0.03,
+                                    randomize=False,
+                                    size=(1, 0.7),
+                                    pos=(0, 0),
+                                    style='dark',
+                                    itemPadding=0.1, )
+    song_two_rating = visual.Form(win=win, name='song_two_rating',
+                                    items='res\\\\forms\\\\rating_form.csv',
+                                    textHeight=0.03,
+                                    randomize=False,
+                                    size=(1, 0.7),
+                                    pos=(0, 0),
+                                    style='dark',
+                                    itemPadding=0.1, )
     
 # completed 4.0 repeats of 'phase_1'
 
@@ -1710,10 +1728,6 @@ for thisPhase_2 in phase_2:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
 
-    # re-init mouse position
-    mouse_3_first_frame = True
-    mouse_4_first_frame = True
-
     # -------Ending Routine "trials_second_part"-------
     for thisComponent in trials_second_partComponents:
         if hasattr(thisComponent, "setAutoDraw"):
@@ -1775,6 +1789,28 @@ for thisPhase_2 in phase_2:
     phase_2.addData('eyes_open.started', eyes_open.tStartRefresh)
     phase_2.addData('eyes_open.stopped', eyes_open.tStopRefresh)
     thisExp.nextEntry()
+
+    # re-init mouse position
+    mouse_3_first_frame = True
+    mouse_4_first_frame = True
+
+    # re-init form data
+    song_one_rating_2 = visual.Form(win=win, name='song_one_rating_2',
+                                  items='res\\\\forms\\\\rating_form.csv',
+                                  textHeight=0.03,
+                                  randomize=False,
+                                  size=(1, 0.7),
+                                  pos=(0, 0),
+                                  style='dark',
+                                  itemPadding=0.1, )
+    song_two_rating_2 = visual.Form(win=win, name='song_two_rating_2',
+                                  items='res\\\\forms\\\\rating_form.csv',
+                                  textHeight=0.03,
+                                  randomize=False,
+                                  size=(1, 0.7),
+                                  pos=(0, 0),
+                                  style='dark',
+                                  itemPadding=0.1, )
     
 # completed 4.0 repeats of 'phase_2'
 

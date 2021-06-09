@@ -562,11 +562,15 @@ if thisPhase_1 != None:
 
 # Setup song loader and a randomized playlist
 song_loader = SongLoader()
-playlist = song_loader.generate_shuffle_playlist('phase_1')
-print(playlist)
+playlist_p1 = song_loader.generate_shuffle_playlist('phase_1')
+print(playlist_p1)
 
 # keep track of the trial counter for loading song conditions
 trial_counter = 0
+
+# init mouse position
+mouse_first_frame = True
+mouse_2_first_frame = True
 
 for thisPhase_1 in phase_1:
 
@@ -580,7 +584,7 @@ for thisPhase_1 in phase_1:
     continueRoutine = True
     routineTimer.add(190.000000)
     # update component parameters for each repeat
-    song_one.setSound(playlist[trial_counter][0], secs=60.0, hamming=True)
+    song_one.setSound(playlist_p1[trial_counter][0], secs=60.0, hamming=True)
     song_one.setVolume(1.0, log=False)
     # setup some python lists for storing info about the mouse
     mouse.x = []
@@ -594,7 +598,7 @@ for thisPhase_1 in phase_1:
     open_eyes.setVolume(0.5, log=False)
     white_noise_one.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
     white_noise_one.setVolume(0.7, log=False)
-    song_two.setSound(playlist[trial_counter][1], secs=60.0, hamming=True)
+    song_two.setSound(playlist_p1[trial_counter][1], secs=60.0, hamming=True)
     song_two.setVolume(1.0, log=False)
 
     # increase condition counter for next loop
@@ -703,7 +707,11 @@ for thisPhase_1 in phase_1:
                 win.timeOnFlip(mouse, 'tStopRefresh')  # time at next scr refresh
                 mouse.status = FINISHED
         if mouse.status == STARTED:  # only update if started and not finished!
+            if mouse_first_frame:
+                mouse.setPos([0, 0])
+                mouse_first_frame = False
             x, y = mouse.getPos()
+            reticle.pos = [x, y]
             mouse.x.append(x)
             mouse.y.append(y)
             buttons = mouse.getPressed()
@@ -860,7 +868,11 @@ for thisPhase_1 in phase_1:
                 win.timeOnFlip(mouse_2, 'tStopRefresh')  # time at next scr refresh
                 mouse_2.status = FINISHED
         if mouse_2.status == STARTED:  # only update if started and not finished!
+            if mouse_2_first_frame:
+                mouse_2.setPos([0, 0])
+                mouse_2_first_frame = False
             x, y = mouse_2.getPos()
+            reticle_2.pos = [x, y]
             mouse_2.x.append(x)
             mouse_2.y.append(y)
             buttons = mouse_2.getPressed()

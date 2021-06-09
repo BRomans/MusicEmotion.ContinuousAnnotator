@@ -584,7 +584,11 @@ for thisPhase_1 in phase_1:
     continueRoutine = True
     routineTimer.add(190.000000)
     # update component parameters for each repeat
-    song_one.setSound(playlist_p1[trial_counter][0], secs=60.0, hamming=True)
+
+    # setup sound sources for current loop
+    sound_source_one = playlist_p1[trial_counter][0]
+    sound_source_two = playlist_p1[trial_counter][1]
+    song_one.setSound(sound_source_one, secs=60.0, hamming=True)
     song_one.setVolume(1.0, log=False)
     # setup some python lists for storing info about the mouse
     mouse.x = []
@@ -598,7 +602,7 @@ for thisPhase_1 in phase_1:
     open_eyes.setVolume(0.5, log=False)
     white_noise_one.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
     white_noise_one.setVolume(0.7, log=False)
-    song_two.setSound(playlist_p1[trial_counter][1], secs=60.0, hamming=True)
+    song_two.setSound(sound_source_two, secs=60.0, hamming=True)
     song_two.setVolume(1.0, log=False)
 
     # increase condition counter for next loop
@@ -1281,6 +1285,17 @@ if thisPhase_2 != None:
     for paramName in thisPhase_2:
         exec('{} = thisPhase_2[paramName]'.format(paramName))
 
+# Setup song loader and a randomized playlist
+playlist_p2 = song_loader.generate_shuffle_playlist('phase_2')
+print(playlist_p2)
+
+# keep track of the trial counter for loading song conditions
+trial_counter = 0
+
+# init mouse position
+mouse_3_first_frame = True
+mouse_4_first_frame = True
+
 for thisPhase_2 in phase_2:
     currentLoop = phase_2
     # abbreviate parameter names if possible (e.g. rgb = thisPhase_2.rgb)
@@ -1292,7 +1307,11 @@ for thisPhase_2 in phase_2:
     continueRoutine = True
     routineTimer.add(190.000000)
     # update component parameters for each repeat
-    song_one_2.setSound('', secs=60.0, hamming=True)
+
+    # Set the sound sources for this loop
+    sound_source_one = playlist_p2[trial_counter][0]
+    sound_source_two = playlist_p2[trial_counter][1]
+    song_one_2.setSound(sound_source_one, secs=60.0, hamming=True)
     song_one_2.setVolume(1.0, log=False)
     # setup some python lists for storing info about the mouse_3
     mouse_3.x = []
@@ -1306,8 +1325,12 @@ for thisPhase_2 in phase_2:
     open_eyes_2.setVolume(0.5, log=False)
     white_noise_one_2.setSound('res\\1 min wn.wav', secs=15.0, hamming=True)
     white_noise_one_2.setVolume(0.7, log=False)
-    song_two_2.setSound('', secs=60.0, hamming=True)
+    song_two_2.setSound(sound_source_two, secs=60.0, hamming=True)
     song_two_2.setVolume(1.0, log=False)
+
+    # increase condition counter for next loop
+    trial_counter += 1
+
     # setup some python lists for storing info about the mouse_4
     mouse_4.x = []
     mouse_4.y = []
@@ -1411,7 +1434,11 @@ for thisPhase_2 in phase_2:
                 win.timeOnFlip(mouse_3, 'tStopRefresh')  # time at next scr refresh
                 mouse_3.status = FINISHED
         if mouse_3.status == STARTED:  # only update if started and not finished!
+            if mouse_3_first_frame:
+                mouse_3.setPos([0, 0])
+                mouse_3_first_frame = False
             x, y = mouse_3.getPos()
+            reticle_3.pos = [x, y]
             mouse_3.x.append(x)
             mouse_3.y.append(y)
             buttons = mouse_3.getPressed()
@@ -1568,7 +1595,11 @@ for thisPhase_2 in phase_2:
                 win.timeOnFlip(mouse_4, 'tStopRefresh')  # time at next scr refresh
                 mouse_4.status = FINISHED
         if mouse_4.status == STARTED:  # only update if started and not finished!
+            if mouse_4_first_frame:
+                mouse_4.setPos([0, 0])
+                mouse_4_first_frame = False
             x, y = mouse_4.getPos()
+            reticle_4.pos = [x, y]
             mouse_4.x.append(x)
             mouse_4.y.append(y)
             buttons = mouse_4.getPressed()

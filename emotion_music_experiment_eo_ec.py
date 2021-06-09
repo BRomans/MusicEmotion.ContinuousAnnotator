@@ -28,6 +28,7 @@ import sys  # to get file system encoding
 
 from psychopy.hardware import keyboard
 from utils.song_loader import SongLoader
+from utils.experiment_tracker import ExperimentTracker
 
 
 
@@ -49,6 +50,10 @@ expInfo['psychopyVersion'] = psychopyVersion
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
 filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
+
+# Init json tracker
+experiment_tracker = ExperimentTracker()
+experiment_tracker.add_entry('expName', expName)
 
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
@@ -560,20 +565,24 @@ if thisPhase_1 != None:
     for paramName in thisPhase_1:
         exec('{} = thisPhase_1[paramName]'.format(paramName))
 
+experiment_tracker.add_entry('expBegins', 'startButtonHit')
+
 # Setup song loader and a randomized playlist
 song_loader = SongLoader()
 playlist_p1 = song_loader.generate_shuffle_playlist('phase_1')
+experiment_tracker.add_entry('playlist_p1', playlist_p1)
 print(playlist_p1)
 
-# keep track of the trial counter for loading song conditions
-trial_counter = 0
+# keep track of the song and the trial counter for loading song conditions
+song_counter = 0
+trial_counter = 1
 
 # init mouse position
 mouse_first_frame = True
 mouse_2_first_frame = True
 
 for thisPhase_1 in phase_1:
-
+    experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'trialBegins', '')
     currentLoop = phase_1
     # abbreviate parameter names if possible (e.g. rgb = thisPhase_1.rgb)
     if thisPhase_1 != None:
@@ -586,8 +595,8 @@ for thisPhase_1 in phase_1:
     # update component parameters for each repeat
 
     # setup sound sources for current loop
-    sound_source_one = playlist_p1[trial_counter][0]
-    sound_source_two = playlist_p1[trial_counter][1]
+    sound_source_one = playlist_p1[song_counter][0]
+    sound_source_two = playlist_p1[song_counter][1]
     song_one.setSound(sound_source_one, secs=60.0, hamming=True)
     song_one.setVolume(1.0, log=False)
     # setup some python lists for storing info about the mouse
@@ -604,9 +613,6 @@ for thisPhase_1 in phase_1:
     white_noise_one.setVolume(0.7, log=False)
     song_two.setSound(sound_source_two, secs=60.0, hamming=True)
     song_two.setVolume(1.0, log=False)
-
-    # increase condition counter for next loop
-    trial_counter += 1
 
     # setup some python lists for storing info about the mouse_2
     mouse_2.x = []
@@ -710,6 +716,9 @@ for thisPhase_1 in phase_1:
                 mouse.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(mouse, 'tStopRefresh')  # time at next scr refresh
                 mouse.status = FINISHED
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse.x', mouse.x)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse.y', mouse.y)
+
         if mouse.status == STARTED:  # only update if started and not finished!
             if mouse_first_frame:
                 mouse.setPos([0, 0])
@@ -871,6 +880,8 @@ for thisPhase_1 in phase_1:
                 mouse_2.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(mouse_2, 'tStopRefresh')  # time at next scr refresh
                 mouse_2.status = FINISHED
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_2.x', mouse_2.x)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_2.y', mouse_2.y)
         if mouse_2.status == STARTED:  # only update if started and not finished!
             if mouse_2_first_frame:
                 mouse_2.setPos([0, 0])
@@ -968,6 +979,8 @@ for thisPhase_1 in phase_1:
         
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+            # write entry on the .json experiment tracker
+            experiment_tracker.write_trial(filename)
             core.quit()
         
         # check if all components have finished
@@ -1045,9 +1058,16 @@ for thisPhase_1 in phase_1:
     phase_1.addData('eyes_open_2.stopped', eyes_open_2.tStopRefresh)
     thisExp.nextEntry()
 
+    # write entry on the .json experiment tracker
+    experiment_tracker.write_trial(filename)
+
     # re-init mouse position
     mouse_first_frame = True
     mouse_2_first_frame = True
+
+    # increase condition counter for next loop
+    song_counter += 1
+    trial_counter += 1
 
     # re-init form data
     song_one_rating = visual.Form(win=win, name='song_one_rating',
@@ -1309,10 +1329,11 @@ if thisPhase_2 != None:
 
 # Setup song loader and a randomized playlist
 playlist_p2 = song_loader.generate_shuffle_playlist('phase_2')
+experiment_tracker.add_entry('playlist_p2', playlist_p2)
 print(playlist_p2)
 
 # keep track of the trial counter for loading song conditions
-trial_counter = 0
+song_counter = 0
 
 # init mouse position
 mouse_3_first_frame = True
@@ -1331,8 +1352,8 @@ for thisPhase_2 in phase_2:
     # update component parameters for each repeat
 
     # Set the sound sources for this loop
-    sound_source_one = playlist_p2[trial_counter][0]
-    sound_source_two = playlist_p2[trial_counter][1]
+    sound_source_one = playlist_p2[song_counter][0]
+    sound_source_two = playlist_p2[song_counter][1]
     song_one_2.setSound(sound_source_one, secs=60.0, hamming=True)
     song_one_2.setVolume(1.0, log=False)
     # setup some python lists for storing info about the mouse_3
@@ -1349,9 +1370,6 @@ for thisPhase_2 in phase_2:
     white_noise_one_2.setVolume(0.7, log=False)
     song_two_2.setSound(sound_source_two, secs=60.0, hamming=True)
     song_two_2.setVolume(1.0, log=False)
-
-    # increase condition counter for next loop
-    trial_counter += 1
 
     # setup some python lists for storing info about the mouse_4
     mouse_4.x = []
@@ -1455,6 +1473,8 @@ for thisPhase_2 in phase_2:
                 mouse_3.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(mouse_3, 'tStopRefresh')  # time at next scr refresh
                 mouse_3.status = FINISHED
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_3.x', mouse_3.x)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_3.y', mouse_3.y)
         if mouse_3.status == STARTED:  # only update if started and not finished!
             if mouse_3_first_frame:
                 mouse_3.setPos([0, 0])
@@ -1616,6 +1636,8 @@ for thisPhase_2 in phase_2:
                 mouse_4.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(mouse_4, 'tStopRefresh')  # time at next scr refresh
                 mouse_4.status = FINISHED
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_4.x', mouse_4.x)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_4.y', mouse_4.y)
         if mouse_4.status == STARTED:  # only update if started and not finished!
             if mouse_4_first_frame:
                 mouse_4.setPos([0, 0])
@@ -1713,6 +1735,8 @@ for thisPhase_2 in phase_2:
         
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+            # write entry on the .json experiment tracker
+            experiment_tracker.write_trial(filename)
             core.quit()
         
         # check if all components have finished
@@ -1790,10 +1814,16 @@ for thisPhase_2 in phase_2:
     phase_2.addData('eyes_open.stopped', eyes_open.tStopRefresh)
     thisExp.nextEntry()
 
+    # write entry on the .json experiment tracker
+    experiment_tracker.write_trial(filename)
 
     # re-init mouse position
     mouse_3_first_frame = True
     mouse_4_first_frame = True
+
+    # increase condition counter for next loop
+    song_counter += 1
+    trial_counter += 1
 
     # re-init form data
     song_one_rating_2 = visual.Form(win=win, name='song_one_rating_2',

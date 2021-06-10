@@ -1394,6 +1394,8 @@
   </Routines>
   <Flow>
     <Routine name="intro"/>
+    <Routine name="enter_rest_state"/>
+    <Routine name="white_noise"/>
     <LoopInitiator loopType="TrialHandler" name="phase_1">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="None" valType="str"/>

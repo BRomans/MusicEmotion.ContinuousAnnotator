@@ -25,6 +25,7 @@ from numpy import (sin, cos, tan, log, log10, pi, average,
 from numpy.random import random, randint, normal, shuffle, choice as randchoice
 import os  # handy system and path functions
 import sys  # to get file system encoding
+import serial
 
 from psychopy.hardware import keyboard
 from utils.song_loader import SongLoader
@@ -54,6 +55,23 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 # Init json tracker
 experiment_tracker = ExperimentTracker()
 experiment_tracker.add_entry('expName', expName)
+
+# Init trigger codes and serial port
+trigger_codes = {
+    'beginning_experiment': 'b',
+    'resting_state_eo': 'o',
+    'resting_state_ec': 'c',
+    'trial': 't',
+    'white_noise': 'n',
+    'stimulus': 's'
+}
+
+#with serial.Serial() as ser:
+ser = serial.Serial()
+ser.baudrate = 9600
+ser.port = 'COM3'
+ser.open()
+
 
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
@@ -565,6 +583,7 @@ while continueRoutine:
     if start_button.status == STARTED:
         # check whether start_button has been pressed
         if start_button.isClicked:
+            ser.write(trigger_codes['beginning_experiment'].encode('utf-8')) # mark the beginning of the experiment in the data
             if not start_button.wasClicked:
                 start_button.timesOn.append(start_button.buttonClock.getTime()) # store time of first click
                 start_button.timesOff.append(start_button.buttonClock.getTime()) # store time clicked until
@@ -675,6 +694,7 @@ while continueRoutine and routineTimer.getTime() > 0:
     if rest_state_eyes_open.status == STARTED:
         # is it time to stop? (based on global clock, using actual start)
         if tThisFlipGlobal > rest_state_eyes_open.tStartRefresh + 5.0-frameTolerance:
+            ser.write(trigger_codes['resting_state_eo'].encode('utf-8'))  # mark the resting state eyes open
             # keep track of stop time/frame for later
             rest_state_eyes_open.tStop = t  # not accounting for scr refresh
             rest_state_eyes_open.frameNStop = frameN  # exact frame index
@@ -709,6 +729,7 @@ while continueRoutine and routineTimer.getTime() > 0:
     if rest_eyes_closed.status == STARTED:
         # is it time to stop? (based on global clock, using actual start)
         if tThisFlipGlobal > rest_eyes_closed.tStartRefresh + 15.0-frameTolerance:
+            ser.write(trigger_codes['resting_state_ec'].encode('utf-8'))  # mark the resting state eyes closed
             # keep track of stop time/frame for later
             rest_eyes_closed.tStop = t  # not accounting for scr refresh
             rest_eyes_closed.frameNStop = frameN  # exact frame index
@@ -804,6 +825,8 @@ white_noiseClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
 frameN = -1
 
 # -------Run Routine "white_noise"-------
+ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+
 while continueRoutine and routineTimer.getTime() > 0:
     # get current time
     t = white_noiseClock.getTime()
@@ -918,7 +941,10 @@ trial_counter = 1
 mouse_first_frame = True
 mouse_2_first_frame = True
 
+
 for thisPhase_1 in phase_1:
+    ser.write(trigger_codes['stimulus'].encode('utf-8'))  # mark the first stimulus
+
     experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'trialBegins', 'begins')
     currentLoop = phase_1
     # abbreviate parameter names if possible (e.g. rgb = thisPhase_1.rgb)
@@ -1096,6 +1122,7 @@ for thisPhase_1 in phase_1:
         if song_one_rating.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > song_one_rating.tStartRefresh + 20.0-frameTolerance:
+                ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
                 # keep track of stop time/frame for later
                 song_one_rating.tStop = t  # not accounting for scr refresh
                 song_one_rating.frameNStop = frameN  # exact frame index
@@ -1111,6 +1138,7 @@ for thisPhase_1 in phase_1:
         if white_noise_one.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > white_noise_one.tStartRefresh + 15.0-frameTolerance:
+                ser.write(trigger_codes['stimulus'].encode('utf-8'))  # mark the second stimulus
                 # keep track of stop time/frame for later
                 white_noise_one.tStop = t  # not accounting for scr refresh
                 white_noise_one.frameNStop = frameN  # exact frame index
@@ -1259,6 +1287,7 @@ for thisPhase_1 in phase_1:
         if song_two_rating.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > song_two_rating.tStartRefresh + 20.0-frameTolerance:
+                ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
                 # keep track of stop time/frame for later
                 song_two_rating.tStop = t  # not accounting for scr refresh
                 song_two_rating.frameNStop = frameN  # exact frame index
@@ -1565,6 +1594,8 @@ _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 white_noise_breakClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
 frameN = -1
 
+ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+
 # -------Run Routine "white_noise_break"-------
 while continueRoutine and routineTimer.getTime() > 0:
     # get current time
@@ -1677,6 +1708,8 @@ mouse_3_first_frame = True
 mouse_4_first_frame = True
 
 for thisPhase_2 in phase_2:
+    ser.write(trigger_codes['stimulus'].encode('utf-8'))  # mark the first stimulus
+
     currentLoop = phase_2
     # abbreviate parameter names if possible (e.g. rgb = thisPhase_2.rgb)
     if thisPhase_2 != None:
@@ -1852,6 +1885,7 @@ for thisPhase_2 in phase_2:
         if song_one_rating_2.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > song_one_rating_2.tStartRefresh + 20.0-frameTolerance:
+                ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
                 # keep track of stop time/frame for later
                 song_one_rating_2.tStop = t  # not accounting for scr refresh
                 song_one_rating_2.frameNStop = frameN  # exact frame index
@@ -1867,6 +1901,8 @@ for thisPhase_2 in phase_2:
         if white_noise_one_2.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > white_noise_one_2.tStartRefresh + 15.0-frameTolerance:
+                ser.write(trigger_codes['stimulus'].encode('utf-8'))  # mark the second stimulus
+
                 # keep track of stop time/frame for later
                 white_noise_one_2.tStop = t  # not accounting for scr refresh
                 white_noise_one_2.frameNStop = frameN  # exact frame index
@@ -2015,6 +2051,7 @@ for thisPhase_2 in phase_2:
         if song_two_rating_2.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > song_two_rating_2.tStartRefresh + 20.0-frameTolerance:
+                ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
                 # keep track of stop time/frame for later
                 song_two_rating_2.tStop = t  # not accounting for scr refresh
                 song_two_rating_2.frameNStop = frameN  # exact frame index
@@ -2253,6 +2290,7 @@ while continueRoutine and routineTimer.getTime() > 0:
     if rest_state_eyes_open_2.status == STARTED:
         # is it time to stop? (based on global clock, using actual start)
         if tThisFlipGlobal > rest_state_eyes_open_2.tStartRefresh + 5.0-frameTolerance:
+            ser.write(trigger_codes['resting_state_eo'].encode('utf-8'))  # mark the exit resting state eyes open
             # keep track of stop time/frame for later
             rest_state_eyes_open_2.tStop = t  # not accounting for scr refresh
             rest_state_eyes_open_2.frameNStop = frameN  # exact frame index
@@ -2287,6 +2325,7 @@ while continueRoutine and routineTimer.getTime() > 0:
     if rest_eyes_closed_2.status == STARTED:
         # is it time to stop? (based on global clock, using actual start)
         if tThisFlipGlobal > rest_eyes_closed_2.tStartRefresh + 15.0-frameTolerance:
+            ser.write(trigger_codes['resting_state_ec'].encode('utf-8'))  # mark the exit resting state eyes closed
             # keep track of stop time/frame for later
             rest_eyes_closed_2.tStop = t  # not accounting for scr refresh
             rest_eyes_closed_2.frameNStop = frameN  # exact frame index

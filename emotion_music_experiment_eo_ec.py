@@ -120,7 +120,7 @@ start_button.buttonClock = core.Clock()
 # Initialize components for Routine "enter_rest_state"
 enter_rest_stateClock = core.Clock()
 resting_state_instructions = visual.TextStim(win=win, name='resting_state_instructions',
-    text='Before the we begin, we need to record your "resting" state with both eyes OPEN and eyes CLOSED for 2 minutes each.\n\nThink of it as short meditation session, relax your brain and focus on your breathing.',
+    text='Before the we begin, we need to record your "resting" state with both eyes OPEN and eyes CLOSED for 2 minutes each.',
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -442,7 +442,7 @@ eyes_open = visual.ImageStim(
 # Initialize components for Routine "exit_rest_state"
 exit_rest_stateClock = core.Clock()
 resting_state_instructions_2 = visual.TextStim(win=win, name='resting_state_instructions_2',
-    text='Congratulations, you made it!\nBefore you leave, we need to record your "resting" state with both eyes OPEN and eyes CLOSED for 2 minutes each.\n\nThink of it as short meditation session, relax your brain and focus on your breathing.',
+    text='Congratulations, you made it!\nBefore you leave, we need to record your "resting" state with both eyes OPEN and eyes CLOSED for 2 minutes each.',
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -1053,8 +1053,8 @@ for thisPhase_1 in phase_1:
                 mouse.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(mouse, 'tStopRefresh')  # time at next scr refresh
                 mouse.status = FINISHED
-                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse.x', mouse.x)
-                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse.y', mouse.y)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter) + 'a', 'mouse.x', mouse.x)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter) + 'a', 'mouse.y', mouse.y)
 
         if mouse.status == STARTED:  # only update if started and not finished!
             if mouse_first_frame:
@@ -1217,8 +1217,8 @@ for thisPhase_1 in phase_1:
                 mouse_2.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(mouse_2, 'tStopRefresh')  # time at next scr refresh
                 mouse_2.status = FINISHED
-                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_2.x', mouse_2.x)
-                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_2.y', mouse_2.y)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter) + 'b', 'mouse_2.x', mouse_2.x)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter) + 'b', 'mouse_2.y', mouse_2.y)
         if mouse_2.status == STARTED:  # only update if started and not finished!
             if mouse_2_first_frame:
                 mouse_2.setPos([0, 0])
@@ -1810,8 +1810,8 @@ for thisPhase_2 in phase_2:
                 mouse_3.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(mouse_3, 'tStopRefresh')  # time at next scr refresh
                 mouse_3.status = FINISHED
-                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_3.x', mouse_3.x)
-                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_3.y', mouse_3.y)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter) + 'a', 'mouse_3.x', mouse_3.x)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter) + 'a', 'mouse_3.y', mouse_3.y)
         if mouse_3.status == STARTED:  # only update if started and not finished!
             if mouse_3_first_frame:
                 mouse_3.setPos([0, 0])
@@ -1973,8 +1973,8 @@ for thisPhase_2 in phase_2:
                 mouse_4.frameNStop = frameN  # exact frame index
                 win.timeOnFlip(mouse_4, 'tStopRefresh')  # time at next scr refresh
                 mouse_4.status = FINISHED
-                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_4.x', mouse_4.x)
-                experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'mouse_4.y', mouse_4.y)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter) + 'b', 'mouse_4.x', mouse_4.x)
+                experiment_tracker.add_entry_trial('trial_' + str(trial_counter) + 'b', 'mouse_4.y', mouse_4.y)
         if mouse_4.status == STARTED:  # only update if started and not finished!
             if mouse_4_first_frame:
                 mouse_4.setPos([0, 0])

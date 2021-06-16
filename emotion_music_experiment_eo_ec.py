@@ -78,7 +78,7 @@ trigger_codes = {
 #with serial.Serial() as ser:
 ser = serial.Serial()
 ser.baudrate = 9600
-ser.port = 'COM3'
+ser.port = 'COM9'
 ser.write_timeout = 0
 ser.open()
 
@@ -2418,7 +2418,7 @@ while continueRoutine and routineTimer.getTime() > 0:
             except SerialException:
                 print("An error has occurred when sending trigger: ", 'resting_state_eo')
                 raise SerialException
-            
+
             # keep track of stop time/frame for later
             rest_eyes_closed_2.tStop = t  # not accounting for scr refresh
             rest_eyes_closed_2.frameNStop = frameN  # exact frame index

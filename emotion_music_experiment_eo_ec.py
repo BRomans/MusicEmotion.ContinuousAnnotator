@@ -26,8 +26,11 @@ from numpy.random import random, randint, normal, shuffle, choice as randchoice
 import os  # handy system and path functions
 import sys  # to get file system encoding
 import serial
+import threading
 
 from psychopy.hardware import keyboard
+from serial import SerialException
+
 from utils.song_loader import SongLoader
 from utils.experiment_tracker import ExperimentTracker
 
@@ -70,6 +73,7 @@ trigger_codes = {
 ser = serial.Serial()
 ser.baudrate = 9600
 ser.port = 'COM3'
+ser.write_timeout = 0
 ser.open()
 
 
@@ -90,7 +94,7 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # Setup the Window
 win = visual.Window(
-    size=[900, 900], fullscr=False, screen=0, 
+    size=[900, 900], fullscr=False, screen=0,
     winType='pyglet', allowGUI=True, allowStencil=False,
     monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
     blendMode='avg', useFBO=True, 
@@ -145,7 +149,7 @@ resting_state_instructions = visual.TextStim(win=win, name='resting_state_instru
     languageStyle='LTR',
     depth=0.0);
 rest_state_eyes_open = visual.TextStim(win=win, name='rest_state_eyes_open',
-    text='We start we eyes OPEN, get ready!',
+    text='We start with eyes OPEN, get ready!',
     font='Open Sans',
     pos=(0, 0), height=0.1, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -467,7 +471,7 @@ resting_state_instructions_2 = visual.TextStim(win=win, name='resting_state_inst
     languageStyle='LTR',
     depth=0.0);
 rest_state_eyes_open_2 = visual.TextStim(win=win, name='rest_state_eyes_open_2',
-    text='We start we eyes OPEN, get ready!',
+    text='We start with eyes OPEN, get ready!',
     font='Open Sans',
     pos=(0, 0), height=0.1, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -583,7 +587,6 @@ while continueRoutine:
     if start_button.status == STARTED:
         # check whether start_button has been pressed
         if start_button.isClicked:
-            ser.write(trigger_codes['beginning_experiment'].encode('utf-8')) # mark the beginning of the experiment in the data
             if not start_button.wasClicked:
                 start_button.timesOn.append(start_button.buttonClock.getTime()) # store time of first click
                 start_button.timesOff.append(start_button.buttonClock.getTime()) # store time clicked until
@@ -616,6 +619,12 @@ while continueRoutine:
     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
         win.flip()
 
+try:
+    target = ser.write(trigger_codes['beginning_experiment'].encode('utf-8'))  # mark the beginning of the experiment in the data
+    print("Sent trigger:", 'beginning_experiment')
+except SerialException:
+    print("An error has occured when sending trigger: " , trigger_codes['beginning_experiment'])
+    raise SerialException
 # -------Ending Routine "intro"-------
 for thisComponent in introComponents:
     if hasattr(thisComponent, "setAutoDraw"):
@@ -2428,5 +2437,6 @@ thisExp.saveAsPickle(filename)
 logging.flush()
 # make sure everything is closed down
 thisExp.abort()  # or data files will save again on exit
+t.join()
 win.close()
 core.quit()

@@ -61,12 +61,18 @@ experiment_tracker.add_entry('expName', expName)
 
 # Init trigger codes and serial port
 trigger_codes = {
-    'beginning_experiment': 'b',
+    'start_experiment': 's',
     'resting_state_eo': 'o',
-    'resting_state_ec': 'c',
-    'trial': 't',
+    'resting_state_ec': 'z',
     'white_noise': 'n',
-    'stimulus': 's'
+    'trial_a_1': 'a',
+    'trial_b_1': 'b',
+    'trial_a_2': 'c',
+    'trial_b_2': 'd',
+    'trial_a_3': 'e',
+    'trial_b_3': 'f',
+    'trial_a_4': 'g',
+    'trial_b_4': 'h'
 }
 
 #with serial.Serial() as ser:
@@ -620,10 +626,10 @@ while continueRoutine:
         win.flip()
 
 try:
-    target = ser.write(trigger_codes['beginning_experiment'].encode('utf-8'))  # mark the beginning of the experiment in the data
-    print("Sent trigger:", 'beginning_experiment')
+    target = ser.write(trigger_codes['start_experiment'].encode('utf-8'))  # mark the beginning of the experiment in the data
+    print("Sent trigger:", 'start_experiment')
 except SerialException:
-    print("An error has occured when sending trigger: " , trigger_codes['beginning_experiment'])
+    print("An error has occurred when sending trigger: ", 'start_experiment')
     raise SerialException
 # -------Ending Routine "intro"-------
 for thisComponent in introComponents:
@@ -703,7 +709,13 @@ while continueRoutine and routineTimer.getTime() > 0:
     if rest_state_eyes_open.status == STARTED:
         # is it time to stop? (based on global clock, using actual start)
         if tThisFlipGlobal > rest_state_eyes_open.tStartRefresh + 5.0-frameTolerance:
-            ser.write(trigger_codes['resting_state_eo'].encode('utf-8'))  # mark the resting state eyes open
+            try:
+                ser.write(trigger_codes['resting_state_eo'].encode('utf-8'))  # mark the resting state eyes open
+                print("Sent trigger:", 'resting_state_eo')
+            except SerialException:
+                print("An error has occurred when sending trigger: ", 'resting_state_eo')
+                raise SerialException
+
             # keep track of stop time/frame for later
             rest_state_eyes_open.tStop = t  # not accounting for scr refresh
             rest_state_eyes_open.frameNStop = frameN  # exact frame index
@@ -738,7 +750,14 @@ while continueRoutine and routineTimer.getTime() > 0:
     if rest_eyes_closed.status == STARTED:
         # is it time to stop? (based on global clock, using actual start)
         if tThisFlipGlobal > rest_eyes_closed.tStartRefresh + 15.0-frameTolerance:
-            ser.write(trigger_codes['resting_state_ec'].encode('utf-8'))  # mark the resting state eyes closed
+
+            try:
+                ser.write(trigger_codes['resting_state_ec'].encode('utf-8'))  # mark the resting state eyes closed
+                print("Sent trigger:", 'resting_state_ec')
+            except SerialException:
+                print("An error has occurred when sending trigger: ", 'resting_state_ec')
+                raise SerialException
+
             # keep track of stop time/frame for later
             rest_eyes_closed.tStop = t  # not accounting for scr refresh
             rest_eyes_closed.frameNStop = frameN  # exact frame index
@@ -834,7 +853,12 @@ white_noiseClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
 frameN = -1
 
 # -------Run Routine "white_noise"-------
-ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+try:
+    ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+    print("Sent trigger:", 'white_noise')
+except SerialException:
+    print("An error has occurred when sending trigger: ", 'white_noise')
+    raise SerialException
 
 while continueRoutine and routineTimer.getTime() > 0:
     # get current time
@@ -945,6 +969,7 @@ print(playlist_p1)
 # keep track of the song and the trial counter for loading song conditions
 song_counter = 0
 trial_counter = 1
+trigger_counter = 1
 
 # init mouse position
 mouse_first_frame = True
@@ -952,8 +977,12 @@ mouse_2_first_frame = True
 
 
 for thisPhase_1 in phase_1:
-    ser.write(trigger_codes['stimulus'].encode('utf-8'))  # mark the first stimulus
-
+    try:
+        ser.write(trigger_codes['trial_a_' + str(trigger_counter)].encode('utf-8'))  # mark the first stimulus
+        print("Sent trigger:", 'trial_a_' + str(trigger_counter))
+    except SerialException:
+        print("An error has occurred when sending trigger: ", 'trial_a_' + str(trigger_counter))
+        raise SerialException
     experiment_tracker.add_entry_trial('trial_' + str(trial_counter), 'trialBegins', 'begins')
     currentLoop = phase_1
     # abbreviate parameter names if possible (e.g. rgb = thisPhase_1.rgb)
@@ -1131,7 +1160,12 @@ for thisPhase_1 in phase_1:
         if song_one_rating.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > song_one_rating.tStartRefresh + 20.0-frameTolerance:
-                ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+                try:
+                    ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+                    print("Sent trigger:", 'white_noise')
+                except SerialException:
+                    print("An error has occurred when sending trigger: ", 'white_noise')
+                    raise SerialException
                 # keep track of stop time/frame for later
                 song_one_rating.tStop = t  # not accounting for scr refresh
                 song_one_rating.frameNStop = frameN  # exact frame index
@@ -1147,7 +1181,12 @@ for thisPhase_1 in phase_1:
         if white_noise_one.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > white_noise_one.tStartRefresh + 15.0-frameTolerance:
-                ser.write(trigger_codes['stimulus'].encode('utf-8'))  # mark the second stimulus
+                try:
+                    ser.write(trigger_codes['trial_b_' + str(trigger_counter)].encode('utf-8'))  # mark the second stimulus
+                    print("Sent trigger:", 'trial_b_' + str(trigger_counter))
+                except SerialException:
+                    print("An error has occurred when sending trigger: ", 'trial_b_' + str(trigger_counter))
+                    raise SerialException
                 # keep track of stop time/frame for later
                 white_noise_one.tStop = t  # not accounting for scr refresh
                 white_noise_one.frameNStop = frameN  # exact frame index
@@ -1296,7 +1335,12 @@ for thisPhase_1 in phase_1:
         if song_two_rating.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > song_two_rating.tStartRefresh + 20.0-frameTolerance:
-                ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+                try:
+                    ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+                    print("Sent trigger:", 'white_noise')
+                except SerialException:
+                    print("An error has occurred when sending trigger: ", 'white_noise')
+                    raise SerialException
                 # keep track of stop time/frame for later
                 song_two_rating.tStop = t  # not accounting for scr refresh
                 song_two_rating.frameNStop = frameN  # exact frame index
@@ -1443,6 +1487,7 @@ for thisPhase_1 in phase_1:
     # increase condition counter for next loop
     song_counter += 1
     trial_counter += 1
+    trigger_counter += 1
 
     # re-init form data
     song_one_rating = visual.Form(win=win, name='song_one_rating',
@@ -1603,7 +1648,12 @@ _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 white_noise_breakClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
 frameN = -1
 
-ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+try:
+    ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+    print("Sent trigger:", 'white_noise')
+except SerialException:
+    print("An error has occurred when sending trigger: ", 'white_noise')
+    raise SerialException
 
 # -------Run Routine "white_noise_break"-------
 while continueRoutine and routineTimer.getTime() > 0:
@@ -1711,13 +1761,19 @@ print(playlist_p2)
 
 # keep track of the trial counter for loading song conditions
 song_counter = 0
+trigger_counter = 1
 
 # init mouse position
 mouse_3_first_frame = True
 mouse_4_first_frame = True
 
 for thisPhase_2 in phase_2:
-    ser.write(trigger_codes['stimulus'].encode('utf-8'))  # mark the first stimulus
+    try:
+        ser.write(trigger_codes['trial_a_' + str(trigger_counter)].encode('utf-8'))  # mark the first stimulus
+        print("Sent trigger:", 'trial_a_' + str(trigger_counter))
+    except SerialException:
+        print("An error has occurred when sending trigger: ", 'trial_a_' + str(trigger_counter))
+        raise SerialException
 
     currentLoop = phase_2
     # abbreviate parameter names if possible (e.g. rgb = thisPhase_2.rgb)
@@ -1894,7 +1950,12 @@ for thisPhase_2 in phase_2:
         if song_one_rating_2.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > song_one_rating_2.tStartRefresh + 20.0-frameTolerance:
-                ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+                try:
+                    ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+                    print("Sent trigger:", 'white_noise')
+                except SerialException:
+                    print("An error has occurred when sending trigger: ", 'white_noise')
+                    raise SerialException
                 # keep track of stop time/frame for later
                 song_one_rating_2.tStop = t  # not accounting for scr refresh
                 song_one_rating_2.frameNStop = frameN  # exact frame index
@@ -1910,7 +1971,12 @@ for thisPhase_2 in phase_2:
         if white_noise_one_2.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > white_noise_one_2.tStartRefresh + 15.0-frameTolerance:
-                ser.write(trigger_codes['stimulus'].encode('utf-8'))  # mark the second stimulus
+                try:
+                    ser.write(trigger_codes['trial_b_' + str(trigger_counter)].encode('utf-8'))  # mark the second stimulus
+                    print("Sent trigger:", 'trial_b_' + str(trigger_counter))
+                except SerialException:
+                    print("An error has occurred when sending trigger: ", 'trial_b_' + str(trigger_counter))
+                    raise SerialException
 
                 # keep track of stop time/frame for later
                 white_noise_one_2.tStop = t  # not accounting for scr refresh
@@ -2060,7 +2126,13 @@ for thisPhase_2 in phase_2:
         if song_two_rating_2.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > song_two_rating_2.tStartRefresh + 20.0-frameTolerance:
-                ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+                try:
+                    ser.write(trigger_codes['white_noise'].encode('utf-8'))  # mark the white noise
+                    print("Sent trigger:", 'white_noise')
+                except SerialException:
+                    print("An error has occurred when sending trigger: ", 'white_noise')
+                    raise SerialException
+
                 # keep track of stop time/frame for later
                 song_two_rating_2.tStop = t  # not accounting for scr refresh
                 song_two_rating_2.frameNStop = frameN  # exact frame index
@@ -2207,6 +2279,7 @@ for thisPhase_2 in phase_2:
     # increase condition counter for next loop
     song_counter += 1
     trial_counter += 1
+    trigger_counter += 1
 
     # re-init form data
     song_one_rating_2 = visual.Form(win=win, name='song_one_rating_2',
@@ -2299,7 +2372,12 @@ while continueRoutine and routineTimer.getTime() > 0:
     if rest_state_eyes_open_2.status == STARTED:
         # is it time to stop? (based on global clock, using actual start)
         if tThisFlipGlobal > rest_state_eyes_open_2.tStartRefresh + 5.0-frameTolerance:
-            ser.write(trigger_codes['resting_state_eo'].encode('utf-8'))  # mark the exit resting state eyes open
+            try:
+                ser.write(trigger_codes['resting_state_eo'].encode('utf-8'))  # mark the exit resting state eyes open
+                print("Sent trigger:", 'resting_state_eo')
+            except SerialException:
+                print("An error has occurred when sending trigger: ", 'resting_state_eo')
+                raise SerialException
             # keep track of stop time/frame for later
             rest_state_eyes_open_2.tStop = t  # not accounting for scr refresh
             rest_state_eyes_open_2.frameNStop = frameN  # exact frame index
@@ -2334,7 +2412,13 @@ while continueRoutine and routineTimer.getTime() > 0:
     if rest_eyes_closed_2.status == STARTED:
         # is it time to stop? (based on global clock, using actual start)
         if tThisFlipGlobal > rest_eyes_closed_2.tStartRefresh + 15.0-frameTolerance:
-            ser.write(trigger_codes['resting_state_ec'].encode('utf-8'))  # mark the exit resting state eyes closed
+            try:
+                ser.write(trigger_codes['resting_state_ec'].encode('utf-8'))  # mark the exit resting state eyes closed
+                print("Sent trigger:", 'resting_state_eo')
+            except SerialException:
+                print("An error has occurred when sending trigger: ", 'resting_state_eo')
+                raise SerialException
+            
             # keep track of stop time/frame for later
             rest_eyes_closed_2.tStop = t  # not accounting for scr refresh
             rest_eyes_closed_2.frameNStop = frameN  # exact frame index
@@ -2437,6 +2521,6 @@ thisExp.saveAsPickle(filename)
 logging.flush()
 # make sure everything is closed down
 thisExp.abort()  # or data files will save again on exit
-t.join()
+ser.close()
 win.close()
 core.quit()

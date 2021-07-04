@@ -44,7 +44,7 @@ class TriggerBox(Serial):
 
 
 
-box = TriggerBox("COM5", 9600)
+box = TriggerBox("COM9", 9600)
 box.write_trigger('t')
 time.sleep(1)
 box.write_trigger('s')

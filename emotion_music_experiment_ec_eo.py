@@ -78,7 +78,7 @@ trigger_codes = {
 #with serial.Serial() as ser:
 ser = serial.Serial()
 ser.baudrate = 9600
-ser.port = 'COM9'
+ser.port = 'COM3'
 ser.write_timeout = 0
 ser.open()
 

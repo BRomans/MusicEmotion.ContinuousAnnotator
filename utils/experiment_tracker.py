@@ -20,4 +20,7 @@ class ExperimentTracker:
 
     def write_trial(self, trial_name, folder=''):
         with open(folder + trial_name + '.json', 'w+') as f:
-            json.dump(self.trial_data, f, indent=4)
+            try:
+                json.dump(str(self.trial_data), f, indent=4)
+            except:
+                print('Impossible to write .json file')
